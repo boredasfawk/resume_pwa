@@ -4,8 +4,9 @@ import { Route, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
 
 // COMPONENTS
-import AppBar from './Components/Hero/Nav/AppBar';
-import Error from './Components/Hero/Error/Error';
+import LandingPage from './Views/LandingPage'
+import AppBar from '@Components/Hero/Nav/AppBar';
+import Error from '@Components/Hero/Error/Error';
 
 // Styles
 import Container from '@material-ui/core/Container';
@@ -17,7 +18,7 @@ const App = () => {
         <AppBar />
 
         <Switch>
-          <Route exact path="/" component={} />
+          <Route exact path="/" component={LandingPage} />
           <Route path="*" component={Error} />
         </Switch>
       </Container>
