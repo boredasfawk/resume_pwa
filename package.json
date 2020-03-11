@@ -1,0 +1,22 @@
+{
+  "name": "resume_pwa",
+  "version": "1.0.0",
+  "description": "resume website that focuses on using pwa technologies",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boredasfawk/resume_pwa.git"
+  },
+  "keywords": [
+    "(none)"
+  ],
+  "author": "Olonnye JaTaWa <O.JaTaWa@gmail.com> (https://Olonnye.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boredasfawk/resume_pwa/issues"
+  },
+  "homepage": "https://github.com/boredasfawk/resume_pwa#readme"
+}
