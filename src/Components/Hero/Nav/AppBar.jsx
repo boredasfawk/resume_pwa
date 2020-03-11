@@ -27,7 +27,7 @@ function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar style={classes.background} position="static">
+      <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             [ DEVELOPER ]

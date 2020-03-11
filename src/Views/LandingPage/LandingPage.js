@@ -13,6 +13,7 @@ import HeaderLinks from "@Components/Hero/Header/HeaderLinks.js";
 import Parallax from "@Components/Parallax/Parallax.js";
 
 import styles from "@Styles/landingPage.js";
+import Image from "@Assets/images/landing-bg.jpg"
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
@@ -40,7 +41,7 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
-      <Parallax filter image={require("@Assets/images/landing-bg.jpg")}>
+      <Parallax filter image={Image}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>

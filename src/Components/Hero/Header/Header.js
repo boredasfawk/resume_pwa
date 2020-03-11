@@ -37,21 +37,21 @@ export default function Header(props) {
   const headerColorChange = () => {
     const { color, changeColorOnScroll } = props;
     const windowsScrollTop = window.pageYOffset;
-    if (windowsScrollTop > changeColorOnScroll.height) {
-      document.body
-        .getElementsByTagName("header")[0]
-        .classList.remove(classes[color]);
-      document.body
-        .getElementsByTagName("header")[0]
-        .classList.add(classes[changeColorOnScroll.color]);
-    } else {
-      document.body
-        .getElementsByTagName("header")[0]
-        .classList.add(classes[color]);
-      document.body
-        .getElementsByTagName("header")[0]
-        .classList.remove(classes[changeColorOnScroll.color]);
-    }
+    // if (windowsScrollTop > changeColorOnScroll.height) {
+    //   document.body
+    //     .getElementsByTagName("header")[0]
+    //     .classList.remove(classes[color]);
+    //   document.body
+    //     .getElementsByTagName("header")[0]
+    //     .classList.add(classes[changeColorOnScroll.color]);
+    // } else {
+    //   document.body
+    //     .getElementsByTagName("header")[0]
+    //     .classList.add(classes[color]);
+    //   document.body
+    //     .getElementsByTagName("header")[0]
+    //     .classList.remove(classes[changeColorOnScroll.color]);
+    // }
   };
   const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
   const appBarClasses = classNames({

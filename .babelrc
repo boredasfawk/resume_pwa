@@ -80,7 +80,7 @@
         "alias": {
           "@Assets": "./src/assets",
           "@Styles": "./src/assets/js/MUIstyles",
-          "@Somponents": "./src/Components",
+          "@Components": "./src/Components",
           "@constants": "./src/constants"
         }
       }

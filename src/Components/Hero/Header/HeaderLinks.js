@@ -1,7 +1,5 @@
 /*eslint-disable*/
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
 
@@ -12,8 +10,8 @@ import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
-
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import AppsIcon from '@material-ui/icons/Apps';
 // core components
 import CustomDropdown from "@Components/CustomDropdown/CustomDropdown.js";
 import Button from "@Components/CustomButtons/Button.js";
@@ -34,7 +32,7 @@ export default function HeaderLinks(props) {
             className: classes.navLink,
             color: "transparent"
           }}
-          buttonIcon={Apps}
+          buttonIcon={AppsIcon}
           dropdownList={[
             <Link to="/" className={classes.dropdownLink}>
               All components
@@ -56,7 +54,7 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download
+          <CloudDownloadIcon className={classes.icons} /> Download
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>

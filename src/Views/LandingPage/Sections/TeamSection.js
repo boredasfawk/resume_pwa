@@ -14,7 +14,7 @@ import Card from "@Components/Hero/Card/Card.js";
 import CardBody from "@Components/Hero/Card/CardBody.js";
 import CardFooter from "@Components/Hero/Card/CardFooter.js";
 
-import styles from "@Style/teamStyle.js";
+import styles from "@Styles/teamStyle.js";
 
 // import team1 from "assets/img/faces/avatar.jpg";
 // import team2 from "assets/img/faces/christian.jpg";

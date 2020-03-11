@@ -10,7 +10,7 @@ import GridItem from "@Components/Hero/Grid/GridItem.js";
 import CustomInput from "@Components/CustomInput/CustomInput.js";
 import Button from "@Components/CustomButtons/Button.js";
 
-import styles from "@Styles/landingPageSections/workStyle.js";
+import styles from "@Styles/workStyle.js";
 
 const useStyles = makeStyles(styles);
 

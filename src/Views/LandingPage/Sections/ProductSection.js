@@ -7,9 +7,9 @@ import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
-import GridContainer from "@Components/Grid/GridContainer.js";
-import GridItem from "@Components/Grid/GridItem.js";
-import InfoArea from "@Components/InfoArea/InfoArea.js";
+import GridContainer from "@Components/Hero/Grid/GridContainer.js";
+import GridItem from "@Components/Hero/Grid/GridItem.js";
+import InfoArea from "@Components/Hero/InfoArea/InfoArea.js";
 
 import styles from "@Styles/productStyle.js";
 
