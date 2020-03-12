@@ -8,12 +8,11 @@ import Header from "@Components/Hero/Header/Header.js";
 import Footer from "@Components/Hero/Footer/Footer.js";
 import GridContainer from "@Components/Hero/Grid/GridContainer.js";
 import GridItem from "@Components/Hero/Grid/GridItem.js";
-import Button from "@Components/CustomButtons/Button.js";
 import HeaderLinks from "@Components/Hero/Header/HeaderLinks.js";
 import Parallax from "@Components/Parallax/Parallax.js";
 
 import styles from "@Styles/landingPage.js";
-import Image from "@Assets/images/landing-bg.jpg"
+import Image from "@Assets/images/landing-bg.jpeg"
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
@@ -32,7 +31,7 @@ export default function LandingPage(props) {
       <Header
         color="transparent"
         routes={dashboardRoutes}
-        brand="Material Kit React"
+        brand="Olonnye Taylor-Watson"
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -45,24 +44,14 @@ export default function LandingPage(props) {
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Your Story Starts With Us.</h1>
+              <h1 className={classes.title}>Your ideas becoming reality</h1>
               <h4>
-                Every landing page needs a small description after the big bold
-                title, that{"'"}s why we added this text here. Add here all the
-                information that can make you or your product create the first
-                impression.
+                I specialize in javascript development. My experience ranges from creating
+                anything from simple sites to complex applications.
+                I am proficient in many modern web technologies including  React, Vue, Node, & Express along cloud based services.
+                I create applications that are beautiful, functional, and focused on a great user experience.
               </h4>
               <br />
-              <Button
-                color="danger"
-                size="lg"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fas fa-play" />
-                Watch video
-              </Button>
             </GridItem>
           </GridContainer>
         </div>
