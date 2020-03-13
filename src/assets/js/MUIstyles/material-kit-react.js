@@ -156,7 +156,8 @@ const defaultBoxShadow = {
 };
 
 const title = {
-  color: "#3C4858",
+  color: "hsl(0, 0%, 100%)",
+  textShadow: "2px 2px hsla(191, 10%, 36%, 0.89)",
   margin: "1.75rem 0 0.875rem",
   textDecoration: "none",
   fontWeight: "700",

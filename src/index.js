@@ -7,9 +7,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 // For lazy loading
 import LoadableApp from "./lazyLoad/LoadableApp";
-// import App from "./App";
 // Style Library
-import './assets/css/index.css';
+import '@Assets/css/index.css';
+import '@Assets/scss/slick.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme/theme';

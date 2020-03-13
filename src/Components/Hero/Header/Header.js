@@ -35,23 +35,23 @@ export default function Header(props) {
     setMobileOpen(!mobileOpen);
   };
   const headerColorChange = () => {
-    const { color, changeColorOnScroll } = props;
-    const windowsScrollTop = window.pageYOffset;
-    // if (windowsScrollTop > changeColorOnScroll.height) {
-    //   document.body
-    //     .getElementsByTagName("header")[0]
-    //     .classList.remove(classes[color]);
-    //   document.body
-    //     .getElementsByTagName("header")[0]
-    //     .classList.add(classes[changeColorOnScroll.color]);
-    // } else {
-    //   document.body
-    //     .getElementsByTagName("header")[0]
-    //     .classList.add(classes[color]);
-    //   document.body
-    //     .getElementsByTagName("header")[0]
-    //     .classList.remove(classes[changeColorOnScroll.color]);
-    // }
+    //const { color, changeColorOnScroll } = props;
+    //   const windowsScrollTop = window.pageYOffset;
+    //   if (windowsScrollTop > changeColorOnScroll.height) {
+    //     document.body
+    //       .getElementsByTagName("header")[0]
+    //       .classList.remove(classes[color]);
+    //     document.body
+    //       .getElementsByTagName("header")[0]
+    //       .classList.add(classes[changeColorOnScroll.color]);
+    //   } else {
+    //     document.body
+    //       .getElementsByTagName("header")[0]
+    //       .classList.add(classes[color]);
+    //     document.body
+    //       .getElementsByTagName("header")[0]
+    //       .classList.remove(classes[changeColorOnScroll.color]);
+    //   }
   };
   const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
   const appBarClasses = classNames({
@@ -60,7 +60,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = <Button className={classes.title}><span style={{ color: 'hsl(60, 100%, 52%)', fontWeight: '800' }}>{brand}</span></Button>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>

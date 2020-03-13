@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 // core components
 import Header from "@Components/Hero/Header/Header.js";
 import Footer from "@Components/Hero/Footer/Footer.js";
@@ -26,12 +25,39 @@ const useStyles = makeStyles(styles);
 export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
+  const [brand, setBrand] = React.useState({ value: '[ JS DEVELOPER]' });
+
+
+
+  React.useEffect(() => {
+    let windowsScrollTop = window.pageYOffset;
+
+    const update = (windowsScrollTop) => {
+
+      if (windowsScrollTop > 522 && brand.value === '[ JS DEVELOPER]') {
+        setBrand({
+          value:
+            '[OLONNYE TAYLOR-WATSON]'
+        });
+      } else if (windowsScrollTop < 520 && brand.value === '[OLONNYE TAYLOR-WATSON]') {
+        setBrand({
+          value:
+            '[ JS DEVELOPER]'
+        });
+      }
+      console.log(brand);
+    }
+
+    window.addEventListener("scroll", update(windowsScrollTop))
+
+  })
+
   return (
     <div>
       <Header
         color="transparent"
         routes={dashboardRoutes}
-        brand="Olonnye Taylor-Watson"
+        brand={brand.value}
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -40,15 +66,16 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
+
       <Parallax filter image={Image}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Your ideas becoming reality</h1>
+              <h1 className={classes.title}>Your ideas becoming <span style={{ color: '#ffff08' }}>reality</span></h1>
               <h4>
                 I specialize in javascript development. My experience ranges from creating
                 anything from simple sites to complex applications.
-                I am proficient in many modern web technologies including  React, Vue, Node, & Express along cloud based services.
+                I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along cloud based services.
                 I create applications that are beautiful, functional, and focused on a great user experience.
               </h4>
               <br />
