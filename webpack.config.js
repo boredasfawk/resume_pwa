@@ -35,15 +35,15 @@ module.exports = ({ mode } = {
       path: path.resolve("./dist"),
       filename: "index.[hash].js"
     },
-    devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      stats: {
-        children: false
-      },
-      compress: true,
-      hot: true,
-      port: 3000
-    },
+    // devServer: {
+    //   contentBase: path.join(__dirname, 'dist'),
+    //   stats: {
+    //     children: false
+    //   },
+    //   compress: true,
+    //   hot: true,
+    //   port: 3000
+    // },
     devtool: "none",
     resolve: {
       alias: {
@@ -52,31 +52,31 @@ module.exports = ({ mode } = {
       // helps resolve extensions in react
       extensions: ["*", ".js", ".jsx", '.gif', '.png', '.jpg', '.jpeg', '.svg', '.webp', '.css', '.scss']
     },
-    // optimization: {
-    //   minimize: true,
-    //   splitChunks: {
-    //     chunks: "all",
-    //     minSize: 0,
-    //     maxInitialRequests: 10,
-    //     maxAsyncRequests: 10,
-    //     cacheGroups: {
-    //       vendors: {
-    //         test: /[\\/]node_modules[\\/]/,
-    //         name(module, chunks, cacheGroupKey) {
-    //           const packageName = module.context.match(
-    //             /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-    //           )[1];
-    //           return `${cacheGroupKey}.${packageName.replace("@", "")}`;
-    //         }
-    //       },
-    //       common: {
-    //         minChunks: 2,
-    //         priority: -10
-    //       }
-    //     }
-    //   },
-    //   runtimeChunk: "single"
-    // },
+    optimization: {
+      minimize: true,
+      splitChunks: {
+        chunks: "all",
+        minSize: 0,
+        maxInitialRequests: 10,
+        maxAsyncRequests: 10,
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module, chunks, cacheGroupKey) {
+              const packageName = module.context.match(
+                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+              )[1];
+              return `${cacheGroupKey}.${packageName.replace("@", "")}`;
+            }
+          },
+          common: {
+            minChunks: 2,
+            priority: -10
+          }
+        }
+      },
+      runtimeChunk: "single"
+    },
     module: {
       rules: [
         {

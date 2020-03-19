@@ -15695,6 +15695,11 @@
         }
       }
     },
+    "stats.js": {
+      "version": "0.17.0",
+      "resolved": "https://registry.npmjs.org/stats.js/-/stats.js-0.17.0.tgz",
+      "integrity": "sha1-scPcRtlEmLV4t/05hbgaznExzH0="
+    },
     "statuses": {
       "version": "1.5.0",
       "resolved": "https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz",
@@ -16258,6 +16263,11 @@
       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
       "integrity": "sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=",
       "dev": true
+    },
+    "three": {
+      "version": "0.114.0",
+      "resolved": "https://registry.npmjs.org/three/-/three-0.114.0.tgz",
+      "integrity": "sha512-3av45FxJeqYm7Rl02dfGBoqTaf2a934oUB4zMNrN8xjmASoSGeeykYoAr35+UntTdJDY/STw6CY3KuXFBWETig=="
     },
     "throat": {
       "version": "5.0.0",

@@ -6,10 +6,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 // material-ui core components
 import { makeStyles } from "@material-ui/core/styles";
-
-// @material-ui/icons
-import Favorite from "@material-ui/icons/Favorite";
-
+// Styles
 import styles from "@Styles/footerStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -28,7 +25,7 @@ export default function Footer(props) {
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>
-        <div className={classes.right}>
+        <div className={classes.right} style={{ color: '#fff' }}>
           &copy; {1900 + new Date().getYear()} ,{" "}
           <a
             href="https://github.com/boredasfawk"
