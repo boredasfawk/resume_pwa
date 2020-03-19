@@ -5,6 +5,7 @@
   "homepage": "https://olonnye.com",
   "main": "index.js",
   "scripts": {
+    "build-prod": "babel-node ./node_modules/webpack/bin/webpack --mode production --config webpack.config.js",
     "build": "babel-node ./node_modules/webpack/bin/webpack --mode development --config webpack.config.js",
     "webpack": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --mode development --config webpack.config.js",
     "babel": "./node_modules/.bin/babel src -d dist",
