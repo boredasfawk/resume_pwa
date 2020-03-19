@@ -25,7 +25,7 @@ const useStyles = makeStyles(styles);
 export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
-  const [brand, setBrand] = React.useState({ value: '[ JS DEVELOPER]' });
+  const [brand, setBrand] = React.useState({ value: '[JS DEVELOPER]', type: 0 });
 
 
 
@@ -34,15 +34,17 @@ export default function LandingPage(props) {
 
     const update = (windowsScrollTop) => {
 
-      if (windowsScrollTop > 522 && brand.value === '[ JS DEVELOPER]') {
+      if (windowsScrollTop > 522 && brand.type === 0) {
+        console.log("should be olani")
         setBrand({
-          value:
-            '[OLONNYE TAYLOR-WATSON]'
+          value: '[OLONNYE TAYLOR-WATSON]',
+          type: 1
         });
-      } else if (windowsScrollTop < 520 && brand.value === '[OLONNYE TAYLOR-WATSON]') {
+      } else if (windowsScrollTop < 520 && brand.type === 1) {
+        console.log("should be dev")
         setBrand({
-          value:
-            '[ JS DEVELOPER]'
+          value: '[JS DEVELOPER]',
+          type: 0
         });
       }
       console.log(brand);
@@ -85,8 +87,8 @@ export default function LandingPage(props) {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <ProductSection />
           <TeamSection />
+          <ProductSection />
           <WorkSection />
         </div>
       </div>
