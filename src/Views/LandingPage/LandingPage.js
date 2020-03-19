@@ -27,32 +27,29 @@ export default function LandingPage(props) {
   const { ...rest } = props;
   const [brand, setBrand] = React.useState({ value: '[JS DEVELOPER]', type: 0 });
 
+  let windowsScrollTop = window.pageYOffset;
 
+  const update = (windowsScrollTop) => {
 
-  React.useEffect(() => {
-    let windowsScrollTop = window.pageYOffset;
-
-    const update = (windowsScrollTop) => {
-
-      if (windowsScrollTop > 522 && brand.type === 0) {
-        console.log("should be olani")
-        setBrand({
-          value: '[OLONNYE TAYLOR-WATSON]',
-          type: 1
-        });
-      } else if (windowsScrollTop < 520 && brand.type === 1) {
-        console.log("should be dev")
-        setBrand({
-          value: '[JS DEVELOPER]',
-          type: 0
-        });
-      }
-      console.log(brand);
+    if (windowsScrollTop > 522 && brand.type === 0) {
+      console.log("should be olani")
+      setBrand({
+        value: 'OLONNYE :D',
+        type: 1
+      });
+    } else if (windowsScrollTop < 520 && brand.type === 1) {
+      console.log("should be dev")
+      setBrand({
+        value: '[JS DEVELOPER]',
+        type: 0
+      });
     }
+    console.log(brand);
+  }
 
-    window.addEventListener("scroll", update(windowsScrollTop))
+  window.addEventListener("scroll", update(windowsScrollTop))
 
-  })
+
 
   return (
     <div>
@@ -77,9 +74,7 @@ export default function LandingPage(props) {
               <h4>
                 I specialize in javascript development. My experience ranges from creating
                 anything from simple sites to complex applications.
-                I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along cloud based services.
-                I create applications that are beautiful, functional, and focused on a great user experience.
-              </h4>
+                </h4>
               <br />
             </GridItem>
           </GridContainer>

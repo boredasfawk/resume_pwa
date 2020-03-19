@@ -14,20 +14,18 @@ import styles from "@Styles/workStyle.js";
 
 const useStyles = makeStyles(styles);
 
-export default function WorkSection() {
+const WorkSection = () => {
   const classes = useStyles();
   return (
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Work with us</h2>
+          <h2 className={classes.title}>Ready to get started?</h2>
           <h4 className={classes.description}>
-            Divide details about your product or agency work into parts. Write a
-            few lines about each one and contact us about any further
-            collaboration. We will responde get back to you in a couple of
-            hours.
+            Feel free to Write a few lines about the vision you have for your project.
+            I will respond back as quickly to discuss a scope of work and project expectations.
           </h4>
-          <form>
+          <form action="https://formspree.io/oloagency@gmail.com" method="POST">
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
                 <CustomInput
@@ -71,3 +69,5 @@ export default function WorkSection() {
     </div>
   );
 }
+
+export default WorkSection;
