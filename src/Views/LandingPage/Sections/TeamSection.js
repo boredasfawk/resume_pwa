@@ -14,8 +14,7 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 // Styles
 import styles from "@Styles/teamStyle.js";
 // Images
-import olani from "@Assets/images/Olani.jpeg";
-
+import image from "@Assets/images/olo.jpeg";
 
 const useStyles = makeStyles(styles);
 
@@ -34,7 +33,7 @@ const TeamSection = () => {
           <GridItem xs={12} sm={12} md={4}>
             <Card plain>
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                <img alt="picture of developer" src={olani} className={imageClasses} />
+                <img alt="picture of developer" src={image} className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
                 Olonny Taylor
