@@ -75,12 +75,12 @@ class TeamSection extends Component {
         farPlane
       );
       // Set camera controls
-      this.controls = new OrbitControls(camera, node);
+      this.controls = new OrbitControls(this.camera, this.node);
       this.controls.enableZoom = false
       // Set distance from cude
       this.camera.position.z = 5;
       this.renderer.setSize(width, height);
-      this.node.appendChild(renderer.domElement);
+      this.node.appendChild(this.renderer.domElement);
       // Set stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
