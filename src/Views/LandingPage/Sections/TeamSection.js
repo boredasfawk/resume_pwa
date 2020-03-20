@@ -4,7 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
 
@@ -39,8 +39,6 @@ class TeamSection extends Component {
     this.requestID = null;
     // Stat abstraction from threejs
     this.stats = new Stats();
-    // Page Styling
-    this.useStyles = makeStyles(styles)
     // Functions
     this.sceneSetup = this.sceneSetup.bind(this)
     this.startAnimationLoop = this.startAnimationLoop.bind(this)
@@ -57,13 +55,6 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount() {
-    // Page Styling
-    this.classes = this.useStyles();
-    this.imageClasses = classNames(
-      classes.imgRaised,
-      classes.imgRoundedCircle,
-      classes.imgFluid
-    );
     // set current ref to dom elem in var
     this.node = this.threeRef.current;
     // 3D Graphics
@@ -156,6 +147,13 @@ class TeamSection extends Component {
 
 
   render() {
+    // Page Styling
+    const { classes } = this.props;
+    const imageClasses = classNames(
+      classes.imgRaised,
+      classes.imgRoundedCircle,
+      classes.imgFluid
+    );
     // Render custom fallback UI
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
@@ -191,4 +189,4 @@ class TeamSection extends Component {
   }
 }
 
-export default TeamSection;
+export default withStyles(styles)(TeamSection);
