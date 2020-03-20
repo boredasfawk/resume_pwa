@@ -147,7 +147,7 @@ class TeamSection extends Component {
 
 
   render() {
-    console.log(props, '3d comp');
+    console.log(this.props, '3d comp');
     // Page Styling
     const { classes } = this.props;
     const imageClasses = classNames(
