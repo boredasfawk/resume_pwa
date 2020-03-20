@@ -42,7 +42,7 @@ class TeamSection extends Component {
   }
 
   // On mount call graphic/styling functions
-  componentDidMount(prevProps, prevState, snapShot) {
+  componentDidMount(prevProps) {
     // Fetches data from cloudnairy
     callApi = async () => {
       const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
