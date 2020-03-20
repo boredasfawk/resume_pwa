@@ -28,6 +28,7 @@ class TeamSection extends Component {
     }
 
     // Functions
+    this.callApi = this.callApi.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
   }
 
@@ -43,29 +44,8 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount(prevProps) {
-    // Fetches data from cloudnairy
-    callApi = async () => {
-      const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
-      const evaBodyResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323206/examples/eva/object/T_CH_Eva_MBody01_D01_V01_SK1.jpg');
-      const skyBoxResponse = await fetch('https://res.cloudinary.com/valentinrad/examples/eva/img/');
-      const jsonImgResponse = await fetch('https://res.cloudinary.com/valentinrad/raw/upload/v1555322019/examples/eva/object/EVA01.js');
-      const EHbody = await evaHeadResponse.json();
-      const EBbody = await evaBodyResponse.json();
-      const SBbody = await skyBoxResponse.json();
-      const JIbody = await jsonImgResponse.json();
-      if (evaHeadResponse.status !== 200) throw Error(EHbody.message);
-      if (evaBodyResponse.status !== 200) throw Error(EBbody.message);
-      if (skyBoxResponse.status !== 200) throw Error(SBbody.message);
-      if (jsonImgResponse.status !== 200) throw Error(JIbody.message);
 
-      return {
-        evaHead: evaHeadResponse,
-        evaBody: evaBodyResponse,
-        skyBox: skyBoxResponse,
-        jsonImg: jsonImgResponse
-      }
-    }
-    const snapShot = callApi();
+    const snapShot = this.callApi();
     // TEST
     console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
     //TEXTURES
@@ -300,6 +280,7 @@ class TeamSection extends Component {
 
   // FUNCTIONS
 
+  // Resizes dom elm based on windows
   handleWindowResize = (width, height, renderer, camera, cameraCube) => {
     // Updates render/camera with current size of dom is then updates position of all cameras
     renderer.setSize(width, height);
@@ -308,6 +289,29 @@ class TeamSection extends Component {
 
     cameraCube.aspect = width / height;
     cameraCube.updateProjectionMatrix();
+  }
+
+  // Fetches data from cloudnairy
+  callApi = async () => {
+    const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
+    const evaBodyResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323206/examples/eva/object/T_CH_Eva_MBody01_D01_V01_SK1.jpg');
+    const skyBoxResponse = await fetch('https://res.cloudinary.com/valentinrad/examples/eva/img/');
+    const jsonImgResponse = await fetch('https://res.cloudinary.com/valentinrad/raw/upload/v1555322019/examples/eva/object/EVA01.js');
+    const EHbody = await evaHeadResponse.json();
+    const EBbody = await evaBodyResponse.json();
+    const SBbody = await skyBoxResponse.json();
+    const JIbody = await jsonImgResponse.json();
+    if (evaHeadResponse.status !== 200) throw Error(EHbody.message);
+    if (evaBodyResponse.status !== 200) throw Error(EBbody.message);
+    if (skyBoxResponse.status !== 200) throw Error(SBbody.message);
+    if (jsonImgResponse.status !== 200) throw Error(JIbody.message);
+
+    return {
+      evaHead: evaHeadResponse,
+      evaBody: evaBodyResponse,
+      skyBox: skyBoxResponse,
+      jsonImg: jsonImgResponse
+    }
   }
 
   render() {
