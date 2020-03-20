@@ -78,13 +78,16 @@ class TeamSection extends Component {
       // Stat abstraction from threejs
       this.stats = new Stats();
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, 'CDM')
-      // 3D Graphics
+      // Set scene
       this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
+      // Set stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
-      this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
+      // Create models
       this.addCustomSceneObjects(this.scene, this.cube);
-      // For responsiveness
+      // Start rendering Scene
+      this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
+      // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
         window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
     }
@@ -116,16 +119,7 @@ class TeamSection extends Component {
     renderer.setSize(width, height);
     node.appendChild(renderer.domElement);
   }
-  startAnimationLoop = (cube, renderer, requestID, scene, camera, stats) => {
-    stats.begin();
-    // Rotates cube  
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    stats.end();
-    // Renders sets and cycles animation through event loop
-    renderer.render(scene, camera);
-    requestID = window.requestAnimationFrame(this.startAnimationLoop);
-  }
+
   addCustomSceneObjects = (cube, scene) => {
     // Skeleton of object
     const geometry = new THREE.BoxGeometry(2, 2, 2);
@@ -140,19 +134,30 @@ class TeamSection extends Component {
     cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    // creates light for shadows/dimensions
+    // Creates light for shadows/dimensions
     const lights = [];
     lights[0] = new THREE.PointLight(0xffffff, 1, 0);
     lights[1] = new THREE.PointLight(0xffffff, 1, 0);
     lights[2] = new THREE.PointLight(0xffffff, 1, 0);
-
+    // Set posiition of lights
     lights[0].position.set(0, 200, 0);
     lights[1].position.set(100, 200, 100);
     lights[2].position.set(- 100, - 200, - 100);
-
+    // Add lights into scene
     scene.add(lights[0]);
     scene.add(lights[1]);
     scene.add(lights[2]);
+  }
+
+  startAnimationLoop = (cube, renderer, requestID, scene, camera, stats) => {
+    stats.begin();
+    // Rotates cube  
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    stats.end();
+    // Renders sets and cycles animation through event loop
+    renderer.render(scene, camera);
+    requestID = window.requestAnimationFrame(this.startAnimationLoop);
   }
 
   handleWindowResize = (width, height, renderer, camera) => {
@@ -182,7 +187,6 @@ class TeamSection extends Component {
           name='threeCanvas'
           id="threeCanvas"
           className={classes.section}
-          // style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
           ref={ref => this.props.threeRef = ref} id="canvas"
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
