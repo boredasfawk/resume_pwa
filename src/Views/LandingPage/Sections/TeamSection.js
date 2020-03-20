@@ -27,8 +27,16 @@ class TeamSection extends Component {
       hasError: true
     }
 
-    // Set ref for threejs 
-    this.threeRef = createRef()
+    // Set ref for threejs to use dom node
+    this.threeRef = createRef();
+    this.node = this.threeRef.current;
+    // Init global variables
+    this.cube = null;
+    this.scene = null;
+    this.camera = null;
+    this.controls = null;
+    this.renderer = null;
+    this.requestID = null;
     // Stat abstraction from threejs
     this.stats = new Stats();
     // Page Styling
@@ -51,8 +59,8 @@ class TeamSection extends Component {
   componentDidMount() {
     // 3D Graphics
     this.sceneSetup();
-    this.stats.showPanel(1);
-    this.threeRef.appendChild(this.stats.dom);
+    Stats.showPanel(1);
+    this.node.appendChild(Stats.dom);
     this.startAnimationLoop();
     this.addCustomSceneObjects();
     // For responsiveness
@@ -77,8 +85,8 @@ class TeamSection extends Component {
 
   sceneSetup = (scene) => {
     // Get container dimensions and use them for scene sizing
-    const width = this.threeRef.clientWidth;
-    const height = this.threeRef.clientHeight;
+    const width = this.node.clientWidth;
+    const height = this.node.clientHeight;
     // Create scene
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
@@ -88,21 +96,21 @@ class TeamSection extends Component {
       1000 // far plane
     );
     // Set camera controls
-    this.controls = new OrbitControls(this.camera, this.threeRef);
+    this.controls = new OrbitControls(this.camera, this.node);
     this.controls.enableZoom = false
     // Set distance from cude
     this.camera.position.z = 5;
     // Render graphics in dom
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(width, height);
-    this.threeRef.appendChild(this.renderer.domElement);
+    this.node.appendChild(this.renderer.domElement);
   }
   startAnimationLoop = (ani) => {
-    this.stats.begin();
+    Stats.begin();
     // Rotates cube  
     this.cube.rotation.x += 0.01;
     this.cube.rotation.y += 0.01;
-    this.stats.end();
+    Stats.end();
     // Renders sets and cycles animation through event loop
     this.renderer.render(this.scene, this.camera);
     this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
@@ -137,8 +145,8 @@ class TeamSection extends Component {
   }
 
   handleWindowResize = () => {
-    const width = this.threeRef.clientWidth;
-    const height = this.threeRef.clientHeight;
+    const width = this.node.clientWidth;
+    const height = this.node.clientHeight;
     // Updates render/camera with current size of dom is then updates position of all cameras
     this.renderer.setSize(width, height);
     this.camera.aspect = width / height;
@@ -177,7 +185,7 @@ class TeamSection extends Component {
             </GridItem>
           </GridContainer>
         </div>
-      </div>
+      </div >
     );
   }
 }
