@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
