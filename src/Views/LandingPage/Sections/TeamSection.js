@@ -181,7 +181,6 @@ class TeamSection extends Component {
           // style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
           ref={this.props.threeRef} id="canvas"
         >
-          {console.log(this.props.threeRef.current, '3d comp')}
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
           <div style={{ zIndex: 1 }}>
             <GridContainer>
