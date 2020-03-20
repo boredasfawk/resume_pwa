@@ -46,8 +46,8 @@ class TeamSection extends Component {
   // On mount call graphic/styling functions
 
   componentDidMount(prevProps) {
-    if (prevProps.threeRef) {
-      console.log(prevProps.threeRef, 'CDM - ref')
+    if (prevProps.threeRef.current !== undefined) {
+      console.log(prevProps.threeRef.current, 'CDM - ref')
       // Init global variables
       this.cube = null;
       this.scene = null;
