@@ -97,7 +97,7 @@ class TeamSection extends Component {
       });
       // Body that combines both geo and mat
       this.cube = new THREE.Mesh(geometry, material);
-      this.scene.add(cube);
+      this.scene.add(this.cube);
       // Creates light for shadows/dimensions
       const lights = [];
       lights[0] = new THREE.PointLight(0xffffff, 1, 0);
