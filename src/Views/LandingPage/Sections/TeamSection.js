@@ -55,30 +55,29 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount() {
-    // set current ref to dom elem in var
+    // set current ref to dom elem in var then get dom w/h
     this.node = this.threeRef.current;
+    const width = this.node.clientWidth;
+    const height = this.node.clientHeight;
     // 3D Graphics
-    this.sceneSetup(this.node, this.scene, this.camera, this.controls, this.renderer);
+    this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
     Stats.showPanel(1);
     this.node.appendChild(Stats.dom);
     this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera);
     this.addCustomSceneObjects(this.scene, this.cube);
     // For responsiveness
-    window.addEventListener('resize', this.handleWindowResize(this.node, this.renderer, this.camera));
+    window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
   }
   // Removes all event listners 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize(this.node, this.renderer, this.camera));
+    window.removeEventListener('resize', this.handleWindowResize());
     window.cancelAnimationFrame(this.requestID);
     this.controls.dispose();
   }
 
   // FUNCTIONS
 
-  sceneSetup = (node, scene, camera, controls, renderer) => {
-    // Get container dimensions and use them for scene sizing
-    const width = node.clientWidth;
-    const height = node.clientHeight;
+  sceneSetup = (width, height, node, scene, camera, controls, renderer) => {
     // Create scene
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(
@@ -136,9 +135,7 @@ class TeamSection extends Component {
     scene.add(lights[2]);
   }
 
-  handleWindowResize = (node, renderer, camera) => {
-    const width = node.clientWidth;
-    const height = node.clientHeight;
+  handleWindowResize = (width, height, renderer, camera) => {
     // Updates render/camera with current size of dom is then updates position of all cameras
     renderer.setSize(width, height);
     camera.aspect = width / height;
