@@ -33,8 +33,16 @@ class TeamSection extends Component {
 
   // LIFECYCLES
 
-  // Get textures before compnent mounts and pass to CMD 
-  getSnapshotBeforeUpdate = async (prevProps, prevState) => {
+  // Help properly display errors and show diff page
+  static getDerivedStateFromError(error) {
+    // TEST
+    console.log({ error }, 'derived state from error');
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  // On mount call graphic/styling functions
+  componentDidMount(prevProps, prevState, snapShot) {
     // Fetches data from cloudnairy
     callApi = async () => {
       const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
@@ -57,20 +65,7 @@ class TeamSection extends Component {
         jsonImg: jsonImgResponse
       }
     }
-    const cloudRes = await callApi()
-    return cloudRes
-  }
-
-  // Help properly display errors and show diff page
-  static getDerivedStateFromError(error) {
-    // TEST
-    console.log({ error }, 'derived state from error');
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  // On mount call graphic/styling functions
-  componentDidMount(prevProps, prevState, snapShot) {
+    const snapShot = await callApi();
     // TEST
     console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
     //TEXTURES
