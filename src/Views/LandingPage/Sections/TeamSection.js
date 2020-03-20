@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import * as THREE from 'js/three.module.js';
+import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import classNames from "classnames";
 // @material-ui/core components
@@ -78,7 +78,7 @@ class TeamSection extends Component {
     // Get container dimensions and use them for scene sizing
     const width = this.threeRef.clientWidth;
     const height = this.threeRef.clientHeight;
-
+    // Create scene
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       75, // fov = field of view
@@ -86,14 +86,12 @@ class TeamSection extends Component {
       0.1, // near plane
       1000 // far plane
     );
-
     // Set camera controls
     this.controls = new OrbitControls(this.camera, this.threeRef);
     this.controls.enableZoom = false
-
     // Set distance from cude
     this.camera.position.z = 5;
-
+    // Render graphics in dom
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(width, height);
     this.threeRef.appendChild(this.renderer.domElement);
