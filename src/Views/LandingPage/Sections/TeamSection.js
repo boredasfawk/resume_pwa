@@ -77,12 +77,12 @@ class TeamSection extends Component {
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
       this.stats = new Stats();
-      console.log({ newStats: this.stats }, { Stats: Stats }, 'CDM')
+      console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, 'CDM')
       // 3D Graphics
       this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
-      // Stats.showPanel(1);
-      // this.node.appendChild(Stats.dom);
-      this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera);
+      this.stats.showPanel(1);
+      this.node.appendChild(this.stats.dom);
+      this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
       this.addCustomSceneObjects(this.scene, this.cube);
       // For responsiveness
       (this.renderer !== undefined) &&
@@ -92,7 +92,7 @@ class TeamSection extends Component {
 
   // Removes all event listners 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize());
+    window.removeEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
     window.cancelAnimationFrame(this.requestID);
     this.controls.dispose();
   }
@@ -116,12 +116,12 @@ class TeamSection extends Component {
     renderer.setSize(width, height);
     node.appendChild(renderer.domElement);
   }
-  startAnimationLoop = (cube, renderer, requestID, scene, camera) => {
-    Stats.begin();
+  startAnimationLoop = (cube, renderer, requestID, scene, camera, stats) => {
+    stats.begin();
     // Rotates cube  
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
-    Stats.end();
+    stats.end();
     // Renders sets and cycles animation through event loop
     renderer.render(scene, camera);
     requestID = window.requestAnimationFrame(this.startAnimationLoop);
