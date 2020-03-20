@@ -75,7 +75,7 @@ class TeamSection extends Component {
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
       // Create models
-      (this.scene !== undefined) &&
+      (this.scene !== null) &&
         this.addCustomSceneObjects(this.scene, this.cube);
       // Start rendering Scene
       this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
@@ -112,7 +112,7 @@ class TeamSection extends Component {
     node.appendChild(renderer.domElement);
   }
 
-  addCustomSceneObjects = (cube, scene) => {
+  addCustomSceneObjects = (cube, scene = this.scene) => {
     // Skeleton of object
     const geometry = new THREE.BoxGeometry(2, 2, 2);
     // Skin of object
