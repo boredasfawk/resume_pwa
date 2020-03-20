@@ -24,7 +24,7 @@ class TeamSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasError: true
+      hasError: false
     }
 
     // Set ref for threejs to use dom node
