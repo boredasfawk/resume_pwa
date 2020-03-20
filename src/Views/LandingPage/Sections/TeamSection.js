@@ -64,10 +64,12 @@ class TeamSection extends Component {
       console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // Init global variables
       this.cube = null;
-      this.scene = null;
+      // Create scene
+      this.scene = new THREE.Scene();
       this.camera = null;
       this.controls = null;
-      this.renderer = null;
+      // Render graphics in dom
+      this.renderer = new THREE.WebGLRenderer();
       this.requestID = null;
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
@@ -75,10 +77,11 @@ class TeamSection extends Component {
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
       this.stats = new Stats();
+      console.log({ newStats: stats }, { Stats }, 'CDM')
       // 3D Graphics
       this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
-      Stats.showPanel(1);
-      this.node.appendChild(Stats.dom);
+      // Stats.showPanel(1);
+      // this.node.appendChild(Stats.dom);
       this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera);
       this.addCustomSceneObjects(this.scene, this.cube);
       // For responsiveness
@@ -96,8 +99,7 @@ class TeamSection extends Component {
   // FUNCTIONS
 
   sceneSetup = (width, height, node, scene, camera, controls, renderer) => {
-    // Create scene
-    scene = new THREE.Scene();
+
     camera = new THREE.PerspectiveCamera(
       75, // fov = field of view
       width / height, // aspect ratio
@@ -109,8 +111,7 @@ class TeamSection extends Component {
     controls.enableZoom = false
     // Set distance from cude
     camera.position.z = 5;
-    // Render graphics in dom
-    renderer = new THREE.WebGLRenderer();
+
     renderer.setSize(width, height);
     node.appendChild(renderer.domElement);
   }
