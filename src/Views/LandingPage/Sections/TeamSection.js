@@ -27,12 +27,8 @@ class TeamSection extends Component {
       hasError: false
     }
 
-    // Set ref for threejs to use dom node
-    // this.threeRef = React.createRef();
     // Functions
-    this.sceneSetup = this.sceneSetup.bind(this)
-    this.startAnimationLoop = this.startAnimationLoop.bind(this)
-    this.addCustomSceneObjects = this.addCustomSceneObjects.bind(this)
+    this.handleWindowResize = this.handleWindowResize.bind(this)
   }
 
   // LIFECYCLES
