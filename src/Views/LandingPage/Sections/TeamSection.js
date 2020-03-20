@@ -45,8 +45,8 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
 
-  componentDidMount() {
-    if (this.props.threeRef) {
+  componentDidMount(prevProps) {
+    if (prevProps.threeRef) {
       console.log(this.props.threeRef)
       // Init global variables
       this.cube = null;
@@ -56,7 +56,7 @@ class TeamSection extends Component {
       this.renderer = null;
       this.requestID = null;
       // set current ref to dom elem in var then get dom w/h
-      this.node = this.props.threeRef.current;
+      this.node = prevProps.threeRef.current;
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
