@@ -49,15 +49,6 @@ class TeamSection extends Component {
 
   componentDidMount(prevProps) {
     console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
-    // Init global variables
-    this.cube = null;
-    this.scene = null;
-    this.camera = null;
-    this.controls = null;
-    this.renderer = null;
-    this.requestID = null;
-    // Stat abstraction from threejs
-    this.stats = new Stats();
 
     if (this.props.threeRef.id === 'canvas') {
 
@@ -84,7 +75,8 @@ class TeamSection extends Component {
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
       // Create models
-      this.addCustomSceneObjects(this.scene, this.cube);
+      (this.scene !== undefined) &&
+        this.addCustomSceneObjects(this.scene, this.cube);
       // Start rendering Scene
       this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
       // Resizes rendered scene mobil responsiveness
@@ -95,7 +87,7 @@ class TeamSection extends Component {
 
   // Removes all event listners 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
+    window.removeEventListener('resize', this.handleWindowResize);
     window.cancelAnimationFrame(this.requestID);
     this.controls.dispose();
   }
