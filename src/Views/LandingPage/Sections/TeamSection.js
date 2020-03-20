@@ -59,9 +59,9 @@ class TeamSection extends Component {
     // Stat abstraction from threejs
     this.stats = new Stats();
 
-    if (this.props.threeRef.current !== null || this.props.threeRef.current !== undefined) {
+    if (this.props.threeRef.current !== null && this.props.threeRef.current !== undefined) {
 
-      console.log({ currProps: this.props }, { currentProps: this.props.threeRef.current }, 'CDM - ref')
+      console.log({ currProps: this.props }, { currentRef: this.props.threeRef.current }, 'CDM - ref')
       // Init global variables
       this.cube = null;
       this.scene = null;
@@ -177,6 +177,8 @@ class TeamSection extends Component {
     return (
       <React.Fragment>
         <div
+          name='threeCanvas'
+          id="threeCanvas"
           className={classes.section}
           // style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
           ref={ref => this.props.threeRef = ref} id="canvas"
