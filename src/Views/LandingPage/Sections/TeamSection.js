@@ -59,9 +59,9 @@ class TeamSection extends Component {
     // Stat abstraction from threejs
     this.stats = new Stats();
 
-    if (this.props.threeRef.current !== null && this.props.threeRef.current !== undefined) {
+    if (this.props.threeRef.id === 'canvas') {
 
-      console.log({ currProps: this.props }, { currentRef: this.props.threeRef.current }, 'CDM - ref')
+      console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // Init global variables
       this.cube = null;
       this.scene = null;
@@ -70,7 +70,7 @@ class TeamSection extends Component {
       this.renderer = null;
       this.requestID = null;
       // set current ref to dom elem in var then get dom w/h
-      this.node = this.props.threeRef.current;
+      this.node = this.props.threeRef;
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
