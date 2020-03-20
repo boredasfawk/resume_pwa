@@ -85,8 +85,8 @@ class TeamSection extends Component {
 
   sceneSetup = (node, scene, camera, controls, renderer) => {
     // Get container dimensions and use them for scene sizing
-    const width = this.node.clientWidth;
-    const height = this.node.clientHeight;
+    const width = node.clientWidth;
+    const height = node.clientHeight;
     // Create scene
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(
