@@ -39,6 +39,7 @@ class TeamSection extends Component {
 
   // Help properly display errors and show diff page
   static getDerivedStateFromError(error) {
+    console.log({ error }, 'derived state from error');
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
@@ -47,8 +48,23 @@ class TeamSection extends Component {
 
   componentDidMount(prevProps) {
     console.log({ prevProps }, 'CDM - render')
-    if (this.props.threeRef.current !== undefined) {
-      console.log(this.props.threeRef.current, 'CDM - ref')
+    // Init global variables
+    this.cube = null;
+    this.scene = null;
+    this.camera = null;
+    this.controls = null;
+    this.renderer = null;
+    this.requestID = null;
+    // Stat abstraction from threejs
+    this.stats = new Stats();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log({ prevProps }, { currProps: this.props });
+    // only update chart if the data has changed
+    if (prevProps.threeRef.current !== this.props.threeRef.current) {
+
+      console.log({ currProps: this.props }, { currentProps: this.props.threeRef.current }, 'CDM - ref')
       // Init global variables
       this.cube = null;
       this.scene = null;
@@ -72,6 +88,7 @@ class TeamSection extends Component {
       window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
     }
   }
+
   // Removes all event listners 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize());
