@@ -47,7 +47,7 @@ class TeamSection extends Component {
 
   componentDidMount(prevProps) {
     console.log({ prevProps }, 'CDM - render')
-    if (this.props !== undefined) {
+    if (this.props.threeRef.current !== undefined) {
       console.log(this.props.threeRef.current, 'CDM - ref')
       // Init global variables
       this.cube = null;
