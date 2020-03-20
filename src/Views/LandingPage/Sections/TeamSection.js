@@ -17,7 +17,6 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
-import { tsUndefinedKeyword } from "@babel/types";
 
 
 
@@ -40,6 +39,7 @@ class TeamSection extends Component {
 
   // Help properly display errors and show diff page
   static getDerivedStateFromError(error) {
+    // TEST
     console.log({ error }, 'derived state from error');
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
@@ -48,37 +48,83 @@ class TeamSection extends Component {
   // On mount call graphic/styling functions
 
   componentDidMount(prevProps) {
+    // TEST
     console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
 
     if (this.props.threeRef.id === 'canvas') {
-
+      // TEST
       console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
-      // Init global variables
-      this.cube = null;
-      // Create scene
-      this.scene = new THREE.Scene();
-      this.camera = null;
-      this.controls = null;
-      // Render graphics in dom
-      this.renderer = new THREE.WebGLRenderer();
-      this.requestID = null;
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
+      // SET SCENE
+
+      // Create scene
+      this.scene = new THREE.Scene();
+      // Render graphics in dom
+      this.renderer = new THREE.WebGLRenderer();
       // Stat abstraction from threejs
       this.stats = new Stats();
+      // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      // Set scene
-      this.sceneSetup(width, height, this.node, this.camera, this.controls, this.renderer);
+      const fov = 75;
+      const aspectRatio = (width / height);
+      const nearPlane = 0.1
+      const farPlane = 1000
+      this.camera = new THREE.PerspectiveCamera(
+        fov,
+        aspectRatio,
+        nearPlane,
+        farPlane
+      );
+      // Set camera controls
+      this.controls = new OrbitControls(camera, node);
+      this.controls.enableZoom = false
+      // Set distance from cude
+      this.camera.position.z = 5;
+      this.renderer.setSize(width, height);
+      this.node.appendChild(renderer.domElement);
       // Set stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
-      // Create models
-      (this.scene !== null) &&
-        this.addCustomSceneObjects(this.scene, this.cube);
-      // Start rendering Scene
-      this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera, this.stats);
+      // CREATE MODELS
+
+      // Skeleton of object
+      const geometry = new THREE.BoxGeometry(2, 2, 2);
+      // Skin of object
+      const material = new THREE.MeshPhongMaterial({
+        color: 0x156289,
+        emissive: 0x072534,
+        side: THREE.DoubleSide,
+        flatShading: true
+      });
+      // Body that combines both geo and mat
+      this.cube = new THREE.Mesh(geometry, material);
+      this.scene.add(cube);
+      // Creates light for shadows/dimensions
+      const lights = [];
+      lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+      lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+      lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+      // Set posiition of lights
+      lights[0].position.set(0, 200, 0);
+      lights[1].position.set(100, 200, 100);
+      lights[2].position.set(- 100, - 200, - 100);
+      // Add lights into scene
+      this.scene.add(lights[0]);
+      this.scene.add(lights[1]);
+      this.scene.add(lights[2]);
+      // RENDER SCENE
+
+      this.stats.begin(); // TEST
+      // Rotates cube  
+      this.cube.rotation.x += 0.01;
+      this.cube.rotation.y += 0.01;
+      this.stats.end(); // TEST
+      // Renders sets and cycles animation through event loop
+      this.renderer.render(this.scene, this.camera);
+      this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
         window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
@@ -94,71 +140,12 @@ class TeamSection extends Component {
 
   // FUNCTIONS
 
-  sceneSetup = (width, height, node, camera, controls, renderer) => {
-
-    camera = new THREE.PerspectiveCamera(
-      75, // fov = field of view
-      width / height, // aspect ratio
-      0.1, // near plane
-      1000 // far plane
-    );
-    // Set camera controls
-    controls = new OrbitControls(camera, node);
-    controls.enableZoom = false
-    // Set distance from cude
-    camera.position.z = 5;
-
-    renderer.setSize(width, height);
-    node.appendChild(renderer.domElement);
-  }
-
-  addCustomSceneObjects = (cube, scene = this.scene) => {
-    // Skeleton of object
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    // Skin of object
-    const material = new THREE.MeshPhongMaterial({
-      color: 0x156289,
-      emissive: 0x072534,
-      side: THREE.DoubleSide,
-      flatShading: true
-    });
-    // Body that combines both geo and mat
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    // Creates light for shadows/dimensions
-    const lights = [];
-    lights[0] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[1] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[2] = new THREE.PointLight(0xffffff, 1, 0);
-    // Set posiition of lights
-    lights[0].position.set(0, 200, 0);
-    lights[1].position.set(100, 200, 100);
-    lights[2].position.set(- 100, - 200, - 100);
-    // Add lights into scene
-    scene.add(lights[0]);
-    scene.add(lights[1]);
-    scene.add(lights[2]);
-  }
-
-  startAnimationLoop = (cube, renderer, requestID, scene, camera, stats) => {
-    stats.begin();
-    // Rotates cube  
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    stats.end();
-    // Renders sets and cycles animation through event loop
-    renderer.render(scene, camera);
-    requestID = window.requestAnimationFrame(this.startAnimationLoop);
-  }
-
   handleWindowResize = (width, height, renderer, camera) => {
     // Updates render/camera with current size of dom is then updates position of all cameras
     renderer.setSize(width, height);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
   }
-
 
   render() {
 
