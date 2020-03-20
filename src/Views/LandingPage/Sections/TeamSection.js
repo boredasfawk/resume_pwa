@@ -112,15 +112,18 @@ class TeamSection extends Component {
       this.scene.add(lights[1]);
       this.scene.add(lights[2]);
       // RENDER SCENE
-
-      this.stats.begin(); // TEST
-      // Rotates cube  
-      this.cube.rotation.x += 0.01;
-      this.cube.rotation.y += 0.01;
-      this.stats.end(); // TEST
-      // Renders sets and cycles animation through event loop
-      this.renderer.render(this.scene, this.camera);
-      this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
+      this.requestID = null;
+      const render = () => {
+        this.stats.begin(); // TEST
+        // Rotates cube  
+        this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.01;
+        this.stats.end(); // TEST
+        // Renders sets and cycles animation through event loop
+        this.renderer.render(this.scene, this.camera);
+        this.requestID = window.requestAnimationFrame(render);
+      }
+      render();
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
         window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
