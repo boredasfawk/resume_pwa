@@ -58,13 +58,13 @@ class TeamSection extends Component {
   // On mount call graphic/styling functions
   componentDidMount() {
     // 3D Graphics
-    this.sceneSetup();
+    this.sceneSetup(this.node, this.scene, this.camera, this.controls, this.renderer);
     Stats.showPanel(1);
     this.node.appendChild(Stats.dom);
-    this.startAnimationLoop();
-    this.addCustomSceneObjects();
+    this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera);
+    this.addCustomSceneObjects(this.scene, this.cube);
     // For responsiveness
-    window.addEventListener('resize', this.handleWindowResize);
+    window.addEventListener('resize', this.handleWindowResize(this.node, this.renderer, this.camera));
 
     // Page Styling
     this.classes = this.useStyles();
@@ -76,46 +76,46 @@ class TeamSection extends Component {
   }
   // Removes all event listners 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize);
+    window.removeEventListener('resize', this.handleWindowResize(this.node, this.renderer, this.camera));
     window.cancelAnimationFrame(this.requestID);
     this.controls.dispose();
   }
 
   // FUNCTIONS
 
-  sceneSetup = (scene) => {
+  sceneSetup = (node, scene, camera, controls, renderer) => {
     // Get container dimensions and use them for scene sizing
     const width = this.node.clientWidth;
     const height = this.node.clientHeight;
     // Create scene
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(
       75, // fov = field of view
       width / height, // aspect ratio
       0.1, // near plane
       1000 // far plane
     );
     // Set camera controls
-    this.controls = new OrbitControls(this.camera, this.node);
-    this.controls.enableZoom = false
+    controls = new OrbitControls(camera, node);
+    controls.enableZoom = false
     // Set distance from cude
-    this.camera.position.z = 5;
+    camera.position.z = 5;
     // Render graphics in dom
-    this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize(width, height);
-    this.node.appendChild(this.renderer.domElement);
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+    node.appendChild(renderer.domElement);
   }
-  startAnimationLoop = (ani) => {
+  startAnimationLoop = (cube, renderer, requestID, scene, camera) => {
     Stats.begin();
     // Rotates cube  
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
     Stats.end();
     // Renders sets and cycles animation through event loop
-    this.renderer.render(this.scene, this.camera);
-    this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
+    renderer.render(scene, camera);
+    requestID = window.requestAnimationFrame(this.startAnimationLoop);
   }
-  addCustomSceneObjects = (sceneObj) => {
+  addCustomSceneObjects = (cube, scene) => {
     // Skeleton of object
     const geometry = new THREE.BoxGeometry(2, 2, 2);
     // Skin of object
@@ -126,8 +126,8 @@ class TeamSection extends Component {
       flatShading: true
     });
     // Body that combines both geo and mat
-    this.cube = new THREE.Mesh(geometry, material);
-    this.scene.add(this.cube);
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
     // creates light for shadows/dimensions
     const lights = [];
@@ -139,18 +139,18 @@ class TeamSection extends Component {
     lights[1].position.set(100, 200, 100);
     lights[2].position.set(- 100, - 200, - 100);
 
-    this.scene.add(lights[0]);
-    this.scene.add(lights[1]);
-    this.scene.add(lights[2]);
+    scene.add(lights[0]);
+    scene.add(lights[1]);
+    scene.add(lights[2]);
   }
 
-  handleWindowResize = () => {
-    const width = this.node.clientWidth;
-    const height = this.node.clientHeight;
+  handleWindowResize = (node, renderer, camera) => {
+    const width = node.clientWidth;
+    const height = node.clientHeight;
     // Updates render/camera with current size of dom is then updates position of all cameras
-    this.renderer.setSize(width, height);
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
   }
 
 
