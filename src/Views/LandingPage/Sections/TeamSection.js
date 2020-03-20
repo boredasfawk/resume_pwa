@@ -77,7 +77,7 @@ class TeamSection extends Component {
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
       this.stats = new Stats();
-      console.log({ newStats: stats }, { Stats }, 'CDM')
+      console.log({ newStats: this.stats }, { Stats: Stats }, 'CDM')
       // 3D Graphics
       this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
       // Stats.showPanel(1);
@@ -85,7 +85,8 @@ class TeamSection extends Component {
       this.startAnimationLoop(this.cube, this.renderer, this.requestID, this.scene, this.camera);
       this.addCustomSceneObjects(this.scene, this.cube);
       // For responsiveness
-      window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
+      (this.renderer !== undefined) &&
+        window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
     }
   }
 
