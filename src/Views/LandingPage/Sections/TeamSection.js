@@ -59,7 +59,7 @@ class TeamSection extends Component {
     // Stat abstraction from threejs
     this.stats = new Stats();
 
-    if (this.props.threeRef.current !== undefined) {
+    if (this.props.threeRef.current !== null || this.props.threeRef.current !== undefined) {
 
       console.log({ currProps: this.props }, { currentProps: this.props.threeRef.current }, 'CDM - ref')
       // Init global variables
@@ -179,7 +179,7 @@ class TeamSection extends Component {
         <div
           className={classes.section}
           // style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
-          ref={this.props.threeRef} id="canvas"
+          ref={ref => this.props.threeRef = ref} id="canvas"
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
           <div style={{ zIndex: 1 }}>
