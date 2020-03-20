@@ -29,7 +29,6 @@ class TeamSection extends Component {
 
     // Set ref for threejs to use dom node
     this.threeRef = createRef();
-    this.node = this.threeRef.current;
     // Init global variables
     this.cube = null;
     this.scene = null;
@@ -57,6 +56,7 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount() {
+    this.node = this.threeRef.current;
     // 3D Graphics
     this.sceneSetup(this.node, this.scene, this.camera, this.controls, this.renderer);
     Stats.showPanel(1);
