@@ -28,7 +28,7 @@ class TeamSection extends Component {
     }
 
     // Set ref for threejs to use dom node
-    this.threeRef = React.createRef();
+    // this.threeRef = React.createRef();
     // Functions
     this.sceneSetup = this.sceneSetup.bind(this)
     this.startAnimationLoop = this.startAnimationLoop.bind(this)
@@ -53,7 +53,7 @@ class TeamSection extends Component {
     this.renderer = null;
     this.requestID = null;
     // set current ref to dom elem in var then get dom w/h
-    this.node = this.threeRef.current;
+    this.node = this.props.threeRef.current;
     const width = this.node.clientWidth;
     const height = this.node.clientHeight;
     // Stat abstraction from threejs
@@ -159,7 +159,7 @@ class TeamSection extends Component {
       <div
         className={classes.section}
         style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
-        ref={this.threeRef} id="canvas"
+        ref={this.props.threeRef} id="canvas"
       >
         <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
         <div style={{ zIndex: 1 }}>
@@ -189,4 +189,4 @@ class TeamSection extends Component {
   }
 }
 
-export default withStyles(styles)(TeamSection);
+export default withStyles(styles)(React.forwardRef((props, ref) => <TeamSection threeRef={ref} {...props} />));
