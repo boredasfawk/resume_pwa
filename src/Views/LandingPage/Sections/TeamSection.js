@@ -65,7 +65,7 @@ class TeamSection extends Component {
         jsonImg: jsonImgResponse
       }
     }
-    const snapShot = await callApi();
+    const snapShot = callApi();
     // TEST
     console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
     //TEXTURES
