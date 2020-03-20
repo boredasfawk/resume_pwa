@@ -47,7 +47,7 @@ class TeamSection extends Component {
   // On mount call graphic/styling functions
 
   componentDidMount(prevProps) {
-    console.log({ prevProps }, 'CDM - render')
+    console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
     // Init global variables
     this.cube = null;
     this.scene = null;
@@ -57,11 +57,7 @@ class TeamSection extends Component {
     this.requestID = null;
     // Stat abstraction from threejs
     this.stats = new Stats();
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log({ prevProps }, { currProps: this.props });
-    // only update chart if the data has changed
     if (prevProps.threeRef.current !== this.props.threeRef.current) {
 
       console.log({ currProps: this.props }, { currentProps: this.props.threeRef.current }, 'CDM - ref')
@@ -165,7 +161,7 @@ class TeamSection extends Component {
 
 
   render() {
-    console.log(this.props, '3d comp');
+
     // Page Styling
     const { classes } = this.props;
     const imageClasses = classNames(
@@ -178,36 +174,38 @@ class TeamSection extends Component {
       return <h1>Something went wrong.</h1>;
     }
     return (
-
-      <div
-        className={classes.section}
-        style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
-        ref={this.props.threeRef} id="canvas"
-      >
-        <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
-        <div style={{ zIndex: 1 }}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img alt="picture of developer" src={image} className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                  Olonny Taylor
+      <React.Fragment>
+        <div
+          className={classes.section}
+          // style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
+          ref={this.props.threeRef} id="canvas"
+        >
+          {console.log(this.props.threeRef.current, '3d comp')}
+          <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
+          <div style={{ zIndex: 1 }}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card plain>
+                  <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
+                    <img alt="picture of developer" src={image} className={imageClasses} />
+                  </GridItem>
+                  <h4 className={classes.cardTitle}>
+                    Olonny Taylor
                 <br />
-                  <small className={classes.smallTitle}>Javascript Developer</small>
-                </h4>
-                <CardBody>
-                  <p className={classes.description}>
-                    I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along cloud based services.
-                    I create applications that are beautiful, functional, and focused on a great user experience.
+                    <small className={classes.smallTitle}>Javascript Developer</small>
+                  </h4>
+                  <CardBody>
+                    <p className={classes.description}>
+                      I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along cloud based services.
+                      I create applications that are beautiful, functional, and focused on a great user experience.
                 </p>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        </div>
-      </div >
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </div>
+        </div >
+      </React.Fragment>
     );
   }
 }
