@@ -46,7 +46,8 @@ class TeamSection extends Component {
   // On mount call graphic/styling functions
 
   componentDidMount() {
-    if (this.props.threeRef.current) {
+    if (this.props.threeRef) {
+      console.log(this.props.threeRef)
       // Init global variables
       this.cube = null;
       this.scene = null;
@@ -193,4 +194,8 @@ class TeamSection extends Component {
   }
 }
 
-export default withStyles(styles)(React.forwardRef((props, ref) => <TeamSection threeRef={ref} {...props} />));
+export default withStyles(styles)(React.forwardRef(
+  (props, ref) => (
+    <TeamSection threeRef={ref} {...props} />
+  )
+));
