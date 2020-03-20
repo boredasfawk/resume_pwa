@@ -156,7 +156,11 @@ class TeamSection extends Component {
     }
     return (
 
-      <div className={classes.section} ref={this.threeRef} id="canvas" style={{ zIndex: 1000 }}>
+      <div
+        className={classes.section}
+        style={{ width: "100vw", height: "30vh", zIndex: 1000 }}
+        ref={this.threeRef} id="canvas"
+      >
         <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
         <div style={{ zIndex: 1 }}>
           <GridContainer>
