@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as THREE from 'three';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
@@ -24,7 +24,7 @@ class TeamSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasError: false
+      hasError: false,
     }
 
     // Functions
@@ -32,6 +32,34 @@ class TeamSection extends Component {
   }
 
   // LIFECYCLES
+
+  // Get textures before compnent mounts and pass to CMD 
+  getSnapshotBeforeUpdate = async (prevProps, prevState) => {
+    // Fetches data from cloudnairy
+    callApi = async () => {
+      const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
+      const evaBodyResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323206/examples/eva/object/T_CH_Eva_MBody01_D01_V01_SK1.jpg');
+      const skyBoxResponse = await fetch('https://res.cloudinary.com/valentinrad/examples/eva/img/');
+      const jsonImgResponse = await fetch('https://res.cloudinary.com/valentinrad/raw/upload/v1555322019/examples/eva/object/EVA01.js');
+      const EHbody = await evaHeadResponse.json();
+      const EBbody = await evaBodyResponse.json();
+      const SBbody = await skyBoxResponse.json();
+      const JIbody = await jsonImgResponse.json();
+      if (evaHeadResponse.status !== 200) throw Error(EHbody.message);
+      if (evaBodyResponse.status !== 200) throw Error(EBbody.message);
+      if (skyBoxResponse.status !== 200) throw Error(SBbody.message);
+      if (jsonImgResponse.status !== 200) throw Error(JIbody.message);
+
+      return {
+        evaHead: evaHeadResponse,
+        evaBody: evaBodyResponse,
+        skyBox: skyBoxResponse,
+        jsonImg: jsonImgResponse
+      }
+    }
+    const cloudRes = await callApi()
+    return cloudRes
+  }
 
   // Help properly display errors and show diff page
   static getDerivedStateFromError(error) {
@@ -42,10 +70,21 @@ class TeamSection extends Component {
   }
 
   // On mount call graphic/styling functions
-
-  componentDidMount(prevProps) {
+  componentDidMount(prevProps, prevState, snapShot) {
     // TEST
-    console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
+    console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
+    //TEXTURES
+    // Big Thanks To valentinrad
+    //CORS! CORS!
+    THREE.ImageUtils.crossOrigin = "";
+    // Build eva head image
+    this.evaHead = new Image();
+    this.evaHead.crossOrigin = "";
+    this.evaHead.src = () => (snapShot && snapShot.evaHead)
+    // Build eva body image
+    this.evaBody = new Image();
+    this.evaBody.crossOrigin = "";
+    this.evaBody.src = () => (snapShot && snapShot.evaBody)
 
     if (this.props.threeRef.id === 'canvas') {
       // TEST
@@ -58,75 +97,202 @@ class TeamSection extends Component {
 
       // Create scene
       this.scene = new THREE.Scene();
+      // Create skybox scene
+      this.sceneCube = new THREE.Scene();
       // Render graphics in dom
-      this.renderer = new THREE.WebGLRenderer();
+      this.renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        clearColor: 0xffffff,
+        clearAlpha: 1
+      });
       // Stat abstraction from threejs
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 75;
+      const fov = 25;
       const aspectRatio = (width / height);
-      const nearPlane = 0.1
-      const farPlane = 1000
+      const nearPlane = 1
+      const farPlane = 10000
       this.camera = new THREE.PerspectiveCamera(
         fov,
         aspectRatio,
         nearPlane,
         farPlane
       );
-      // Set camera controls
-      this.controls = new OrbitControls(this.camera, this.node);
-      this.controls.enableZoom = false
       // Set distance from cude
-      this.camera.position.z = 5;
+      this.camera.position.set(40, -10, 100);
+      // Set camera controls
+      this.controls = new TrackballControls(this.camera, this.node);
+      this.controls.dynamicDampingFactor = 0.25;
+      this.controls.enableZoom = false
+      this.renderer.gammaInput = true;
+      this.renderer.gammaOutput = true;
+      this.renderer.physicallyBasedShading = true;
+      // render size of size and add it elm
       this.renderer.setSize(width, height);
       this.node.appendChild(this.renderer.domElement);
-      // Set stats
+      this.renderer.autoClear = false;
+      // SKYBOX
+
+      // Creating skybox camera and adding it to skybox scene
+      const SBfov = 25;
+      const SBaspectRatio = (width / height);
+      const SBnearPlane = 1;
+      const SBfarPlane = 10000;
+      this.cameraCube = new THREE.PerspectiveCamera(
+        SBfov,
+        SBaspectRatio,
+        SBnearPlane,
+        SBfarPlane
+      );
+      this.sceneCube.add(this.cameraCube);
+
+      this.skyBox = () => (snapShot && snapShot.skyBox)
+      this.urls = [
+        this.skyBox + "px.png",
+        this.skyBox + "nx.png",
+        this.skyBox + "py.png",
+        this.skyBox + "ny.png",
+        this.skyBox + "pz.png",
+        this.skyBox + "nz.png"
+      ];
+
+      this.textureCube = THREE.ImageUtils.loadTextureCube(this.urls);
+
+      console.log(this.textureCube);
+      // Stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
       // CREATE MODELS
 
+      // creating textures for eva
+      this.evaTextureHead = new THREE.Texture(this.evaHead);
+      this.evaTextureHead.needsUpdate = true;
+      this.evaTextureBody = new THREE.Texture(evaBody);
+      this.evaTextureBody.needsUpdate = true;
+
       // Skeleton of object
-      const geometry = new THREE.BoxGeometry(2, 2, 2);
-      // Skin of object
-      const material = new THREE.MeshPhongMaterial({
-        color: 0x156289,
-        emissive: 0x072534,
-        side: THREE.DoubleSide,
-        flatShading: true
+      this.shader = THREE.ShaderLib["cube"];
+      this.shader.uniforms["tCube"].value = this.textureCube;
+
+      this.material = new THREE.ShaderMaterial({
+        fragmentShader: this.shader.fragmentShader,
+        vertexShader: this.shader.vertexShader,
+        uniforms: this.shader.uniforms,
+        depthWrite: false,
+        side: THREE.BackSide
       });
-      // Body that combines both geo and mat
-      this.cube = new THREE.Mesh(geometry, material);
-      this.scene.add(this.cube);
-      // Creates light for shadows/dimensions
-      const lights = [];
-      lights[0] = new THREE.PointLight(0xffffff, 1, 0);
-      lights[1] = new THREE.PointLight(0xffffff, 1, 0);
-      lights[2] = new THREE.PointLight(0xffffff, 1, 0);
-      // Set posiition of lights
-      lights[0].position.set(0, 200, 0);
-      lights[1].position.set(100, 200, 100);
-      lights[2].position.set(- 100, - 200, - 100);
-      // Add lights into scene
-      this.scene.add(lights[0]);
-      this.scene.add(lights[1]);
-      this.scene.add(lights[2]);
+
+      // workaround for Chrome 30 ANGLE bug
+      this.material.side = THREE.DoubleSide;
+
+      this.mesh = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), this.material);
+      this.sceneCube.add(this.mesh);
+
+      // LIGHTS
+      this.light = new THREE.PointLight(0xffffff, 1);
+      this.light.position.set(2, 5, 1);
+      this.light.position.multiplyScalar(30);
+      this.scene.add(this.light);
+
+      this.light = new THREE.PointLight(0xffffff, 0.75);
+      this.light.position.set(-12, 4.6, 2.4);
+      this.light.position.multiplyScalar(30);
+      this.scene.add(this.light);
+
+      this.scene.add(new THREE.AmbientLight(0x050505));
+
+      // LOADER
+      this.dateObj = new Date();
+      this.start = this.dateObj.getTime();
+      this.jsonLoader = new THREE.JSONLoader();
+
+      this.position = new THREE.Vector3(0, -80, 0);
+      this.scale = new THREE.Vector3(1, 1, 1);
+      this.jsonImg = () => (snapShot && snapShot.jsonImg)
+      this.jsonLoader.load(
+        this.jsonImg,
+        (geometry, materials) => {
+          console.log(geometry, materials, 'in jsonloader');
+          hackMaterials(materials);
+          let mesh = new THREE.Mesh(
+            geometry,
+            new THREE.MeshFaceMaterial(materials)
+          );
+          mesh.scale = scale;
+          mesh.position = position;
+          this.scene.add(mesh);
+          let end = this.dateObj.getTime();
+          console.log("load time:", end - start, "ms", 'in jsonloader');
+        }
+      );
+
+      //add ground
+      this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
+      this.groundGeo = new THREE.PlaneGeometry(400, 400);
+      this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
+      this.ground.envMap = this.textureCube;
+      this.ground.combine = THREE.MixOperation;
+      this.ground.shininess = 30;
+      this.ground.metal = true;
+      this.ground.position.y = -80;
+      this.negPI = -Math.PI;
+      this.devNegPi = (this.negPI / 2);
+      this.ground.rotation.x = this.devNegPi;
+      //ground.doubleSided = true;
+      this.scene.add(this.ground);
+
+      const hackMaterials = (materials) => {
+        for (let i = 0; i < materials.length; i++) {
+          let m = materials[i];
+          if (m.name.indexOf("Material__467") !== -1) {
+            m.map = evaTextureHead;
+            m.envMap = textureCube;
+            m.combine = THREE.MixOperation;
+            m.reflectivity = 0.03;
+          } else if (m.name.indexOf("Material__463") !== -1) {
+            m.map = evaTextureBody;
+            m.envMap = textureCube;
+            m.combine = THREE.MixOperation;
+            m.reflectivity = 0.03;
+          } else {
+            m.visible = false;
+          }
+          //materials[ i ].side = THREE.DoubleSide;
+        }
+      }
+
+      const createScene = (geometry, materials, x, y, z, s) => {
+
+        THREE.GeometryUtils.center(geometry);
+        hackMaterials(materials);
+
+        let material = new THREE.MeshFaceMaterial(materials);
+
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(x, y, z);
+        mesh.scale.set(s, s, s);
+        this.scene.add(mesh);
+      }
+
+
       // RENDER SCENE
       this.requestID = null;
       const render = () => {
-        this.stats.begin(); // TEST
-        // Rotates cube  
-        this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;
-        this.stats.end(); // TEST
+        this.controls.update();
+        this.cameraCube.rotation.copy(this.camera.rotation);
+        this.renderer.clear();
+        this.renderer.render(this.sceneCube, this.cameraCube);
+        this.renderer.render(this.scene, this.camera);
         // Renders sets and cycles animation through event loop
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
       }
-      render();
+      render(); // TEST
+      stats.update();
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
-        window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
+        window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera, this.cameraCube));
     }
   }
 
@@ -139,11 +305,14 @@ class TeamSection extends Component {
 
   // FUNCTIONS
 
-  handleWindowResize = (width, height, renderer, camera) => {
+  handleWindowResize = (width, height, renderer, camera, cameraCube) => {
     // Updates render/camera with current size of dom is then updates position of all cameras
     renderer.setSize(width, height);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+
+    cameraCube.aspect = width / height;
+    cameraCube.updateProjectionMatrix();
   }
 
   render() {
