@@ -44,8 +44,9 @@ class TeamSection extends Component {
   }
 
   // On mount call graphic/styling functions
-  if(this.props.threeRef.current) {
-    componentDidMount() {
+
+  componentDidMount() {
+    if (this.props.threeRef.current) {
       // Init global variables
       this.cube = null;
       this.scene = null;
@@ -145,7 +146,7 @@ class TeamSection extends Component {
 
 
   render() {
-    console.log(props, '3d comp')
+    console.log(props, '3d comp');
     // Page Styling
     const { classes } = this.props;
     const imageClasses = classNames(
