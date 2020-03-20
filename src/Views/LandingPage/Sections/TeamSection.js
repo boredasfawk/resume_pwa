@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from 'stats.js';
@@ -28,8 +28,9 @@ class TeamSection extends Component {
     }
 
     // Set ref for threejs to use dom node
-    this.threeRef = createRef();
+    this.threeRef = React.createRef();
     // Init global variables
+    this.node = null;
     this.cube = null;
     this.scene = null;
     this.camera = null;
@@ -56,6 +57,14 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount() {
+    // Page Styling
+    this.classes = this.useStyles();
+    this.imageClasses = classNames(
+      classes.imgRaised,
+      classes.imgRoundedCircle,
+      classes.imgFluid
+    );
+    // set current ref to dom elem in var
     this.node = this.threeRef.current;
     // 3D Graphics
     this.sceneSetup(this.node, this.scene, this.camera, this.controls, this.renderer);
@@ -65,14 +74,6 @@ class TeamSection extends Component {
     this.addCustomSceneObjects(this.scene, this.cube);
     // For responsiveness
     window.addEventListener('resize', this.handleWindowResize(this.node, this.renderer, this.camera));
-
-    // Page Styling
-    this.classes = this.useStyles();
-    this.imageClasses = classNames(
-      classes.imgRaised,
-      classes.imgRoundedCircle,
-      classes.imgFluid
-    );
   }
   // Removes all event listners 
   componentWillUnmount() {
@@ -161,7 +162,7 @@ class TeamSection extends Component {
     }
     return (
 
-      <div className={classes.section} ref={this.threeRef} style={{ zIndex: 1000 }}>
+      <div className={classes.section} ref={this.threeRef} id="canvas" style={{ zIndex: 1000 }}>
         <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
         <div style={{ zIndex: 1 }}>
           <GridContainer>
