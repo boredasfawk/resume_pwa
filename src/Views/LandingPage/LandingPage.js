@@ -82,7 +82,7 @@ export default function LandingPage(props) {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <TeamSection ref={ref => ref} />
+          <TeamSection />
           <ProductSection />
           <WorkSection />
         </div>

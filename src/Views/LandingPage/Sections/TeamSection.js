@@ -17,6 +17,7 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
+import { tsUndefinedKeyword } from "@babel/types";
 
 
 
@@ -58,7 +59,7 @@ class TeamSection extends Component {
     // Stat abstraction from threejs
     this.stats = new Stats();
 
-    if (prevProps.threeRef.current !== this.props.threeRef.current) {
+    if (this.props.threeRef.current !== undefined) {
 
       console.log({ currProps: this.props }, { currentProps: this.props.threeRef.current }, 'CDM - ref')
       // Init global variables
