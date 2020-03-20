@@ -68,9 +68,9 @@ class TeamSection extends Component {
       const height = this.node.clientHeight;
       // Stat abstraction from threejs
       this.stats = new Stats();
-      console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, 'CDM')
+      console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
       // Set scene
-      this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
+      this.sceneSetup(width, height, this.node, this.camera, this.controls, this.renderer);
       // Set stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
@@ -94,7 +94,7 @@ class TeamSection extends Component {
 
   // FUNCTIONS
 
-  sceneSetup = (width, height, node, scene, camera, controls, renderer) => {
+  sceneSetup = (width, height, node, camera, controls, renderer) => {
 
     camera = new THREE.PerspectiveCamera(
       75, // fov = field of view
