@@ -29,16 +29,6 @@ class TeamSection extends Component {
 
     // Set ref for threejs to use dom node
     this.threeRef = React.createRef();
-    // Init global variables
-    this.node = null;
-    this.cube = null;
-    this.scene = null;
-    this.camera = null;
-    this.controls = null;
-    this.renderer = null;
-    this.requestID = null;
-    // Stat abstraction from threejs
-    this.stats = new Stats();
     // Functions
     this.sceneSetup = this.sceneSetup.bind(this)
     this.startAnimationLoop = this.startAnimationLoop.bind(this)
@@ -55,10 +45,19 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount() {
+    // Init global variables
+    this.cube = null;
+    this.scene = null;
+    this.camera = null;
+    this.controls = null;
+    this.renderer = null;
+    this.requestID = null;
     // set current ref to dom elem in var then get dom w/h
     this.node = this.threeRef.current;
     const width = this.node.clientWidth;
     const height = this.node.clientHeight;
+    // Stat abstraction from threejs
+    this.stats = new Stats();
     // 3D Graphics
     this.sceneSetup(width, height, this.node, this.scene, this.camera, this.controls, this.renderer);
     Stats.showPanel(1);
