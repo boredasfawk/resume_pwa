@@ -53,11 +53,11 @@ class TeamSection extends Component {
     // Build eva head image
     this.evaHead = new Image();
     this.evaHead.crossOrigin = ''
-    this.evaHead.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MHead01_D01_V01_SK1_aeticm.jpg'
+    this.evaHead.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MHead01_D01_V01_SK1_aeticm.jpg';
     // Build eva body image
     this.evaBody = new Image();
     this.evaBody.crossOrigin = "";
-    this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg'
+    this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg';
 
     if (this.props.threeRef.id === 'canvas') {
       // TEST
@@ -66,6 +66,10 @@ class TeamSection extends Component {
       this.node = this.props.threeRef;
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
+      this.evaContainer = document.createElement("div");
+      this.evaContainer.setAttribute("id", "eva");
+
+      this.node.appendChild(evaContainer);
       // SET SCENE
 
       // Create scene
@@ -84,8 +88,8 @@ class TeamSection extends Component {
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
       const fov = 25;
       const aspectRatio = (width / height);
-      const nearPlane = 1
-      const farPlane = 10000
+      const nearPlane = 1;
+      const farPlane = 10000;
       this.camera = new THREE.PerspectiveCamera(
         fov,
         aspectRatio,
@@ -94,18 +98,20 @@ class TeamSection extends Component {
       );
       // Set distance from cude
       this.camera.position.set(40, -10, 100);
-      // Set camera controls
-      this.controls = new TrackballControls(this.camera, this.node.domElement);
-      this.controls.dynamicDampingFactor = 0.25;
-      this.controls.enableZoom = false
-      // Renderer 
-      this.renderer.outputEncoding = THREE.sRGBEncoding; // color correction NEED
-      this.renderer.physicallyBasedShading = true;
+
       // render size of size and add it elm
       this.renderer.setSize(width, height);
+      // make renderer elm child of evacontainer
       this.renderer.domElement.style.position = "relative";
-      this.node.appendChild(this.renderer.domElement);
+      this.evaContainer.appendChild(this.renderer.domElement);
       this.renderer.autoClear = false;
+      // Set camera controls to render in dom elem
+      this.controls = new TrackballControls(this.camera, this.renderer.domElement);
+      this.controls.dynamicDampingFactor = 0.25;
+      this.controls.enableZoom = false;
+      // Renderer color correction and shading
+      this.renderer.outputEncoding = THREE.sRGBEncoding;
+      this.renderer.physicallyBasedShading = true;
       // SKYBOX
 
       // Creating skybox camera and adding it to skybox scene
