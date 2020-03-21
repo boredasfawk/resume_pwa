@@ -95,14 +95,15 @@ class TeamSection extends Component {
       // Set distance from cude
       this.camera.position.set(40, -10, 100);
       // Set camera controls
-      this.controls = new TrackballControls(this.camera, this.node);
+      this.controls = new TrackballControls(this.camera, this.node.domElement);
       this.controls.dynamicDampingFactor = 0.25;
       this.controls.enableZoom = false
-      this.renderer.gammaInput = true;
-      this.renderer.gammaOutput = true;
+      // Renderer 
+      this.renderer.outputEncoding = THREE.sRGBEncoding; // color correction NEED
       this.renderer.physicallyBasedShading = true;
       // render size of size and add it elm
       this.renderer.setSize(width, height);
+      this.renderer.domElement.style.position = "relative";
       this.node.appendChild(this.renderer.domElement);
       this.renderer.autoClear = false;
       // SKYBOX
@@ -130,24 +131,26 @@ class TeamSection extends Component {
         this.skyBox + "humble_lf.jpg"
       ];
 
-      this.textureCube = THREE.ImageUtils.loadTextureCube(this.urls);
+      this.textureCube = THREE.ImageUtils.CubeTextureLoader(this.urls);
 
       console.log(this.textureCube, 'texturecube');
       // Stats
-      this.stats.showPanel(1);
-      this.node.appendChild(this.stats.dom);
+      this.stats.showPanel(0);
+      this.node.appendChild(this.stats.domElement);
       // CREATE MODELS
 
       // creating textures for eva
       this.evaTextureHead = new THREE.Texture(this.evaHead);
+      this.evaTextureHead.encoding = THREE.sRGBEncoding // color correction NEED
       this.evaTextureHead.needsUpdate = true;
       this.evaTextureBody = new THREE.Texture(this.evaBody);
+      this.evaTextureBody.encoding = THREE.sRGBEncoding // color correction NEED
       this.evaTextureBody.needsUpdate = true;
 
       // Skeleton of object
       this.shader = THREE.ShaderLib["cube"];
-      console.log(this.shader, 'shader');
       this.shader.uniforms["tCube"] = { value: this.textureCube };
+      console.log(this.shader, 'shader');
 
       this.material = new THREE.ShaderMaterial({
         fragmentShader: this.shader.fragmentShader,
@@ -197,7 +200,7 @@ class TeamSection extends Component {
           // mesh.position = position;
           this.scene.add(content);
           let end = this.dateObj.getTime();
-          console.log("load time:", end - start, "ms", 'in jsonloader');
+          console.log("load time:", end - this.start, "ms", 'in jsonloader');
         }
       );
 
@@ -205,6 +208,7 @@ class TeamSection extends Component {
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
       this.groundGeo = new THREE.PlaneGeometry(400, 400);
       this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
+      console.log({ groundMat: this.ground }, 'for skybox')
       this.ground.envMap = this.textureCube;
       this.ground.combine = THREE.MixOperation;
       this.ground.shininess = 30;
