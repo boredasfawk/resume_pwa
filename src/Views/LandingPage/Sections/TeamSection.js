@@ -43,10 +43,8 @@ class TeamSection extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount(prevProps) {
-
-    const snapShot = this.callApi()
     // TEST
-    console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
+    console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
     //TEXTURES
 
     //CORS! CORS!
