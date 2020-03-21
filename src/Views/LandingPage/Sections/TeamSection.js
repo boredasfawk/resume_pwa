@@ -131,7 +131,7 @@ class TeamSection extends Component {
 
       this.textureCube = THREE.ImageUtils.loadTextureCube(this.urls);
 
-      console.log(this.textureCube);
+      console.log(this.textureCube, 'texturecube');
       // Stats
       this.stats.showPanel(1);
       this.node.appendChild(this.stats.dom);
@@ -145,7 +145,8 @@ class TeamSection extends Component {
 
       // Skeleton of object
       this.shader = THREE.ShaderLib["cube"];
-      this.shader.uniforms["tCube"].value = this.textureCube;
+      console.log(this.shader, 'shader');
+      this.shader.uniforms["tCube"] = { value: this.textureCube };
 
       this.material = new THREE.ShaderMaterial({
         fragmentShader: this.shader.fragmentShader,
