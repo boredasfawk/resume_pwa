@@ -46,8 +46,6 @@ class TeamSection extends Component {
   componentDidMount(prevProps) {
 
     const snapShot = this.callApi()
-      .then(res => res)
-      .catch(err => console.log({ err }, "componentdidmount"));
     // TEST
     console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
     //TEXTURES
