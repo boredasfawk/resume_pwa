@@ -69,7 +69,7 @@ class TeamSection extends Component {
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
 
-      this.node.appendChild(evaContainer);
+      this.node.appendChild(this.evaContainer);
       // SET SCENE
 
       // Create scene
