@@ -28,7 +28,6 @@ class TeamSection extends Component {
     }
 
     // Functions
-    this.callApi = this.callApi.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
   }
 
