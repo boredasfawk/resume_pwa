@@ -139,10 +139,10 @@ class TeamSection extends Component {
 
       this.textureCube = THREE.CubeTextureLoader(this.urls);
 
-      console.log(this.textureCube, 'texturecube');
+      console.log({ tcube: this.textureCube }, { urls: this.urls }, 'texturecube');
       // Stats
       this.stats.showPanel(0);
-      this.node.appendChild(this.stats.domElement);
+      this.evaContainer.appendChild(this.stats.domElement);
       // CREATE MODELS
 
       // creating textures for eva
