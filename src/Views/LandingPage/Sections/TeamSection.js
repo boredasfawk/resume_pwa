@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
+import { OBJLoader } from "three/examples/js/loaderss/OBJLoader";
 import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
@@ -178,7 +179,7 @@ class TeamSection extends Component {
       // LOADER
       this.dateObj = new Date();
       this.start = this.dateObj.getTime();
-      this.OBJLoader = new THREE.OBJLoader();
+      this.OBJLoader = new OBJLoader();
 
       this.position = new THREE.Vector3(0, -80, 0);
       this.scale = new THREE.Vector3(1, 1, 1);
