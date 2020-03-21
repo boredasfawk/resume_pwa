@@ -186,16 +186,16 @@ class TeamSection extends Component {
 
       this.OBJLoader.load(
         'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
-        (geometry, materials) => {
-          console.log(geometry, materials, 'in OBJloader');
-          hackMaterials(materials);
-          let mesh = new THREE.Mesh(
-            geometry,
-            new THREE.MeshFaceMaterial(materials)
-          );
-          mesh.scale = scale;
-          mesh.position = position;
-          this.scene.add(mesh);
+        (content) => {
+          console.log(content, 'in OBJloader');
+          // hackMaterials(materials);
+          // let mesh = new THREE.Mesh(
+          //   geometry,
+          //   new THREE.MeshFaceMaterial(materials)
+          // );
+          // mesh.scale = scale;
+          // mesh.position = position;
+          this.scene.add(content);
           let end = this.dateObj.getTime();
           console.log("load time:", end - start, "ms", 'in jsonloader');
         }
@@ -216,39 +216,6 @@ class TeamSection extends Component {
       //ground.doubleSided = true;
       this.scene.add(this.ground);
 
-      const hackMaterials = (materials) => {
-        for (let i = 0; i < materials.length; i++) {
-          let m = materials[i];
-          if (m.name.indexOf("Material__467") !== -1) {
-            m.map = evaTextureHead;
-            m.envMap = textureCube;
-            m.combine = THREE.MixOperation;
-            m.reflectivity = 0.03;
-          } else if (m.name.indexOf("Material__463") !== -1) {
-            m.map = evaTextureBody;
-            m.envMap = textureCube;
-            m.combine = THREE.MixOperation;
-            m.reflectivity = 0.03;
-          } else {
-            m.visible = false;
-          }
-          //materials[ i ].side = THREE.DoubleSide;
-        }
-      }
-
-      const createScene = (geometry, materials, x, y, z, s) => {
-
-        THREE.GeometryUtils.center(geometry);
-        hackMaterials(materials);
-
-        let material = new THREE.MeshFaceMaterial(materials);
-
-        mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(x, y, z);
-        mesh.scale.set(s, s, s);
-        this.scene.add(mesh);
-      }
-
 
       // RENDER SCENE
       this.requestID = null;
@@ -263,7 +230,7 @@ class TeamSection extends Component {
         this.requestID = window.requestAnimationFrame(render);
       }
       render(); // TEST
-      stats.update();
+      this.stats.update();
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
         window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera, this.cameraCube));
@@ -289,6 +256,7 @@ class TeamSection extends Component {
     cameraCube.aspect = width / height;
     cameraCube.updateProjectionMatrix();
   }
+
 
   render() {
 
