@@ -297,10 +297,10 @@ class TeamSection extends Component {
     const evaBodyResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323206/examples/eva/object/T_CH_Eva_MBody01_D01_V01_SK1.jpg');
     const skyBoxResponse = await fetch('https://res.cloudinary.com/valentinrad/examples/eva/img/');
     const jsonImgResponse = await fetch('https://res.cloudinary.com/valentinrad/raw/upload/v1555322019/examples/eva/object/EVA01.js');
-    const EHbody = await evaHeadResponse.then(res => res.json()).catch(err => console.log({ err }, 'evaHead'))
-    const EBbody = await evaBodyResponse.then(res => res.json()).catch(err => console.log({ err }, 'evaBody'))
-    const SBbody = await skyBoxResponse.then(res => res.json()).catch(err => console.log({ err }, 'skybox'))
-    const JIbody = await jsonImgResponse.then(res => res.json()).catch(err => console.log({ err }, 'jsonImg'))
+    const EHbody = evaHeadResponse
+    const EBbody = evaBodyResponse
+    const SBbody = skyBoxResponse
+    const JIbody = jsonImgResponse
     if (evaHeadResponse.status !== 200) throw Error(EHbody.message);
     if (evaBodyResponse.status !== 200) throw Error(EBbody.message);
     if (skyBoxResponse.status !== 200) throw Error(SBbody.message);
