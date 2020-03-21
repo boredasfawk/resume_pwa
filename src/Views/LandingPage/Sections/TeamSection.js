@@ -140,7 +140,7 @@ class TeamSection extends Component {
       // creating textures for eva
       this.evaTextureHead = new THREE.Texture(this.evaHead);
       this.evaTextureHead.needsUpdate = true;
-      this.evaTextureBody = new THREE.Texture(evaBody);
+      this.evaTextureBody = new THREE.Texture(this.evaBody);
       this.evaTextureBody.needsUpdate = true;
 
       // Skeleton of object
