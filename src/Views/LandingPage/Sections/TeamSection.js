@@ -49,17 +49,17 @@ class TeamSection extends Component {
     // TEST
     console.log({ prevProps }, { currProps: this.props }, { snapShot }, 'CDM - render')
     //TEXTURES
-    // Big Thanks To valentinrad
+
     //CORS! CORS!
     THREE.ImageUtils.crossOrigin = "";
     // Build eva head image
     this.evaHead = new Image();
-    this.evaHead.crossOrigin = "";
-    this.evaHead.src = () => (snapShot && snapShot.evaHead)
+    this.evaHead.crossOrigin = ''
+    this.evaHead.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MHead01_D01_V01_SK1_aeticm.jpg'
     // Build eva body image
     this.evaBody = new Image();
     this.evaBody.crossOrigin = "";
-    this.evaBody.src = () => (snapShot && snapShot.evaBody)
+    this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg'
 
     if (this.props.threeRef.id === 'canvas') {
       // TEST
@@ -122,14 +122,14 @@ class TeamSection extends Component {
       );
       this.sceneCube.add(this.cameraCube);
 
-      this.skyBox = () => (snapShot && snapShot.skyBox)
+      this.skyBox = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/'
       this.urls = [
-        this.skyBox + "px.png",
-        this.skyBox + "nx.png",
-        this.skyBox + "py.png",
-        this.skyBox + "ny.png",
-        this.skyBox + "pz.png",
-        this.skyBox + "nz.png"
+        this.skyBox + "humble_ft.jpg",
+        this.skyBox + "humble_rt.jpg",
+        this.skyBox + "humble_up.jpg",
+        this.skyBox + "humble_dn.jpg",
+        this.skyBox + "humble_bk.jpg",
+        this.skyBox + "humble_lf.jpg"
       ];
 
       this.textureCube = THREE.ImageUtils.loadTextureCube(this.urls);
@@ -180,15 +180,15 @@ class TeamSection extends Component {
       // LOADER
       this.dateObj = new Date();
       this.start = this.dateObj.getTime();
-      this.jsonLoader = new THREE.JSONLoader();
+      this.OBJLoader = new THREE.OBJLoader();
 
       this.position = new THREE.Vector3(0, -80, 0);
       this.scale = new THREE.Vector3(1, 1, 1);
-      this.jsonImg = () => (snapShot && snapShot.jsonImg)
-      this.jsonLoader.load(
-        this.jsonImg,
+
+      this.OBJLoader.load(
+        'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
         (geometry, materials) => {
-          console.log(geometry, materials, 'in jsonloader');
+          console.log(geometry, materials, 'in OBJloader');
           hackMaterials(materials);
           let mesh = new THREE.Mesh(
             geometry,
@@ -289,32 +289,6 @@ class TeamSection extends Component {
 
     cameraCube.aspect = width / height;
     cameraCube.updateProjectionMatrix();
-  }
-
-  // Fetches data from cloudnairy
-  callApi = async () => {
-    const evaHeadResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323158/examples/eva/object/T_CH_Eva_MHead01_D01_V01_SK1.jpg');
-    const evaBodyResponse = await fetch('https://res.cloudinary.com/valentinrad/image/upload/v1555323206/examples/eva/object/T_CH_Eva_MBody01_D01_V01_SK1.jpg');
-    const skyBoxResponse = await fetch('https://res.cloudinary.com/valentinrad/examples/eva/img/');
-    const jsonImgResponse = await fetch('https://res.cloudinary.com/valentinrad/raw/upload/v1555322019/examples/eva/object/EVA01.js');
-    const EHbody = evaHeadResponse
-    const EBbody = evaBodyResponse
-    const SBbody = skyBoxResponse
-    const JIbody = jsonImgResponse
-    if (evaHeadResponse.status !== 200) throw Error(EHbody.message);
-    if (evaBodyResponse.status !== 200) throw Error(EBbody.message);
-    if (skyBoxResponse.status !== 200) throw Error(SBbody.message);
-    if (jsonImgResponse.status !== 200) throw Error(JIbody.message);
-
-    const retValue = {
-      evaHead: evaHeadResponse,
-      evaBody: evaBodyResponse,
-      skyBox: skyBoxResponse,
-      jsonImg: jsonImgResponse
-    }
-    console.log({ retValue }, "return value api call");
-
-    return retValue
   }
 
   render() {
