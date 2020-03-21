@@ -137,7 +137,7 @@ class TeamSection extends Component {
         this.skyBox + "humble_lf.jpg"
       ];
 
-      this.textureCube = THREE.CubeTextureLoader();
+      this.textureCube = new THREE.CubeTextureLoader();
       this.textureCube.setCrossOrigin('');
       this.textureCube.load(this.urls)
 
