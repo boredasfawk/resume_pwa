@@ -137,12 +137,14 @@ class TeamSection extends Component {
         this.skyBox + "humble_lf.jpg"
       ];
 
-      this.textureCube = THREE.CubeTextureLoader(this.urls);
+      this.textureCube = THREE.CubeTextureLoader();
+      this.textureCube.setCrossOrigin('');
+      this.textureCube.load(this.urls)
 
       console.log({ tcube: this.textureCube }, { urls: this.urls }, 'texturecube');
       // Stats
+      this.evaContainer.appendChild(this.stats);
       this.stats.showPanel(0);
-      this.evaContainer.appendChild(this.stats.domElement);
       // CREATE MODELS
 
       // creating textures for eva
@@ -166,6 +168,7 @@ class TeamSection extends Component {
         side: THREE.BackSide
       });
 
+      console.log(this.material, 'material');
       // workaround for Chrome 30 ANGLE bug
       this.material.side = THREE.DoubleSide;
 
@@ -231,16 +234,19 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
+        this.stats.start();
         this.cameraCube.rotation.copy(this.camera.rotation);
         this.renderer.clear();
         this.renderer.render(this.sceneCube, this.cameraCube);
         this.renderer.render(this.scene, this.camera);
         // Renders sets and cycles animation through event loop
         this.renderer.render(this.scene, this.camera);
+        this.stats.end();
         this.requestID = window.requestAnimationFrame(render);
+        this.stats.update();
       }
       render(); // TEST
-      this.stats.update();
+
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
         window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera, this.cameraCube));
