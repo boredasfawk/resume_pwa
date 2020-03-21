@@ -136,15 +136,15 @@ class TeamSection extends Component {
         this.skyBox + "humble_bk.jpg",
         this.skyBox + "humble_lf.jpg"
       ];
-
+      // Set textures to skybox
       this.textureCube = new THREE.CubeTextureLoader();
-      this.textureCube.setCrossOrigin('');
-      this.textureCube.load(this.urls)
+      this.textureCube.setCrossOrigin('anonymous');
+      this.textureCube.load(this.urls);
 
       console.log({ tcube: this.textureCube }, { urls: this.urls }, 'texturecube');
       // Stats
-      this.evaContainer.appendChild(this.stats);
       this.stats.showPanel(0);
+      this.renderer.domElement.appendChild(this.stats.domElement);
       // CREATE MODELS
 
       // creating textures for eva
