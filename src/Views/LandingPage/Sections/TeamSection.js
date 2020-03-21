@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
-import { OBJLoader } from "three/examples/js/loaderss/OBJLoader";
+import { OBJLoader } from "three/examples/js/loaders/OBJLoader";
 import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
