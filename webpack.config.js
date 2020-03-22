@@ -112,10 +112,7 @@ module.exports = ({ mode } = {
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1,
-                modules: {
-                  localIdentName: '[local]_[hash:base64:6]'
-                }
+                importLoaders: 1
               }
             },
             'sass-loader'

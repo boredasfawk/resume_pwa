@@ -18,7 +18,25 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
+const canvas = {
+  display: "flex",
+  flexDirection: "column"
+}
 
+const log = {
+  top: "10px",
+  left: "10px",
+  background: "rgba(20, 120, 20, 0.5)",
+  overflow: "auto",
+  width: "300px",
+  height: "100px",
+  fontSize: "1rem",
+  position: "absolute",
+  border: "3px solid #FFF",
+  borderRadius: "5px",
+  color: "#FFF",
+  fonFamily: "arial"
+}
 
 
 class TeamSection extends Component {
@@ -293,13 +311,14 @@ class TeamSection extends Component {
         <div
           name='threeCanvas'
           id="threeCanvas"
+          style={canvas}
           className={classes.section}
           ref={ref => this.props.threeRef = ref} id="canvas"
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
           <div style={{ zIndex: 1 }}>
             <GridContainer >
-              <GridItem id="log" xs={12} sm={12} md={4}>
+              <GridItem id="log" style={log} xs={12} sm={12} md={4}>
                 <Card plain>
                   <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                     <img alt="picture of developer" src={image} className={imageClasses} />

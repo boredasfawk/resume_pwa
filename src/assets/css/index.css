@@ -1,22 +1,3 @@
 body {
   background-color: hsl(240, 50%, 1%) !important
 }
-#canvas {
-  display: flex;
-  flex-direction: column;
-}
-
-#log {
-  top: 10px;
-  left: 10px;
-  background: rgba(20, 120, 20, 0.5);
-  overflow: auto;
-  width: 300px;
-  height: 100px;
-  font-size: 11pt;
-  position: absolute;
-  border: 3px solid #FFF;
-  border-radius: 5px;
-  color: #FFF;
-  font-family: arial;
-}
