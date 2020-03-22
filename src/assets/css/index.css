@@ -1,7 +1,7 @@
 body {
   background-color: hsl(240, 50%, 1%) !important
 }
-#wholeCanvas {
+#canvas {
   display: flex;
   flex-direction: column;
 }

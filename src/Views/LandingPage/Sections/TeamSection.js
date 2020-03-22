@@ -298,8 +298,8 @@ class TeamSection extends Component {
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
           <div style={{ zIndex: 1 }}>
-            <GridContainer id="log">
-              <GridItem xs={12} sm={12} md={4}>
+            <GridContainer >
+              <GridItem id="log" xs={12} sm={12} md={4}>
                 <Card plain>
                   <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
                     <img alt="picture of developer" src={image} className={imageClasses} />
