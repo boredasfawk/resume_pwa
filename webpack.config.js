@@ -114,7 +114,6 @@ module.exports = ({ mode } = {
               options: {
                 importLoaders: 1,
                 modules: {
-                  modules: true,
                   localIdentName: '[local]_[hash:base64:6]'
                 }
               }
