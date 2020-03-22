@@ -81,7 +81,7 @@ export default function LandingPage(props) {
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
+        <div id="wholeCanvas" className={classes.container}>
           <TeamSection />
           <ProductSection />
           <WorkSection />
