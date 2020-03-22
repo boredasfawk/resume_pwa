@@ -20,22 +20,21 @@ import styles from "@Styles/teamStyle.js";
 import image from "@Assets/images/olo.jpeg";
 const canvas = {
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "column",
+  zIndex: 1
 }
 
 const log = {
-  top: "10px",
-  left: "10px",
   background: "rgba(20, 120, 20, 0.5)",
-  overflow: "auto",
-  width: "300px",
-  height: "100px",
-  fontSize: "1rem",
+  overflow: "hidden",
+  width: "25vw",
+  height: "56vh",
+  fontSize: ".7rem",
   position: "absolute",
   border: "3px solid #FFF",
-  borderRadius: "5px",
+  borderRadius: "1px",
   color: "#FFF",
-  fonFamily: "arial"
+  fontFamily: "arial"
 }
 
 
@@ -311,12 +310,11 @@ class TeamSection extends Component {
         <div
           name='threeCanvas'
           id="threeCanvas"
-          style={canvas}
           className={classes.section}
           ref={ref => this.props.threeRef = ref} id="canvas"
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
-          <div style={{ zIndex: 1 }}>
+          <div style={canvas}>
             <GridContainer >
               <GridItem id="log" style={log} xs={12} sm={12} md={4}>
                 <Card plain>
