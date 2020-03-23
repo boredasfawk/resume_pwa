@@ -18,8 +18,7 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
-import image2 from "@Assets/images/error.jpeg"
-import { url } from "inspector";
+// import image2 from "@Assets/images/error.jpeg"
 const canvas = {
   display: "flex",
   flexDirection: "column",
