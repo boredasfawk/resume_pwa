@@ -165,7 +165,7 @@ class TeamSection extends Component {
       this.skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
       this.materialArray = [];
       const setMaterial = () => {
-        for (let i = 0; i < this.url.length; i++) {
+        for (let i = 0; i < this.urls.length; i++) {
           let loadedTex = this.textureCube.load(this.urls[i])
           this.materialArray.push(new THREE.MeshBasicMaterial({
             map: loadedTex,
