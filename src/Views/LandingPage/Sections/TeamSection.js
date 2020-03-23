@@ -60,7 +60,7 @@ class TeamSection extends Component {
     }
 
     // Functions
-    this.handleWindowResize = this.handleWindowResize.bind(this)
+    // this.handleWindowResize = this.handleWindowResize.bind(this)
   }
 
   // LIFECYCLES
@@ -95,10 +95,11 @@ class TeamSection extends Component {
       console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
-      const width = this.node.clientWidth;
-      const height = this.node.clientHeight;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
+      this.evaContainer.style.height = '60vh';
+      const height = this.node.clientHeight;
+      const width = this.evaContainer.clientWidth;
 
       this.node.appendChild(this.evaContainer);
       // SET SCENE
@@ -115,7 +116,7 @@ class TeamSection extends Component {
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 25;
+      const fov = 45;
       const aspectRatio = (width / height);
       const nearPlane = 1;
       const farPlane = 5000;
@@ -126,12 +127,10 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(40, -10, 1000);
+      this.camera.position.set(0, 100, 400);
 
       // render size of size and add it elm
       this.renderer.setSize(width, height);
-      // make renderer elm child of evacontainer
-      this.renderer.domElement.style.height = '60vh';
       // Stats
       this.stats.showPanel(0);
       this.renderer.domElement.appendChild(this.stats.dom);
@@ -228,18 +227,29 @@ class TeamSection extends Component {
       );
 
       // Create ground
-      this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
-      this.groundGeo = new THREE.PlaneGeometry(400, 400);
-      this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
-      this.ground.combine = THREE.MixOperation;
-      this.ground.shininess = 30;
-      this.ground.metal = true;
-      this.ground.position.y = -80;
-      this.negPI = -Math.PI;
-      this.devNegPi = (this.negPI / 2);
-      this.ground.rotation.x = this.devNegPi;
-      this.ground.doubleSided = true;
-      this.scene.add(this.ground);
+      // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
+      // this.groundGeo = new THREE.PlaneGeometry(400, 400);
+      // this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
+      // this.ground.combine = THREE.MixOperation;
+      // this.ground.shininess = 30;
+      // this.ground.metal = true;
+      // this.ground.position.y = -80;
+      // this.negPI = -Math.PI;
+      // this.devNegPi = (this.negPI / 2);
+      // this.ground.rotation.x = this.devNegPi;
+      // this.ground.doubleSided = true;
+      // this.scene.add(this.ground);
+
+      this.floorTexture = new THREE.ImageUtils.loadTexture('@Assets/images/error.jpeg');
+      this.floorTexture.wrapS = THREE.RepeatWrapping;
+      this.floorTexture.wrapT = THREE.RepeatWrapping;
+      this.floorTexture.repeat.set(10, 10);
+      this.floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+      this.floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+      this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
+      this.floor.position.y = -100.5;
+      this.floor.rotation.x = Math.PI / 2;
+      this.scene.add(this.floor);
 
 
       // RENDER SCENE
@@ -255,8 +265,16 @@ class TeamSection extends Component {
       }
       render();
 
+      // Resizes dom elm based on windows
+      const handleWindowResize = (width, height, renderer, camera) => {
+        // Updates render/camera with current size of dom is then updates position of all cameras
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
       // Resizes rendered scene mobil responsiveness
-      window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
+      window.addEventListener('resize', handleWindowResize(width, height, this.renderer, this.camera));
     }
   }
 
@@ -269,13 +287,7 @@ class TeamSection extends Component {
 
   // FUNCTIONS
 
-  // Resizes dom elm based on windows
-  handleWindowResize = (width, height, renderer, camera) => {
-    // Updates render/camera with current size of dom is then updates position of all cameras
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  }
+
 
 
   render() {
@@ -297,7 +309,7 @@ class TeamSection extends Component {
           name='threeCanvas'
           id="threeCanvas"
           className={classes.section}
-          ref={ref => this.props.threeRef = ref} id="canvas"
+          ref={ref => this.props.threeRef = ref}
         >
           <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
           <div style={canvas}>
