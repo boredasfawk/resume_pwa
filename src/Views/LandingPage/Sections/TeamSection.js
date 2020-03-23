@@ -105,8 +105,6 @@ class TeamSection extends Component {
 
       // Create scene
       this.scene = new THREE.Scene();
-      // Create skybox scene
-      this.sceneCube = new THREE.Scene();
       // Render graphics in dom
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -248,11 +246,9 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
-        this.cameraCube.rotation.copy(this.camera.rotation);
         this.renderer.clear();
         // Renders sets and cycles animation through event loop
         this.stats.begin();
-        this.renderer.render(this.sceneCube, this.cameraCube);
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
@@ -260,7 +256,7 @@ class TeamSection extends Component {
       render();
 
       // Resizes rendered scene mobil responsiveness
-      window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera, this.cameraCube));
+      window.addEventListener('resize', this.handleWindowResize(width, height, this.renderer, this.camera));
     }
   }
 
@@ -274,14 +270,11 @@ class TeamSection extends Component {
   // FUNCTIONS
 
   // Resizes dom elm based on windows
-  handleWindowResize = (width, height, renderer, camera, cameraCube) => {
+  handleWindowResize = (width, height, renderer, camera) => {
     // Updates render/camera with current size of dom is then updates position of all cameras
     renderer.setSize(width, height);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-
-    cameraCube.aspect = width / height;
-    cameraCube.updateProjectionMatrix();
   }
 
 
