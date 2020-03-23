@@ -131,10 +131,9 @@ class TeamSection extends Component {
       this.camera.position.set(0, 100, 200);
 
       // render size of size and add it elm
-      this.renderer.setClearColor(0xffffff);
+
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(width, height);
-      this.renderer.domElement.style.height = '60vh';
       // Stats
       this.stats.showPanel(0);
       this.renderer.domElement.appendChild(this.stats.dom);
