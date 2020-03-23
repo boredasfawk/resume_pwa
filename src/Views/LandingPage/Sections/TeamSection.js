@@ -267,7 +267,7 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
-        this.skyBox.position.copy(this.camera.position);
+        //this.skyBox.position.copy(this.camera.position);
         // Renders sets and cycles animation through event loop
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
