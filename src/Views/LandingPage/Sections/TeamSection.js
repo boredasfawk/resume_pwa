@@ -99,6 +99,7 @@ class TeamSection extends Component {
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
       this.evaContainer.style.height = '60vh';
+      console.log({ evaCon: this.evaContainer }, 'evacontainer')
       const height = this.evaContainer.clientHeight;
       const width = this.evaContainer.clientWidth;
 
@@ -175,7 +176,7 @@ class TeamSection extends Component {
       }
       setMaterial();
 
-      this.skyMaterial = new THREE.MeshFaceMaterial(this.materialArray);
+      this.skyMaterial = this.materialArray;
       this.skyBox = new THREE.Mesh(this.skyGeometry, this.skyMaterial);
       this.scene.add(this.skyBox);
 
@@ -255,7 +256,8 @@ class TeamSection extends Component {
       this.floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
       this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
       this.floor.position.y = -100.5;
-      this.floor.rotation.x = Math.PI / 2;
+      const x = (Math.PI / 2)
+      this.floor.rotation.x = x;
       this.scene.add(this.floor);
 
 
