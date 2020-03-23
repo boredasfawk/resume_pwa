@@ -120,7 +120,7 @@ class TeamSection extends Component {
       const fov = 45;
       const aspectRatio = (width / height);
       const nearPlane = 1;
-      const farPlane = 5000;
+      const farPlane = 1000;
       this.camera = new THREE.PerspectiveCamera(
         fov,
         aspectRatio,
@@ -187,7 +187,6 @@ class TeamSection extends Component {
       // Setcube & materials to skybox
       this.materialCube = new THREE.MeshBasicMaterial(this.urls);
       this.skyBox = new THREE.Mesh(this.Skyboxcub, this.materialCube);
-      this.skyBox.scale.set(50, 50, 50);
       this.scene.add(this.skyBox);
 
       console.log({ skyBox: this.skyBox }, { skymaterial: this.materialCube }, { skyGeometry: this.Skyboxcube }, 'sky cube');
