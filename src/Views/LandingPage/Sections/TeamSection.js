@@ -187,8 +187,8 @@ class TeamSection extends Component {
       // Skybox
       this.Skyboxcube = new THREE.CubeGeometry(2000, 2000, 2000);
       // Setcube & materials to skybox
-      this.materialCube = new THREE.MeshBasicMaterial({ envmap: this.urls });
-      this.skyBox = new THREE.Mesh(this.Skyboxcub, this.materialCube);
+      this.materialCube = new THREE.MeshBasicMaterial({ map: this.urls });
+      this.skyBox = new THREE.Mesh(this.Skyboxcube, this.materialCube);
       this.scene.add(this.skyBox);
 
       console.log({ skyBox: this.skyBox }, { skymaterial: this.materialCube }, { skyGeometry: this.Skyboxcube }, 'sky cube');
