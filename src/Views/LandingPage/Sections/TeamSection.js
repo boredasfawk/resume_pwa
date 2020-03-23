@@ -99,7 +99,7 @@ class TeamSection extends Component {
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
       this.evaContainer.style.height = '60vh';
-      const height = this.node.clientHeight;
+      const height = this.evaContainer.clientHeight;
       const width = this.evaContainer.clientWidth;
 
       this.node.appendChild(this.evaContainer);
@@ -132,6 +132,7 @@ class TeamSection extends Component {
 
       // render size of size and add it elm
       this.renderer.setSize(width, height);
+      this.renderer.domElement.style.height = '60vh';
       // Stats
       this.stats.showPanel(0);
       this.renderer.domElement.appendChild(this.stats.dom);
