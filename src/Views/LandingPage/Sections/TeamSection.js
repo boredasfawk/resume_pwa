@@ -307,7 +307,7 @@ class TeamSection extends Component {
       <React.Fragment>
         <div
           name='threeCanvas'
-          id="threeCanvas"
+          id="canvas"
           className={classes.section}
           ref={ref => this.props.threeRef = ref}
         >
