@@ -19,6 +19,7 @@ import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
 import image2 from "@Assets/images/error.jpeg"
+import { url } from "inspector";
 const canvas = {
   display: "flex",
   flexDirection: "column",
@@ -98,11 +99,9 @@ class TeamSection extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
-      this.node.style.height = '60vh';
-      console.log({ evaCon: this.node }, 'evacontainer')
+
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
-      console.log({ evaCon: this.node }, 'evacontainer')
 
       this.node.appendChild(this.evaContainer);
       // SET SCENE
@@ -130,7 +129,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 100, 400);
+      this.camera.position.set(0, 100, 200);
 
       // render size of size and add it elm
       this.renderer.setSize(width, height);
@@ -162,18 +161,20 @@ class TeamSection extends Component {
       // Set textures to skybox
       this.textureCube = new THREE.CubeTextureLoader();
       this.textureCube.setCrossOrigin('anonymous');
-      this.loadedTex = this.textureCube.load(this.urls)
+
 
       this.skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
       this.materialArray = [];
       const setMaterial = () => {
-        for (let i = 0; i < 6; i++)
+        for (let i = 0; i < this.url.length; i++) {
+          let loadedTex = this.textureCube.load(this.urls[i])
           this.materialArray.push(new THREE.MeshBasicMaterial({
-            map: this.loadedTex,
+            map: loadedTex,
             side: THREE.BackSide
             // workaround for Chrome 30 ANGLE bug
             //THREE.DoubleSide;
           }));
+        }
       }
       setMaterial();
 
@@ -181,7 +182,7 @@ class TeamSection extends Component {
       this.skyBox = new THREE.Mesh(this.skyGeometry, this.skyMaterial);
       this.scene.add(this.skyBox);
 
-      console.log({ skyBox: this.skyBox }, 'sky cube');
+      console.log({ skyBox: this.skyBox }, { skymaterial: this.skyMaterial }, { skyGeometry: this.skyGeometry }, 'sky cube');
       // CREATE MODELS
 
       // creating textures for eva
