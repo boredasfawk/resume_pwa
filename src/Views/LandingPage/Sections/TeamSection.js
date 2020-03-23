@@ -138,6 +138,7 @@ class TeamSection extends Component {
       this.node.style.height = 'initial';
       // Stats
       this.stats.showPanel(0);
+      this.stats.dom.style.right = '1rem';
       this.renderer.domElement.appendChild(this.stats.dom);
 
       this.evaContainer.appendChild(this.renderer.domElement);
@@ -185,7 +186,7 @@ class TeamSection extends Component {
       ];
 
       // Skybox
-      this.Skyboxcube = new THREE.CubeGeometry(1000, 1000, 1000);
+      this.Skyboxcube = new THREE.CubeGeometry(2000, 2000, 2000);
       // Setcube & materials to skybox
       this.materialCube = new THREE.MeshBasicMaterial({ map: this.urls });
       this.skyBox = new THREE.Mesh(this.Skyboxcub, this.materialCube);
@@ -208,12 +209,12 @@ class TeamSection extends Component {
       this.light.position.multiplyScalar(30);
       this.scene.add(this.light);
 
-      this.light = new THREE.PointLight(0xffffff, 0.75);
-      this.light.position.set(-12, 4.6, 2.4);
-      this.light.position.multiplyScalar(30);
-      this.scene.add(this.light);
-
-      this.scene.add(new THREE.AmbientLight(0x050505));
+      this.light2 = new THREE.PointLight(0xffffff, 0.75);
+      this.light2.position.set(-12, 4.6, 2.4);
+      this.light2.position.multiplyScalar(30);
+      this.scene.add(this.light2);
+      this.ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5)
+      this.scene.add(this.ambientLight);
 
       // LOADER
       this.dateObj = new Date();
@@ -257,6 +258,7 @@ class TeamSection extends Component {
       // RENDER SCENE
       this.requestID = null;
       const render = () => {
+        this.controls.update();
         this.skyBox.position.copy(this.camera.position);
         // Renders sets and cycles animation through event loop
         this.stats.begin();
