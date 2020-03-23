@@ -18,6 +18,7 @@ import CardBody from "@Components/Hero/Card/CardBody.js";
 import styles from "@Styles/teamStyle.js";
 // Images
 import image from "@Assets/images/olo.jpeg";
+import image2 from "@Assets/images/error.jpeg"
 const canvas = {
   display: "flex",
   flexDirection: "column",
@@ -240,10 +241,12 @@ class TeamSection extends Component {
       // this.ground.doubleSided = true;
       // this.scene.add(this.ground);
 
-      this.floorTexture = new THREE.TextureLoader('@Assets/images/error.jpeg');
+      this.floorTexture = new THREE.TextureLoader().load(`${image2}`);
+      console.log({ flrTrx: this.floorTexture }, 'floor');
       this.floorTexture.wrapS = THREE.RepeatWrapping;
       this.floorTexture.wrapT = THREE.RepeatWrapping;
       this.floorTexture.repeat.set(10, 10);
+      console.log({ flrTrx: this.floorTexture }, 'floor');
       this.floorMaterial = new THREE.MeshBasicMaterial({
         map: this.floorTexture,
         side: THREE.DoubleSide
