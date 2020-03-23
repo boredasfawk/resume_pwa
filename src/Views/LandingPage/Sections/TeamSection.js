@@ -240,11 +240,14 @@ class TeamSection extends Component {
       // this.ground.doubleSided = true;
       // this.scene.add(this.ground);
 
-      this.floorTexture = new THREE.ImageUtils.loadTexture('@Assets/images/error.jpeg');
+      this.floorTexture = new THREE.TextureLoader('@Assets/images/error.jpeg');
       this.floorTexture.wrapS = THREE.RepeatWrapping;
       this.floorTexture.wrapT = THREE.RepeatWrapping;
       this.floorTexture.repeat.set(10, 10);
-      this.floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+      this.floorMaterial = new THREE.MeshBasicMaterial({
+        map: this.floorTexture,
+        side: THREE.DoubleSide
+      });
       this.floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
       this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
       this.floor.position.y = -100.5;
