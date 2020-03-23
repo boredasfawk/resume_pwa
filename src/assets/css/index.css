@@ -1,3 +1,7 @@
 body {
   background-color: hsl(240, 50%, 1%) !important
 }
+
+canvas {
+  height: 60vh !important;
+}
