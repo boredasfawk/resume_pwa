@@ -113,6 +113,7 @@ class TeamSection extends Component {
         clearColor: 0xffffff,
         clearAlpha: 1
       });
+      this.renderer.autoClear = false;
       // Stat abstraction from threejs
       this.stats = new Stats();
       // TEST
@@ -134,6 +135,7 @@ class TeamSection extends Component {
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(width, height);
+      this.node.style.height = 'initial';
       // Stats
       this.stats.showPanel(0);
       this.renderer.domElement.appendChild(this.stats.dom);
@@ -153,39 +155,39 @@ class TeamSection extends Component {
         // back side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_bk.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         }),
         // front side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_ft.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         }),
         // Top side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_up.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         }),
         // Bottom side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_dn.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         }),
         // right side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         }),
         // left side
         new THREE.MeshBasicMaterial({
           map: new THREE.TextureLoader().load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg'),
-          side: THREE.DoubleSide
+          side: THREE.BackSide
         })
       ];
 
       // Skybox
       this.Skyboxcube = new THREE.CubeGeometry(1000, 1000, 1000);
       // Setcube & materials to skybox
-      this.materialCube = new THREE.MeshBasicMaterial(this.urls);
+      this.materialCube = new THREE.MeshBasicMaterial({ map: this.urls });
       this.skyBox = new THREE.Mesh(this.Skyboxcub, this.materialCube);
       this.scene.add(this.skyBox);
 
@@ -255,9 +257,7 @@ class TeamSection extends Component {
       // RENDER SCENE
       this.requestID = null;
       const render = () => {
-        this.controls.update();
         this.skyBox.position.copy(this.camera.position);
-        this.renderer.clear();
         // Renders sets and cycles animation through event loop
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
