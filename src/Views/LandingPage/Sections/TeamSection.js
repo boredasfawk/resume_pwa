@@ -81,6 +81,7 @@ class TeamSection extends Component {
       console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
+      this.node.style.height = '60vh';
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
       this.evaContainer = document.createElement("div");
