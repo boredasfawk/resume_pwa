@@ -24,17 +24,31 @@ const canvas = {
   zIndex: 1
 }
 
+// background: rgba(20, 120, 20, 0.5);
+// overflow: hidden;
+// width: 18vw;
+// height: 60vh;
+// font-size: 0.7rem;
+// position: absolute;
+// border: 3px solid rgb(255, 255, 255);
+// border-radius: 1px;
+// color: rgb(255, 255, 255);
+// font-family: arial;
+// left FONT-WEIGHT: 100;
+// left: 3.3rem;
+
 const log = {
   background: "rgba(20, 120, 20, 0.5)",
   overflow: "hidden",
-  width: "25vw",
-  height: "56vh",
+  width: "18vw",
+  height: "60vh",
   fontSize: ".7rem",
   position: "absolute",
-  border: "3px solid #FFF",
+  border: "2px solid #FFF",
   borderRadius: "1px",
   color: "#FFF",
-  fontFamily: "arial"
+  fontFamily: "arial",
+  left: "3.3rem"
 }
 
 
@@ -81,7 +95,6 @@ class TeamSection extends Component {
       console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
-      this.node.style.height = '60vh';
       const width = this.node.clientWidth;
       const height = this.node.clientHeight;
       this.evaContainer = document.createElement("div");
@@ -115,12 +128,12 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(40, -10, 100);
+      this.camera.position.set(40, -10, 1000);
 
       // render size of size and add it elm
       this.renderer.setSize(width, height);
       // make renderer elm child of evacontainer
-      this.renderer.domElement.style.position = "relative";
+      this.renderer.domElement.style.height = '60vh';
       this.evaContainer.appendChild(this.renderer.domElement);
       this.renderer.autoClear = false;
       // Set camera controls to render in dom elem
@@ -157,12 +170,29 @@ class TeamSection extends Component {
       // Set textures to skybox
       this.textureCube = new THREE.CubeTextureLoader();
       this.textureCube.setCrossOrigin('anonymous');
-      this.textureCube.load(this.urls);
 
-      console.log({ tcube: this.textureCube }, { urls: this.urls }, 'texturecube');
+      this.skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
+
+      this.materialArray = [];
+      const setMaterial = () => {
+        for (let i = 0; i < 6; i++)
+          this.materialArray.push(new THREE.MeshBasicMaterial({
+            map: this.textureCube.load(this.urls),
+            side: THREE.BackSide
+            // workaround for Chrome 30 ANGLE bug
+            //THREE.DoubleSide;
+          }));
+      }
+      setMaterial();
+
+      this.skyMaterial = new THREE.MeshFaceMaterial(this.materialArray);
+      this.skyBox = new THREE.Mesh(this.skyGeometry, this.skyMaterial);
+      this.sceneCube.add(this.skyBox);
+
+      console.log({ skyBox: this.skyBox }, 'texturecube');
       // Stats
       this.stats.showPanel(0);
-      this.renderer.domElement.appendChild(this.stats.domElement);
+      this.renderer.domElement.appendChild(this.stats.dom);
       // CREATE MODELS
 
       // creating textures for eva
@@ -172,26 +202,6 @@ class TeamSection extends Component {
       this.evaTextureBody = new THREE.Texture(this.evaBody);
       this.evaTextureBody.encoding = THREE.sRGBEncoding // color correction NEED
       this.evaTextureBody.needsUpdate = true;
-
-      // Skeleton of object
-      this.shader = THREE.ShaderLib["cube"];
-      this.shader.uniforms["tCube"] = { value: this.textureCube };
-      console.log(this.shader, 'shader');
-
-      this.material = new THREE.ShaderMaterial({
-        fragmentShader: this.shader.fragmentShader,
-        vertexShader: this.shader.vertexShader,
-        uniforms: this.shader.uniforms,
-        depthWrite: false,
-        side: THREE.BackSide
-      });
-
-      console.log(this.material, 'material');
-      // workaround for Chrome 30 ANGLE bug
-      this.material.side = THREE.DoubleSide;
-
-      this.mesh = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), this.material);
-      this.sceneCube.add(this.mesh);
 
       // LIGHTS
       this.light = new THREE.PointLight(0xffffff, 1);
@@ -235,7 +245,6 @@ class TeamSection extends Component {
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
       this.groundGeo = new THREE.PlaneGeometry(400, 400);
       this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
-      console.log({ groundMat: this.ground }, 'for skybox')
       this.ground.envMap = this.textureCube;
       this.ground.combine = THREE.MixOperation;
       this.ground.shininess = 30;
@@ -252,19 +261,16 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
-
         this.cameraCube.rotation.copy(this.camera.rotation);
         this.renderer.clear();
-        this.renderer.render(this.sceneCube, this.cameraCube);
-        this.renderer.render(this.scene, this.camera);
         // Renders sets and cycles animation through event loop
         this.stats.begin();
+        this.renderer.render(this.sceneCube, this.cameraCube);
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
       render();
-      this.stats.update(); // TEST
 
       // Resizes rendered scene mobil responsiveness
       (this.renderer !== undefined) &&
