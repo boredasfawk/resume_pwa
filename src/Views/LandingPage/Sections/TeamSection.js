@@ -98,7 +98,7 @@ class TeamSection extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
-
+      this.node.style.height = '60vh';
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
 
@@ -160,28 +160,19 @@ class TeamSection extends Component {
       // Set textures to skybox
       this.textureCube = new THREE.CubeTextureLoader();
       this.textureCube.setCrossOrigin('anonymous');
+      this.loadedTex = this.textureCube.load(this.urls)
 
+      this.textureMesh = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        envmap: this.loadedTex,
+        side: THREE.BackSide
+      });
 
-      this.skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
-      this.materialArray = [];
-      const setMaterial = () => {
-        for (let i = 0; i < this.urls.length; i++) {
-          let loadedTex = this.textureCube.load(this.urls[i])
-          this.materialArray.push(new THREE.MeshBasicMaterial({
-            map: loadedTex,
-            side: THREE.BackSide
-            // workaround for Chrome 30 ANGLE bug
-            //THREE.DoubleSide;
-          }));
-        }
-      }
-      setMaterial();
-
-      this.skyMaterial = this.materialArray;
-      this.skyBox = new THREE.Mesh(this.skyGeometry, this.skyMaterial);
+      this.skyBox = new THREE.Mesh(this.skyGeometry, this.textureMesh);
+      this.skyBox.scale.set(50, 50, 50);
       this.scene.add(this.skyBox);
 
-      console.log({ skyBox: this.skyBox }, { skymaterial: this.skyMaterial }, { skyGeometry: this.skyGeometry }, 'sky cube');
+      console.log({ skyBox: this.skyBox }, { skymaterial: this.textureMesh }, { skyGeometry: this.skyGeometry }, 'sky cube');
       // CREATE MODELS
 
       // creating textures for eva
@@ -266,6 +257,7 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
+        this.skyBox.position.copy(this.camera.position);
         this.renderer.clear();
         // Renders sets and cycles animation through event loop
         this.stats.begin();
