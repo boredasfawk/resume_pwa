@@ -110,8 +110,8 @@ class TeamSection extends Component {
       // Render graphics in dom
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
-        clearColor: 0xffffff,
-        clearAlpha: 1
+        // clearColor: 0xffffff,
+        // clearAlpha: 1
       });
       this.renderer.autoClear = false;
       // Stat abstraction from threejs
@@ -129,7 +129,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 100, 200);
+      this.camera.position.set(40, 100, 200);
 
       // render size of size and add it elm
 
@@ -185,7 +185,7 @@ class TeamSection extends Component {
       ];
 
       // Skybox
-      this.Skyboxcube = new THREE.CubeGeometry(2000, 2000, 2000);
+      this.Skyboxcube = new THREE.CubeGeometry(500, 500, 500);
       // Setcube & materials to skybox
       this.materialCube = new THREE.MeshBasicMaterial({ envMap: this.urls });
       this.skyBox = new THREE.Mesh(this.Skyboxcube, this.materialCube);
