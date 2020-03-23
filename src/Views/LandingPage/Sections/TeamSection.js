@@ -230,35 +230,35 @@ class TeamSection extends Component {
       );
 
       // Create ground
-      // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
-      // this.groundGeo = new THREE.PlaneGeometry(400, 400);
-      // this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
-      // this.ground.combine = THREE.MixOperation;
-      // this.ground.shininess = 30;
-      // this.ground.metal = true;
-      // this.ground.position.y = -80;
-      // this.negPI = -Math.PI;
-      // this.devNegPi = (this.negPI / 2);
-      // this.ground.rotation.x = this.devNegPi;
-      // this.ground.doubleSided = true;
-      // this.scene.add(this.ground);
+      this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
+      this.groundGeo = new THREE.PlaneGeometry(400, 400);
+      this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
+      this.ground.combine = THREE.MixOperation;
+      this.ground.shininess = 30;
+      this.ground.metal = true;
+      this.ground.position.y = -80;
+      this.negPI = -Math.PI;
+      this.devNegPi = (this.negPI / 2);
+      this.ground.rotation.x = this.devNegPi;
+      this.ground.doubleSided = true;
+      this.scene.add(this.ground);
 
-      this.floorTexture = new THREE.TextureLoader().load(`${image2}`);
-      console.log({ flrTrx: this.floorTexture }, 'floor');
-      this.floorTexture.wrapS = THREE.RepeatWrapping;
-      this.floorTexture.wrapT = THREE.RepeatWrapping;
-      this.floorTexture.repeat.set(10, 10);
-      console.log({ flrTrx: this.floorTexture }, 'floor');
-      this.floorMaterial = new THREE.MeshBasicMaterial({
-        map: this.floorTexture,
-        side: THREE.DoubleSide
-      });
-      this.floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
-      this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
-      this.floor.position.y = -100.5;
-      const x = (Math.PI / 2)
-      this.floor.rotation.x = x;
-      this.scene.add(this.floor);
+      // this.floorTexture = new THREE.TextureLoader().load(`${image2}`);
+      // console.log({ flrTrx: this.floorTexture }, 'floor');
+      // this.floorTexture.wrapS = THREE.RepeatWrapping;
+      // this.floorTexture.wrapT = THREE.RepeatWrapping;
+      // this.floorTexture.repeat.set(10, 10);
+      // console.log({ flrTrx: this.floorTexture }, 'floor');
+      // this.floorMaterial = new THREE.MeshBasicMaterial({
+      //   map: this.floorTexture,
+      //   side: THREE.DoubleSide
+      // });
+      // this.floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+      // this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
+      // this.floor.position.y = -100.5;
+      // const x = (Math.PI / 2)
+      // this.floor.rotation.x = x;
+      // this.scene.add(this.floor);
 
 
       // RENDER SCENE
