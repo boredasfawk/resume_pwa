@@ -186,12 +186,12 @@ class TeamSection extends Component {
       // Skybox
       this.Skyboxcube = new THREE.CubeGeometry(1000, 1000, 1000);
       // Setcube & materials to skybox
-      this.materialCube = new THREE.MeshFaceMaterial(this.urls)()
+      this.materialCube = new THREE.MeshBasicMaterial(this.urls);
       this.skyBox = new THREE.Mesh(this.Skyboxcub, this.materialCube);
       this.skyBox.scale.set(50, 50, 50);
       this.scene.add(this.skyBox);
 
-      console.log({ skyBox: this.skyBox }, { skymaterial: this.textureMesh }, { skyGeometry: this.skyGeometry }, 'sky cube');
+      console.log({ skyBox: this.skyBox }, { skymaterial: this.materialCube }, { skyGeometry: this.Skyboxcube }, 'sky cube');
       // CREATE MODELS
 
       // creating textures for eva
