@@ -98,10 +98,11 @@ class TeamSection extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
-      this.evaContainer.style.height = '60vh';
-      console.log({ evaCon: this.evaContainer }, 'evacontainer')
-      const height = this.evaContainer.clientHeight;
-      const width = this.evaContainer.clientWidth;
+      this.node.style.height = '60vh';
+      console.log({ evaCon: this.node }, 'evacontainer')
+      const height = this.node.clientHeight;
+      const width = this.node.clientWidth;
+      console.log({ evaCon: this.node }, 'evacontainer')
 
       this.node.appendChild(this.evaContainer);
       // SET SCENE
