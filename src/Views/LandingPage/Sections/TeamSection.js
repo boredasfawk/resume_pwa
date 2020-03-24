@@ -178,7 +178,6 @@ class TeamSection extends Component {
 
       // LOADER
 
-      this.OBJLoader = new OBJLoader();
       // this.position = new THREE.Vector3(0, -80, 0);
       // this.scale = new THREE.Vector3(1, 1, 1);
 
@@ -197,19 +196,21 @@ class TeamSection extends Component {
       //     this.scene.add(content);
       //   }
       // );
-      console.log({ objldr: this.OBJLoader }, 'objloader')
+      this.OBJLoader = new OBJLoader();
+      const addMaterials = (materials, OBJLoader) => {
+        materials.preload();
+        console.log({ materials }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
+        OBJLoader.setMaterials(materials);
+        OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/EVA01.obj',
+          function (object) {
+            object.position.y = -95;
+            this.scene.add(object);
+          }, onProgress, onError);
+      }
       this.MTLLoader = new MTLLoader();
       this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      this.MTLLoader.load('EVA01.mtl', function (materials) {
-        console.log({ materials }, 'mtlloader')
-        materials.preload();
-        this.OBJLoader.setMaterials(materials);
-        this.OBJLoader.load('EVA01.obj', function (object) {
-          object.position.y = -95;
-          this.scene.add(object);
-        }, onProgress, onError);
-      });
+      // this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
+      this.MTLLoader.load('EVA01.mtl', addMaterials(materials, this.OBJLoader));
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
