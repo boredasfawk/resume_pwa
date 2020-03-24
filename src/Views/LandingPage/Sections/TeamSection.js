@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+// Threejs
 import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+import { MtlObjBridge } from 'three/examples/jsm/loaders/obj2/bridge/MtlObjBridge';
+// Utils
 import Stats from 'stats.js';
 import classNames from "classnames";
 // @material-ui/core components
@@ -152,55 +156,16 @@ class TeamSection extends Component {
       // Load images into mesh
       this.texLoader = new THREE.CubeTextureLoader();
 
-      // this.urls = [
-      //   // back side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_bk.jpg'),
-      //     side: THREE.BackSide
-      //   }),
-      //   // front side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_ft.jpg'),
-      //     side: THREE.BackSide
-      //   }),
-      //   // Top side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_up.jpg'),
-      //     side: THREE.BackSide
-      //   }),
-      //   // Bottom side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_dn.jpg'),
-      //     side: THREE.BackSide
-      //   }),
-      //   // right side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg'),
-      //     side: THREE.BackSide
-      //   }),
-      //   // left side
-      //   new THREE.MeshBasicMaterial({
-      //     map: this.texLoader.load('https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg'),
-      //     side: THREE.BackSide
-      //   })
-      // ];
-
       // Skybox
       this.textureCube = this.texLoader.load([
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_bk.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_ft.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_up.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_dn.jpg',
-        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg',
-        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg'
+        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg',
+        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg'
       ])
       this.scene.background = this.textureCube;
-      // Setcube & materials to skybox
-      // this.materialCube = new THREE.MeshBasicMaterial({ envMap: this.urls });
-      // this.skyBox = new THREE.Mesh(this.Skyboxcube, this.materialCube);
-      // this.scene.add(this.skyBox);
-
-      // console.log({ skyBox: this.skyBox }, { skymaterial: this.materialCube }, { skyGeometry: this.Skyboxcube }, 'sky cube');
       // CREATE MODELS
 
       // creating textures for eva
@@ -236,14 +201,13 @@ class TeamSection extends Component {
       this.OBJLoader.load(
         'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
         (content) => {
-          console.log(content, 'in OBJloader');
-          // hackMaterials(materials);
-          // let mesh = new THREE.Mesh(
-          //   geometry,
-          //   new THREE.MeshFaceMaterial(materials)
-          // );
-          // mesh.scale = scale;
-          // mesh.position = position;
+          console.log(content, 'in OBJloader - object');
+          const mtlLoader = new MTLLoader();
+          mtlLoader.load('resources/models/windmill/windmill.mtl', (mtlParseResult) => {
+            const materials = MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
+            console.log({ mtlLoader }, { materials }, { mtlParseResult }, 'in OBJloade - material');
+            this.OBJLoader.addMaterials(materials);
+          });
           this.scene.add(content);
           let end = this.dateObj.getTime();
           console.log("load time:", end - this.start, "ms", 'in jsonloader');
