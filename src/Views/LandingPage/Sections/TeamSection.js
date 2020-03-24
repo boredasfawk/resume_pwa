@@ -4,7 +4,6 @@ import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { MtlObjBridge } from 'three/examples/jsm/loaders/obj2/bridge/MtlObjBridge';
 // Utils
 import Stats from 'stats.js';
 import classNames from "classnames";
@@ -28,19 +27,6 @@ const canvas = {
   flexDirection: "column",
   zIndex: 1
 }
-
-// background: rgba(20, 120, 20, 0.5);
-// overflow: hidden;
-// width: 18vw;
-// height: 60vh;
-// font-size: 0.7rem;
-// position: absolute;
-// border: 3px solid rgb(255, 255, 255);
-// border-radius: 1px;
-// color: rgb(255, 255, 255);
-// font-family: arial;
-// left FONT-WEIGHT: 100;
-// left: 3.3rem;
 
 const log = {
   background: "rgba(20, 120, 20, 0.5)",
@@ -191,28 +177,38 @@ class TeamSection extends Component {
       this.scene.add(this.ambientLight);
 
       // LOADER
-      this.dateObj = new Date();
-      this.start = this.dateObj.getTime();
+
       this.OBJLoader = new OBJLoader();
+      // this.position = new THREE.Vector3(0, -80, 0);
+      // this.scale = new THREE.Vector3(1, 1, 1);
 
-      this.position = new THREE.Vector3(0, -80, 0);
-      this.scale = new THREE.Vector3(1, 1, 1);
+      // this.OBJLoader.load(
+      //   'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
+      //   (content) => {
+      //     console.log(content, 'in OBJloader - object');
+      //     const mtlLoader = new MTLLoader();
+      //     mtlLoader.load('resources/models/windmill/windmill.mtl', (mtlParseResult) => {
 
-      this.OBJLoader.load(
-        'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
-        (content) => {
-          console.log(content, 'in OBJloader - object');
-          const mtlLoader = new MTLLoader();
-          mtlLoader.load('resources/models/windmill/windmill.mtl', (mtlParseResult) => {
-            const materials = MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
-            console.log({ mtlLoader }, { materials }, { mtlParseResult }, 'in OBJloade - material');
-            this.OBJLoader.addMaterials(materials);
-          });
-          this.scene.add(content);
-          let end = this.dateObj.getTime();
-          console.log("load time:", end - this.start, "ms", 'in jsonloader');
-        }
-      );
+
+      //       const materials = MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
+      //       console.log({ mtlLoader }, { materials }, { mtlParseResult }, 'in OBJloade - material');
+      //       this.OBJLoader.addMaterials(materials);
+      //     });
+      //     this.scene.add(content);
+      //   }
+      // );
+
+      this.mtlLoader = new MTLLoader();
+      this.mtlLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
+      this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
+      this.mtlLoader.load('EVA01.mtl', function (materials) {
+        materials.preload();
+        this.OBJLoader.setMaterials(materials);
+        objLoader.load('EVA01.obj', function (object) {
+          object.position.y = -95;
+          this.scene.add(object);
+        }, onProgress, onError);
+      });
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
@@ -321,3 +317,209 @@ export default withStyles(styles)(React.forwardRef(
     <TeamSection threeRef={ref} {...props} />
   )
 ));
+
+// use to wrap materials around obj
+/*
+this.materialCreator = new THREE.MTLLoader.MaterialCreator()
+this.materialCreator.prototype.createMaterial(materialName) = > {
+
+  let scope = this;
+  let mat = this.materialsInfo[ materialName ];
+  let params = {
+   name: materialName
+   };
+
+
+  for ( var prop in mat ) {
+
+       var value = mat[ prop ];
+       var n;
+
+       if ( value === '' ) continue;
+
+        switch ( prop.toLowerCase() ) {
+
+          case 'map_kd':
+
+             // Diffuse texture map
+
+             setMapForType( "map", value );
+
+             break;
+
+         default:
+           break;
+
+        }
+}
+
+*/
+// createMaterial_: function ( materialName ) {
+
+//   // Create material
+
+//   var scope = this;
+//   var mat = this.materialsInfo[ materialName ];
+//   var params = {
+
+//     name: materialName,
+//     side: this.side
+
+//   };
+
+//   function resolveURL( baseUrl, url ) {
+
+//     if ( typeof url !== 'string' || url === '' )
+//       return '';
+
+//     // Absolute URL
+//     if ( /^https?:\/\//i.test( url ) ) return url;
+
+//     return baseUrl + url;
+
+//   }
+
+//   function setMapForType( mapType, value ) {
+
+//     if ( params[ mapType ] ) return; // Keep the first encountered texture
+
+//     var texParams = scope.getTextureParams( value, params );
+//     var map = scope.loadTexture( resolveURL( scope.baseUrl, texParams.url ) );
+
+//     map.repeat.copy( texParams.scale );
+//     map.offset.copy( texParams.offset );
+
+//     map.wrapS = scope.wrap;
+//     map.wrapT = scope.wrap;
+
+//     params[ mapType ] = map;
+
+//   }
+
+//   for ( var prop in mat ) {
+
+//     var value = mat[ prop ];
+//     var n;
+
+//     if ( value === '' ) continue;
+
+//     switch ( prop.toLowerCase() ) {
+
+//       // Ns is material specular exponent
+
+//       case 'kd':
+
+//         // Diffuse color (color under white light) using RGB values
+
+//         params.color = new THREE.Color().fromArray( value );
+
+//         break;
+
+//       case 'ks':
+
+//         // Specular color (color when light is reflected from shiny surface) using RGB values
+//         params.specular = new THREE.Color().fromArray( value );
+
+//         break;
+
+//       case 'ke':
+
+//         // Emissive using RGB values
+//         params.emissive = new THREE.Color().fromArray( value );
+
+//         break;
+
+//       case 'map_kd':
+
+//         // Diffuse texture map
+
+//         setMapForType( "map", value );
+
+//         break;
+
+//       case 'map_ks':
+
+//         // Specular map
+
+//         setMapForType( "specularMap", value );
+
+//         break;
+
+//       case 'map_ke':
+
+//         // Emissive map
+
+//         setMapForType( "emissiveMap", value );
+
+//         break;
+
+//       case 'norm':
+
+//         setMapForType( "normalMap", value );
+
+//         break;
+
+//       case 'map_bump':
+//       case 'bump':
+
+//         // Bump texture map
+
+//         setMapForType( "bumpMap", value );
+
+//         break;
+
+//       case 'map_d':
+
+//         // Alpha map
+
+//         setMapForType( "alphaMap", value );
+//         params.transparent = true;
+
+//         break;
+
+//       case 'ns':
+
+//         // The specular exponent (defines the focus of the specular highlight)
+//         // A high exponent results in a tight, concentrated highlight. Ns values normally range from 0 to 1000.
+
+//         params.shininess = parseFloat( value );
+
+//         break;
+
+//       case 'd':
+//         n = parseFloat( value );
+
+//         if ( n < 1 ) {
+
+//           params.opacity = n;
+//           params.transparent = true;
+
+//         }
+
+//         break;
+
+//       case 'tr':
+//         n = parseFloat( value );
+
+//         if ( this.options && this.options.invertTrProperty ) n = 1 - n;
+
+//         if ( n > 0 ) {
+
+//           params.opacity = 1 - n;
+//           params.transparent = true;
+
+//         }
+
+//         break;
+
+//       default:
+//         break;
+
+//     }
+
+//   }
+
+//   this.materials[ materialName ] = new THREE.MeshPhongMaterial( params );
+//   return this.materials[ materialName ];
+
+// },
