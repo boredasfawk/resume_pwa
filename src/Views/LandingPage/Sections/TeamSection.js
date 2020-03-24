@@ -118,7 +118,7 @@ class TeamSection extends Component {
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 45;
+      const fov = 75;
       const aspectRatio = (width / height);
       const nearPlane = 1;
       const farPlane = 1000;
@@ -129,7 +129,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-40, 100, 220);
+      this.camera.position.set(-40, 150, 220);
 
       // render size of size and add it elm
 
@@ -150,7 +150,8 @@ class TeamSection extends Component {
       this.renderer.physicallyBasedShading = true;
       // SKYBOX
       // Load images into mesh
-      this.texLoader = new THREE.TextureLoader();
+      this.texLoader = new THREE.CubeTextureLoader();
+
       // this.urls = [
       //   // back side
       //   new THREE.MeshBasicMaterial({
@@ -193,10 +194,10 @@ class TeamSection extends Component {
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg'
       ])
+      this.scene.background = this.textureCube;
       // Setcube & materials to skybox
       // this.materialCube = new THREE.MeshBasicMaterial({ envMap: this.urls });
       // this.skyBox = new THREE.Mesh(this.Skyboxcube, this.materialCube);
-      this.scene.background = this.textureCube;
       // this.scene.add(this.skyBox);
 
       // console.log({ skyBox: this.skyBox }, { skymaterial: this.materialCube }, { skyGeometry: this.Skyboxcube }, 'sky cube');
@@ -256,7 +257,7 @@ class TeamSection extends Component {
       this.ground.combine = THREE.MixOperation;
       this.ground.shininess = 30;
       this.ground.metal = true;
-      this.ground.position.y = -80;
+      this.ground.position.y = 0;
       this.negPI = -Math.PI;
       this.devNegPi = (this.negPI / 2);
       this.ground.rotation.x = this.devNegPi;
