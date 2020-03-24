@@ -197,14 +197,15 @@ class TeamSection extends Component {
       //     this.scene.add(content);
       //   }
       // );
-
-      this.mtlLoader = new MTLLoader();
-      this.mtlLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
+      console.log({ objldr: this.OBJLoader }, 'objloader')
+      this.MTLLoader = new MTLLoader();
+      this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
       this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      this.mtlLoader.load('EVA01.mtl', function (materials) {
+      this.MTLLoader.load('EVA01.mtl', function (materials) {
+        console.log({ materials }, 'mtlloader')
         materials.preload();
         this.OBJLoader.setMaterials(materials);
-        objLoader.load('EVA01.obj', function (object) {
+        this.OBJLoader.load('EVA01.obj', function (object) {
           object.position.y = -95;
           this.scene.add(object);
         }, onProgress, onError);
