@@ -220,7 +220,7 @@ class TeamSection extends Component {
         this.scene.add(gltf.scene)
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
-        (gltf) => startAnimation(gltf, mixer)
+        (gltf) => startAnimation(gltf, this.mixer)
       );
 
       // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
@@ -244,7 +244,7 @@ class TeamSection extends Component {
         // let speed = Date.now() * 0.00011;
         // this.camera.position.y = Math.cos(speed) * 10;
         // Renders sets and cycles animation through event loop
-        console.log(this.camera.position)
+        // console.log(this.camera.position)
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
