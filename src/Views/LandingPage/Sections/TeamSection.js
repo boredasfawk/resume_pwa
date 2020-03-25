@@ -249,7 +249,7 @@ class TeamSection extends Component {
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
-        this.mixer.update(delta);
+        (this.mixer !== null) && this.mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
