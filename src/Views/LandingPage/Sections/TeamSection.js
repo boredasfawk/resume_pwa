@@ -119,7 +119,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-40, 150, 220);
+      this.camera.position.set(0, 150, 320);
 
       // render size of size and add it elm
 
@@ -193,7 +193,7 @@ class TeamSection extends Component {
         // Sets materials to obj
         OBJLoader.setMaterials(materialCreator);
         // Load objec from cloud and add materials
-        OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/EVA01.obj',
+        OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585107780/eva/EVA02.obj',
           (object) => addScene(object, scene)
         );
       }
