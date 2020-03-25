@@ -108,7 +108,7 @@ class TeamSection extends Component {
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 75;
+      const fov = 80;
       const aspectRatio = (width / height);
       const nearPlane = 1;
       const farPlane = 1000;
@@ -119,7 +119,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 150, 320);
+      this.camera.position.set(0, 220, 220);
 
       // render size of size and add it elm
 
@@ -193,7 +193,7 @@ class TeamSection extends Component {
         // Sets materials to obj
         OBJLoader.setMaterials(materialCreator);
         // Load objec from cloud and add materials
-        OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585107780/eva/EVA02.obj',
+        OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585108949/eva/EVA02.obj',
           (object) => addScene(object, scene)
         );
       }
@@ -206,7 +206,7 @@ class TeamSection extends Component {
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
-      this.groundGeo = new THREE.PlaneGeometry(700, 700);
+      this.groundGeo = new THREE.PlaneGeometry(420, 420);
       this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
       this.ground.combine = THREE.MixOperation;
       this.ground.shininess = 30;
