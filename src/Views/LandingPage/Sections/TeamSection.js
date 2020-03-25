@@ -217,15 +217,20 @@ class TeamSection extends Component {
       this.ground.rotation.x = this.devNegPi;
       this.ground.doubleSided = true;
       this.scene.add(this.ground);
+      this.camera.lookAt(this.scene.position);
 
       // RENDER SCENE
       this.requestID = null;
       const render = () => {
         this.controls.update();
-        //this.skyBox.position.copy(this.camera.position);
+        //using timer as animation
+        let speed = Date.now() * 0.00005;
+        this.camera.position.x = Math.cos(speed) * 10;
+        this.camera.position.z = Math.sin(speed) * 10;
         // Renders sets and cycles animation through event loop
         console.log(this.camera.position)
         this.stats.begin();
+        this.camera.lookAt(this.scene.position);
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
@@ -313,208 +318,94 @@ export default withStyles(styles)(React.forwardRef(
   )
 ));
 
-// use to wrap materials around obj
 /*
-this.materialCreator = new THREE.MTLLoader.MaterialCreator()
-this.materialCreator.prototype.createMaterial(materialName) = > {
+//SET UP SCENE & CAMERA
+var scene;
+var camera;
 
-  let scope = this;
-  let mat = this.materialsInfo[ materialName ];
-  let params = {
-   name: materialName
-   };
+//SET UP SHAPES & MATERIAL
+var geometry;
+var material;
+var mesh;
+
+  add geomerty and material to mesh.
+  mesh(geomerty, matrial)
 
 
-  for ( var prop in mat ) {
+//RENDER THE SCENE
+var renderer;
 
-       var value = mat[ prop ];
-       var n;
+init();
+animate();
 
-       if ( value === '' ) continue;
+function init() {
 
-        switch ( prop.toLowerCase() ) {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);  10000 the vanishing point(how far you can see)
 
-          case 'map_kd':
+  //x,y,z. increase the camera height on the y axis
+  camera.position.set(0, 2, 0);
 
-             // Diffuse texture map
+  //looks in the center of the scene since that where we always start when creating a scene. 0,0,0
+  camera.lookAt(scene.position);
 
-             setMapForType( "map", value );
+  //set size to full screen
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
-             break;
+  //add to the DOM
+  document.body.appendChild(renderer.domElement);
 
-         default:
-           break;
+  //increase the steps to make squares bigger. must be divisible by the size
+  var size = 20,
+    steps = 2;
 
-        }
+  geometry = new THREE.Geometry();
+  material = new THREE.LineBasicMaterial({
+    color: 'teal'
+  });
+
+  for (var i = -size; i <= size; i += steps) {
+    //draw lines one way
+    geometry.vertices.push(new THREE.Vector3(-size, -0.04, i));
+    geometry.vertices.push(new THREE.Vector3(size, -0.04, i));
+
+    //draw lines the other way
+    geometry.vertices.push(new THREE.Vector3(i, -0.04, -size));
+    geometry.vertices.push(new THREE.Vector3(i, -0.04, size));
+  }
+
+  //THREE.LinePieces prevents connecting of vertices
+  var line = new THREE.LineSegments(geometry, material, THREE.LinePieces);
+
+  scene.add(line);
+
+  //always render the scene
+  render();
 }
 
+function animate() {
+  requestAnimationFrame(animate);
+  render();
+}
+
+//resize viewport
+window.addEventListener('resize', function(){
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	renderer.setSize( width, height);
+
+	camera.aspect = width / height;
+	camera.updateProjectionMatrix();
+});
+
+function render() {
+  //using timer as animation
+  var speed = Date.now() * 0.00005;
+  camera.position.x = Math.cos(speed) * 10;
+  camera.position.z = Math.sin(speed) * 10;
+
+  camera.lookAt(scene.position); //0,0,0
+  renderer.render(scene, camera);
+}
 */
-// createMaterial_: function ( materialName ) {
-
-//   // Create material
-
-//   var scope = this;
-//   var mat = this.materialsInfo[ materialName ];
-//   var params = {
-
-//     name: materialName,
-//     side: this.side
-
-//   };
-
-//   function resolveURL( baseUrl, url ) {
-
-//     if ( typeof url !== 'string' || url === '' )
-//       return '';
-
-//     // Absolute URL
-//     if ( /^https?:\/\//i.test( url ) ) return url;
-
-//     return baseUrl + url;
-
-//   }
-
-//   function setMapForType( mapType, value ) {
-
-//     if ( params[ mapType ] ) return; // Keep the first encountered texture
-
-//     var texParams = scope.getTextureParams( value, params );
-//     var map = scope.loadTexture( resolveURL( scope.baseUrl, texParams.url ) );
-
-//     map.repeat.copy( texParams.scale );
-//     map.offset.copy( texParams.offset );
-
-//     map.wrapS = scope.wrap;
-//     map.wrapT = scope.wrap;
-
-//     params[ mapType ] = map;
-
-//   }
-
-//   for ( var prop in mat ) {
-
-//     var value = mat[ prop ];
-//     var n;
-
-//     if ( value === '' ) continue;
-
-//     switch ( prop.toLowerCase() ) {
-
-//       // Ns is material specular exponent
-
-//       case 'kd':
-
-//         // Diffuse color (color under white light) using RGB values
-
-//         params.color = new THREE.Color().fromArray( value );
-
-//         break;
-
-//       case 'ks':
-
-//         // Specular color (color when light is reflected from shiny surface) using RGB values
-//         params.specular = new THREE.Color().fromArray( value );
-
-//         break;
-
-//       case 'ke':
-
-//         // Emissive using RGB values
-//         params.emissive = new THREE.Color().fromArray( value );
-
-//         break;
-
-//       case 'map_kd':
-
-//         // Diffuse texture map
-
-//         setMapForType( "map", value );
-
-//         break;
-
-//       case 'map_ks':
-
-//         // Specular map
-
-//         setMapForType( "specularMap", value );
-
-//         break;
-
-//       case 'map_ke':
-
-//         // Emissive map
-
-//         setMapForType( "emissiveMap", value );
-
-//         break;
-
-//       case 'norm':
-
-//         setMapForType( "normalMap", value );
-
-//         break;
-
-//       case 'map_bump':
-//       case 'bump':
-
-//         // Bump texture map
-
-//         setMapForType( "bumpMap", value );
-
-//         break;
-
-//       case 'map_d':
-
-//         // Alpha map
-
-//         setMapForType( "alphaMap", value );
-//         params.transparent = true;
-
-//         break;
-
-//       case 'ns':
-
-//         // The specular exponent (defines the focus of the specular highlight)
-//         // A high exponent results in a tight, concentrated highlight. Ns values normally range from 0 to 1000.
-
-//         params.shininess = parseFloat( value );
-
-//         break;
-
-//       case 'd':
-//         n = parseFloat( value );
-
-//         if ( n < 1 ) {
-
-//           params.opacity = n;
-//           params.transparent = true;
-
-//         }
-
-//         break;
-
-//       case 'tr':
-//         n = parseFloat( value );
-
-//         if ( this.options && this.options.invertTrProperty ) n = 1 - n;
-
-//         if ( n > 0 ) {
-
-//           params.opacity = 1 - n;
-//           params.transparent = true;
-
-//         }
-
-//         break;
-
-//       default:
-//         break;
-
-//     }
-
-//   }
-
-//   this.materials[ materialName ] = new THREE.MeshPhongMaterial( params );
-//   return this.materials[ materialName ];
-
-// },
