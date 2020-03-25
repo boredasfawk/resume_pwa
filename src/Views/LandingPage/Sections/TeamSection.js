@@ -134,7 +134,7 @@ class TeamSection extends Component {
       // Set camera controls to render in dom elem
       this.controls = new TrackballControls(this.camera, this.renderer.domElement);
       this.controls.dynamicDampingFactor = 0.25;
-      this.controls.enableZoom = false;
+      // this.controls.enableZoom = false;
       // Renderer color correction and shading
       this.renderer.outputEncoding = THREE.sRGBEncoding;
       this.renderer.physicallyBasedShading = true;
