@@ -112,7 +112,7 @@ class TeamSection extends Component {
       const fov = 85;
       const aspectRatio = (width / height);
       const nearPlane = 1;
-      const farPlane = 1000;
+      const farPlane = 2300;
       this.camera = new THREE.PerspectiveCamera(
         fov,
         aspectRatio,
@@ -120,7 +120,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-286, 291, 64);
+      this.camera.position.set(-286, 291, 84);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -174,7 +174,7 @@ class TeamSection extends Component {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
           console.log({ graphicObj: object }, 'objLoader')
-          object.position.y = 35;
+          object.position.y = 45;
           scene.add(object);
         }
         // Loads materials from cloud
@@ -213,7 +213,7 @@ class TeamSection extends Component {
       this.mixer = null;
 
       const startAnimation = (gltf, mixer) => {
-        gltf.scene.scale.set(15, 15, 15);
+        gltf.scene.scale.set(25, 25, 25);
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation')
         let action = mixer.clipAction(gltf.animations[0]);
@@ -249,7 +249,7 @@ class TeamSection extends Component {
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
-        if (this.mixer !== null) this.mixer.update(delta);
+        this.mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
