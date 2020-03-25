@@ -215,7 +215,8 @@ class TeamSection extends Component {
         );
       }
       this.MTLLoader = new MTLLoader();
-      this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/image/upload/v1585095975/eva/');
+      this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585095975/eva/');
+      this.MTLLoader.setResourcePath('https://res.cloudinary.com/boredasfawk/image/upload/v1585095975/eva/');
       this.MTLLoader.load('EVA01.mtl',
         (materials) => addMaterials(materials, this.OBJLoader, this.scene)
       );
