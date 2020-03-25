@@ -210,16 +210,17 @@ class TeamSection extends Component {
       // Creating Virtual city model for ground
       this.GLTFLoader = new GLTFLoader();
       this.clock = new THREE.Clock();
-      const _self = this;
+      this.mixer = null;
 
-      const startAnimation = (gltf, component) => {
-        component.mixer = new THREE.AnimationMixer(gltf.scene);
+      const startAnimation = (gltf, mixer) => {
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        console.log({ gltfmixer: mixer }, 'gltf animation')
         let action = mixer.clipAction(gltf.animations[0]);
         action.play()
         this.scene.add(gltf.scene)
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
-        (gltf) => startAnimation(gltf, _self)
+        (gltf) => startAnimation(gltf, mixer)
       );
 
       // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
@@ -246,8 +247,8 @@ class TeamSection extends Component {
         console.log(this.camera.position)
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
-        let delta = clock.getDelta();
-        if (this.mixer) this.mixer.update(delta);
+        let delta = this.clock.getDelta();
+        if (this.mixer !== null) this.mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
