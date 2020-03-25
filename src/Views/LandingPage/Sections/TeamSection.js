@@ -73,13 +73,13 @@ class TeamSection extends Component {
     //CORS! CORS!
     THREE.ImageUtils.crossOrigin = "";
     // Build eva head image
-    this.evaHead = new Image();
-    this.evaHead.crossOrigin = ''
-    this.evaHead.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MHead01_D01_V01_SK1_aeticm.jpg';
-    // Build eva body image
-    this.evaBody = new Image();
-    this.evaBody.crossOrigin = "";
-    this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg';
+    // this.evaHead = new Image();
+    // this.evaHead.crossOrigin = ''
+    // this.evaHead.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MHead01_D01_V01_SK1_aeticm.jpg';
+    // // Build eva body image
+    // this.evaBody = new Image();
+    // this.evaBody.crossOrigin = "";
+    // this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg';
 
     if (this.props.threeRef.id === 'canvas') {
       // TEST
@@ -155,12 +155,12 @@ class TeamSection extends Component {
       // CREATE MODELS
 
       // creating textures for eva
-      this.evaTextureHead = new THREE.Texture(this.evaHead);
-      this.evaTextureHead.encoding = THREE.sRGBEncoding // color correction NEED
-      this.evaTextureHead.needsUpdate = true;
-      this.evaTextureBody = new THREE.Texture(this.evaBody);
-      this.evaTextureBody.encoding = THREE.sRGBEncoding // color correction NEED
-      this.evaTextureBody.needsUpdate = true;
+      // this.evaTextureHead = new THREE.Texture(this.evaHead);
+      // this.evaTextureHead.encoding = THREE.sRGBEncoding // color correction NEED
+      // this.evaTextureHead.needsUpdate = true;
+      // this.evaTextureBody = new THREE.Texture(this.evaBody);
+      // this.evaTextureBody.encoding = THREE.sRGBEncoding // color correction NEED
+      // this.evaTextureBody.needsUpdate = true;
 
       // LIGHTS
       this.light = new THREE.PointLight(0xffffff, 1);
@@ -197,20 +197,28 @@ class TeamSection extends Component {
       //   }
       // );
       this.OBJLoader = new OBJLoader();
-      const addMaterials = (materials, OBJLoader) => {
+      // Load materials for cloud and add to scene
+      const addMaterials = (materials, OBJLoader, scene) => {
+        // Adds new objcet to scene and adjusts position
+        const addScene = (object, scene) => {
+          object.position.y = -95;
+          scene.add(object);
+        }
+        // Loads materials from cloud
         materials.preload();
         console.log({ materials }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
+        // Sets materials to obj
         OBJLoader.setMaterials(materials);
+        // Load objec from cloud and add materials
         OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/EVA01.obj',
-          function (object) {
-            object.position.y = -95;
-            this.scene.add(object);
-          });
+          (object) => addScene(object, scene)
+        );
       }
       this.MTLLoader = new MTLLoader();
-      this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      // this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      this.MTLLoader.load('EVA01.mtl', (materials) => addMaterials(materials, this.OBJLoader));
+      this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/image/upload/v1585095975/eva/');
+      this.MTLLoader.load('EVA01.mtl',
+        (materials) => addMaterials(materials, this.OBJLoader, this.scene)
+      );
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
