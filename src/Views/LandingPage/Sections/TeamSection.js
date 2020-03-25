@@ -146,8 +146,8 @@ class TeamSection extends Component {
       this.textureCube = this.texLoader.load([
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_bk.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_ft.jpg',
-        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_up.jpg',
-        'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_dn.jpg',
+        'https://res.cloudinary.com/boredasfawk/image/upload/a_180/v1584760885/skybox/humble_up.jpg',
+        'https://res.cloudinary.com/boredasfawk/image/upload/a_180/v1584760885/skybox/humble_dn.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_lf.jpg',
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg'
       ])
@@ -187,7 +187,7 @@ class TeamSection extends Component {
         mHead.envMap = refTextures;
         mHead.combine = THREE.MixOperation;
         mHead.reflectivity = 0.03;
-        console.log({ materials }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
+        console.log({ materials: materialCreator }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
         // Sets materials to obj
         OBJLoader.setMaterials(materialCreator);
         // Load objec from cloud and add materials
