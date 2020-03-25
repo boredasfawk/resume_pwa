@@ -213,7 +213,7 @@ class TeamSection extends Component {
       this.mixer = null;
 
       const startAnimation = (gltf, mixer) => {
-        gltf.scene.scale.set(4, 4, 4);
+        gltf.scene.scale.set(15, 15, 15);
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation')
         let action = mixer.clipAction(gltf.animations[0]);
