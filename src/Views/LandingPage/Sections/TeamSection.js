@@ -173,7 +173,7 @@ class TeamSection extends Component {
       const addMaterials = (materialCreator, OBJLoader, scene, refTextures) => {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
-          object.position.y = 95;
+          object.scale = new THREE.Vector3(1, 1, 1);
           scene.add(object);
         }
         // Loads materials from cloud
@@ -182,11 +182,13 @@ class TeamSection extends Component {
         let mBody = materialCreator.materials["Material__467"];
         mBody.envMap = refTextures;
         mBody.combine = THREE.MixOperation;
-        mBody.reflectivity = 0.03;
+        mBody.reflectivity = 0.33;
         let mHead = materialCreator.materials["Material__463"];
         mHead.envMap = refTextures;
         mHead.combine = THREE.MixOperation;
-        mHead.reflectivity = 0.03;
+        mHead.reflectivity = 0.33;
+        let mWire = materialCreator.materials["wire_174186203"];
+        mWire.visible = false;
         console.log({ materials: materialCreator }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
         // Sets materials to obj
         OBJLoader.setMaterials(materialCreator);
@@ -204,7 +206,7 @@ class TeamSection extends Component {
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
-      this.groundGeo = new THREE.PlaneGeometry(400, 400);
+      this.groundGeo = new THREE.PlaneGeometry(700, 700);
       this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
       this.ground.combine = THREE.MixOperation;
       this.ground.shininess = 30;
