@@ -173,6 +173,7 @@ class TeamSection extends Component {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
           console.log({ graphicObj: object }, 'objLoader')
+          object.position.y = 35;
           scene.add(object);
         }
         // Loads materials from cloud
@@ -204,18 +205,34 @@ class TeamSection extends Component {
       );
 
       // Create ground
-      this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
-      this.groundGeo = new THREE.PlaneGeometry(420, 420);
-      this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
-      this.ground.combine = THREE.MixOperation;
-      this.ground.shininess = 30;
-      this.ground.metal = true;
-      this.ground.position.y = 0;
-      this.negPI = -Math.PI;
-      this.devNegPi = (this.negPI / 2);
-      this.ground.rotation.x = this.devNegPi;
-      this.ground.doubleSided = true;
-      this.scene.add(this.ground);
+
+      // model
+      this.GLTFLoader = new THREE.GLTFLoader();
+      this.clock = new THREE.Clock();
+      const _self = this;
+
+      const startAnimation = (gltf, component) => {
+        component.mixer = new THREE.AnimationMixer(gltf.scene);
+        let action = mixer.clipAction(gltf.animations[0]);
+        action.play()
+        this.scene.add(gltf.scene)
+      }
+      this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
+        (gltf) => startAnimation(gltf, _self)
+      );
+
+      // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
+      // this.groundGeo = new THREE.PlaneGeometry(420, 420);
+      // this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
+      // this.ground.combine = THREE.MixOperation;
+      // this.ground.shininess = 30;
+      // this.ground.metal = true;
+      // this.ground.position.y = 0;
+      // this.negPI = -Math.PI;
+      // this.devNegPi = (this.negPI / 2);
+      // this.ground.rotation.x = this.devNegPi;
+      // this.ground.doubleSided = true;
+      // this.scene.add(this.ground);
 
       // RENDER SCENE
       this.requestID = null;
@@ -228,6 +245,8 @@ class TeamSection extends Component {
         console.log(this.camera.position)
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
+        let delta = clock.getDelta();
+        if (this.mixer) this.mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
