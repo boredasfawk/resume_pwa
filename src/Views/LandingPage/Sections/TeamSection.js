@@ -205,7 +205,7 @@ class TeamSection extends Component {
           function (object) {
             object.position.y = -95;
             this.scene.add(object);
-          }, onProgress, onError);
+          });
       }
       this.MTLLoader = new MTLLoader();
       this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
