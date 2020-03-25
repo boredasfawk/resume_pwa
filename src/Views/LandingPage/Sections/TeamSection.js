@@ -152,15 +152,6 @@ class TeamSection extends Component {
         'https://res.cloudinary.com/boredasfawk/image/upload/v1584760885/skybox/humble_rt.jpg'
       ])
       this.scene.background = this.textureCube;
-      // CREATE MODELS
-
-      // creating textures for eva
-      // this.evaTextureHead = new THREE.Texture(this.evaHead);
-      // this.evaTextureHead.encoding = THREE.sRGBEncoding // color correction NEED
-      // this.evaTextureHead.needsUpdate = true;
-      // this.evaTextureBody = new THREE.Texture(this.evaBody);
-      // this.evaTextureBody.encoding = THREE.sRGBEncoding // color correction NEED
-      // this.evaTextureBody.needsUpdate = true;
 
       // LIGHTS
       this.light = new THREE.PointLight(0xffffff, 1);
@@ -176,39 +167,29 @@ class TeamSection extends Component {
       this.ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5)
       this.scene.add(this.ambientLight);
 
-      // LOADER
-
-      // this.position = new THREE.Vector3(0, -80, 0);
-      // this.scale = new THREE.Vector3(1, 1, 1);
-
-      // this.OBJLoader.load(
-      //   'https://res.cloudinary.com/boredasfawk/raw/upload/v1584764455/eva/EVA01_kbg7rq.obj',
-      //   (content) => {
-      //     console.log(content, 'in OBJloader - object');
-      //     const mtlLoader = new MTLLoader();
-      //     mtlLoader.load('resources/models/windmill/windmill.mtl', (mtlParseResult) => {
-
-
-      //       const materials = MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
-      //       console.log({ mtlLoader }, { materials }, { mtlParseResult }, 'in OBJloade - material');
-      //       this.OBJLoader.addMaterials(materials);
-      //     });
-      //     this.scene.add(content);
-      //   }
-      // );
+      // CREATE MODELS
       this.OBJLoader = new OBJLoader();
       // Load materials for cloud and add to scene
-      const addMaterials = (materials, OBJLoader, scene) => {
+      const addMaterials = (materialCreator, OBJLoader, scene, refTextures) => {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
-          object.position.y = -95;
+          object.position.y = 95;
           scene.add(object);
         }
         // Loads materials from cloud
-        materials.preload();
+        materialCreator.preload();
+        // Access materials to add depth with city reflection
+        let mBody = materialCreator.materials["Material__467"];
+        mBody.envMap = refTextures;
+        mBody.combine = THREE.MixOperation;
+        mBody.reflectivity = 0.03;
+        let mHead = materialCreator.materials["Material__463"];
+        mHead.envMap = refTextures;
+        mHead.combine = THREE.MixOperation;
+        mHead.reflectivity = 0.03;
         console.log({ materials }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
         // Sets materials to obj
-        OBJLoader.setMaterials(materials);
+        OBJLoader.setMaterials(materialCreator);
         // Load objec from cloud and add materials
         OBJLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/EVA01.obj',
           (object) => addScene(object, scene)
@@ -218,7 +199,7 @@ class TeamSection extends Component {
       this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585095975/eva/');
       this.MTLLoader.setResourcePath('https://res.cloudinary.com/boredasfawk/image/upload/v1585095975/eva/');
       this.MTLLoader.load('EVA01.mtl',
-        (materials) => addMaterials(materials, this.OBJLoader, this.scene)
+        (materialCreator) => addMaterials(materialCreator, this.OBJLoader, this.scene, this.textureCube)
       );
 
       // Create ground
