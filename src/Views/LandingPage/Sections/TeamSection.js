@@ -173,7 +173,7 @@ class TeamSection extends Component {
       const addMaterials = (materialCreator, OBJLoader, scene, refTextures) => {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
-          object.scale = new THREE.Vector3(1, 1, 1);
+          console.log({ graphicObj: object }, 'objLoader')
           scene.add(object);
         }
         // Loads materials from cloud
