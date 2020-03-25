@@ -119,8 +119,8 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-95, 300, 120);
-
+      this.camera.position.set(0, 220, 220);
+      this.camera.lookAt(this.scene.position);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -134,7 +134,7 @@ class TeamSection extends Component {
       // Set camera controls to render in dom elem
       this.controls = new TrackballControls(this.camera, this.renderer.domElement);
       this.controls.dynamicDampingFactor = 0.25;
-      // this.controls.enableZoom = false;
+      this.controls.enableZoom = false;
       // Renderer color correction and shading
       this.renderer.outputEncoding = THREE.sRGBEncoding;
       this.renderer.physicallyBasedShading = true;
@@ -217,20 +217,18 @@ class TeamSection extends Component {
       this.ground.rotation.x = this.devNegPi;
       this.ground.doubleSided = true;
       this.scene.add(this.ground);
-      this.camera.lookAt(this.scene.position);
 
       // RENDER SCENE
       this.requestID = null;
       const render = () => {
         this.controls.update();
         //using timer as animation
-        let speed = Date.now() * 0.00005;
+        let speed = Date.now() * 0.00011;
         this.camera.position.x = Math.cos(speed) * 10;
         this.camera.position.z = Math.sin(speed) * 10;
         // Renders sets and cycles animation through event loop
         console.log(this.camera.position)
         this.stats.begin();
-        this.camera.lookAt(this.scene.position);
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
