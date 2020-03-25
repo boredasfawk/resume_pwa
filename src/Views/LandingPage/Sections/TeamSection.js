@@ -108,7 +108,7 @@ class TeamSection extends Component {
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 80;
+      const fov = 85;
       const aspectRatio = (width / height);
       const nearPlane = 1;
       const farPlane = 1000;
@@ -119,7 +119,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 220, 220);
+      this.camera.position.set(-95, 300, 120);
 
       // render size of size and add it elm
 
@@ -224,6 +224,7 @@ class TeamSection extends Component {
         this.controls.update();
         //this.skyBox.position.copy(this.camera.position);
         // Renders sets and cycles animation through event loop
+        console.log(this.camera.position)
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         this.requestID = window.requestAnimationFrame(render);
