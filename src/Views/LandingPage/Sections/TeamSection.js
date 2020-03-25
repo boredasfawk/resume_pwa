@@ -109,10 +109,10 @@ class TeamSection extends Component {
       this.stats = new Stats();
       // TEST
       console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
-      const fov = 85;
+      const fov = 100;
       const aspectRatio = (width / height);
       const nearPlane = 1;
-      const farPlane = 2300;
+      const farPlane = 2400;
       this.camera = new THREE.PerspectiveCamera(
         fov,
         aspectRatio,
@@ -120,7 +120,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-286, 291, 84);
+      this.camera.position.set(-286, 291, 184);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -241,11 +241,12 @@ class TeamSection extends Component {
       this.requestID = null;
       const render = () => {
         this.controls.update();
-        //using timer as animation
-        // let speed = Date.now() * 0.00011;
-        // this.camera.position.y = Math.cos(speed) * 10;
-        // Renders sets and cycles animation through event loop
+        //using timer to rotate camera
+        let speed = Date.now() * 0.00020;
+        this.camera.position.x = Math.cos(speed) * 10;
+        this.camera.position.z = Math.cos(speed) * 10;
         // console.log(this.camera.position)
+        // Renders sets and cycles animation through event loop
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
