@@ -119,8 +119,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 220, 220);
-      this.camera.lookAt(this.scene.position);
+      this.camera.position.set(0, 120, 320);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -225,7 +224,6 @@ class TeamSection extends Component {
         //using timer as animation
         let speed = Date.now() * 0.00011;
         this.camera.position.x = Math.cos(speed) * 10;
-        this.camera.position.z = Math.sin(speed) * 10;
         // Renders sets and cycles animation through event loop
         console.log(this.camera.position)
         this.stats.begin();
