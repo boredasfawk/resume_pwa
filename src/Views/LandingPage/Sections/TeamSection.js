@@ -120,7 +120,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(-286, 291, 184);
+      this.camera.position.set(-286, 291, 224);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -216,8 +216,9 @@ class TeamSection extends Component {
         gltf.scene.scale.set(25, 25, 25);
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation')
-        let action = mixer.clipAction(gltf.animations[0]);
-        action.play()
+        gltf.animations.forEach((clip) => {
+          mixer.clipAction(clip).play();
+        });
         this.scene.add(gltf.scene)
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
@@ -243,8 +244,7 @@ class TeamSection extends Component {
         this.controls.update();
         //using timer to rotate camera
         let speed = Date.now() * 0.00020;
-        this.camera.position.x = Math.cos(speed) * 10;
-        this.camera.position.z = Math.cos(speed) * 10;
+        this.camera.position.y = Math.cos(speed) * 10;
         // console.log(this.camera.position)
         // Renders sets and cycles animation through event loop
         this.stats.begin();
