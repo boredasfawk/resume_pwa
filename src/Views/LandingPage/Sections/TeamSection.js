@@ -210,7 +210,7 @@ class TeamSection extends Component {
       this.MTLLoader = new MTLLoader();
       this.MTLLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
       // this.OBJLoader.setPath('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/');
-      this.MTLLoader.load('EVA01.mtl', addMaterials(materials, this.OBJLoader));
+      this.MTLLoader.load('https://res.cloudinary.com/boredasfawk/raw/upload/v1585091899/eva/EVA01.mtl', addMaterials(materials, this.OBJLoader));
 
       // Create ground
       this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
