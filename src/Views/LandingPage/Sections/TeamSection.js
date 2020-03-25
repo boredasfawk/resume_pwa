@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { GTLFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // Utils
 import Stats from 'stats.js';
 import classNames from "classnames";
@@ -208,18 +208,18 @@ class TeamSection extends Component {
       // Create ground
 
       // Creating Virtual city model for ground
-      this.GTLFLoader = new GTLFLoader();
+      this.GLTFLoader = new GLTFLoader();
       this.clock = new THREE.Clock();
       const _self = this;
 
-      const startAnimation = (gtlf, component) => {
-        component.mixer = new THREE.AnimationMixer(gtlf.scene);
-        let action = mixer.clipAction(gtlf.animations[0]);
+      const startAnimation = (gltf, component) => {
+        component.mixer = new THREE.AnimationMixer(gltf.scene);
+        let action = mixer.clipAction(gltf.animations[0]);
         action.play()
-        this.scene.add(gtlf.scene)
+        this.scene.add(gltf.scene)
       }
-      this.GTLFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gtlf",
-        (gtlf) => startAnimation(gtlf, _self)
+      this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
+        (gltf) => startAnimation(gltf, _self)
       );
 
       // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
