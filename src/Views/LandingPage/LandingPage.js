@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // 3D graphics
-import * as THREE from 'three'
-import FOG from '@Assets/js/3D/vanta.fog.min.js'
+import * as THREE from "three";
+import FOG from "@Assets/js/3D/vanta.fog.min.js";
 // Utils
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
