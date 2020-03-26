@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // 3D graphics
 import * as THREE from 'three'
 import FOG from '@Assets/js/3D/vanta.fog.min.js'
@@ -111,10 +111,10 @@ const LandingPage = (props) => {
           </GridContainer>
         </div>
       </Parallax>
-      <div 
-      ref={ref => props.vantaRef = ref}
-      id="wholeCanvas" 
-      className={classNames(classes.main, classes.mainRaised)}
+      <div
+        ref={ref => props.vantaRef = ref}
+        id="wholeCanvas"
+        className={classNames(classes.main, classes.mainRaised)}
       >
         <div className={classes.container}>
           <TeamSection />
