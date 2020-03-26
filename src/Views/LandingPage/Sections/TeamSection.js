@@ -214,13 +214,10 @@ class TeamSection extends Component {
 
       const startAnimation = (gltf, mixer) => {
         gltf.scene.scale.set(25, 25, 25);
+        this.scene.add(gltf.scene);
         mixer = new THREE.AnimationMixer(gltf.scene);
-        console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation')
-        gltf.animations.forEach((clip) => {
-          console.log({ clip }, 'animation mixer')
-          mixer.clipAction(clip).play();
-        });
-        this.scene.add(gltf.scene)
+        console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation');
+        mixer.clipAction(gltf.animations[0]).play();
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
         (gltf) => startAnimation(gltf, this.mixer)
