@@ -120,7 +120,7 @@ class TeamSection extends Component {
         farPlane
       );
       // Set distance from cude
-      this.camera.position.set(0, 151, 184);
+      this.camera.position.set(-17, 148, 460);
       // render size of size and add it elm
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
