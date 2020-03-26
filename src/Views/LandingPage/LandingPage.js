@@ -85,7 +85,10 @@ const LandingPage = (props) => {
 
 
   return (
-    <div>
+    <div
+      ref={ref => props.vantaRef = ref}
+      id="wholeCanvas"
+    >
       <Header
         color="transparent"
         routes={dashboardRoutes}
@@ -114,8 +117,6 @@ const LandingPage = (props) => {
         </div>
       </Parallax>
       <div
-        ref={ref => props.vantaRef = ref}
-        id="wholeCanvas"
         className={classNames(classes.main, classes.mainRaised)}
       >
         <div className={classes.container}>
