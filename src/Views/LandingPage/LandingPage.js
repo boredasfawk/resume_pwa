@@ -30,22 +30,23 @@ const LandingPage = (props) => {
   const [vantaEffect, setVantaEffect] = useState(0);
   useEffect(() => {
     console.log({ props }, 'landing page - use effect - vanta');
+    const body = document.body
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
       if (!vantaEffect) {
         setVantaEffect(FOG({
-          el: props.vantaRef,
+          el: body,
           THREE: THREE,
-          mouseControls: true,
-          touchControls: true,
+          mouseControls: false,
+          touchControls: false,
           minHeight: 200.00,
           minWidth: 200.00,
           highlightColor: 0x0,
           midtoneColor: 0x8e1b80,
           lowlightColor: 0xfb1bb,
           baseColor: 0x846c6c,
-          blurFactor: 0.48,
+          blurFactor: 0.28,
           speed: 1.20,
-          zoom: 1.10
+          zoom: 1
         }))
       }
     }
