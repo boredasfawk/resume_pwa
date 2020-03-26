@@ -217,7 +217,7 @@ class TeamSection extends Component {
         this.scene.add(gltf.scene);
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation');
-        mixer.clipAction(gltf.animations[0]).play();
+        mixer.clipAction(gltf.animations[0]);
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
         (gltf) => startAnimation(gltf, this.mixer)
@@ -243,11 +243,12 @@ class TeamSection extends Component {
         //using timer to rotate camera
 
         // this.camera.position.x = + .05;
-        console.log(this.camera.position)
+        // console.log(this.camera.position)
         // Renders sets and cycles animation through event loop
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
+        console.log({ delta }, { mixer: this.mixer }, 'animation render');
         (this.mixer !== null) && this.mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
