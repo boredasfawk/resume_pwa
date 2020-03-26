@@ -27,14 +27,13 @@ const dashboardRoutes = [];
 const useStyles = makeStyles(styles);
 
 const LandingPage = (props) => {
-  const { vantaRef } = props
-  const [vantaEffect, setVantaEffect] = useState(0)
+  const [vantaEffect, setVantaEffect] = useState(0);
   useEffect(() => {
-    console.log({ props }, 'landing page - use effect - vanta')
-    if (props.vantaRef.id === 'wholeCanvas') {
+    console.log({ props }, 'landing page - use effect - vanta');
+    if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
       if (!vantaEffect) {
         setVantaEffect(FOG({
-          el: vantaRef,
+          el: props.vantaRef,
           THREE: THREE,
           mouseControls: true,
           touchControls: true,
@@ -55,7 +54,7 @@ const LandingPage = (props) => {
     }
   },
     [vantaEffect]
-  )
+  );
 
   const classes = useStyles();
   const { ...rest } = props;
