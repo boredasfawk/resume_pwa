@@ -210,7 +210,7 @@ class TeamSection extends Component {
       // Creating Virtual city model for ground
       this.GLTFLoader = new GLTFLoader();
       this.clock = new THREE.Clock();
-      this.mixer = null;
+      let mixer = null;
 
       const startAnimation = (gltf, mixer) => {
         gltf.scene.scale.set(25, 25, 25);
@@ -220,7 +220,7 @@ class TeamSection extends Component {
         mixer.clipAction(gltf.animations[0]);
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
-        (gltf) => startAnimation(gltf, this.mixer)
+        (gltf) => startAnimation(gltf, mixer)
       );
 
       // this.groundMat = new THREE.MeshPhongMaterial({ color: 0x404040 });
@@ -238,7 +238,7 @@ class TeamSection extends Component {
 
       // RENDER SCENE
       this.requestID = null;
-      const render = () => {
+      const render = (mixer) => {
         this.controls.update();
         //using timer to rotate camera
 
@@ -248,12 +248,12 @@ class TeamSection extends Component {
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
-        console.log({ delta }, { mixer: this.mixer }, 'animation render');
-        (this.mixer !== null) && this.mixer.update(delta);
+        console.log({ delta }, { mixer: mixer }, 'animation render');
+        (mixer !== null) && mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
-      render();
+      render(mixer);
 
       // Resizes dom elm based on windows
       const handleWindowResize = (width, height, renderer, camera) => {
