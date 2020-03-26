@@ -214,10 +214,12 @@ class TeamSection extends Component {
 
       const startAnimation = (gltf) => {
         gltf.scene.scale.set(25, 25, 25);
-        this.scene.add(gltf.scene);
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation');
-        mixer.clipAction(gltf.animations[0]);
+        gltf.animations.forEach((clip) => {
+          mixer.clipAction(clip).play();
+        });
+        this.scene.add(gltf.scene);
       }
       this.GLTFLoader.load("https://res.cloudinary.com/boredasfawk/raw/upload/v1585118785/VC/virtual_city.gltf",
         (gltf) => startAnimation(gltf)
@@ -249,8 +251,7 @@ class TeamSection extends Component {
         this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
-        console.log({ delta }, { mixer: mixer }, 'animation render');
-        (mixer !== undefined) && mixer.update(delta);
+        if (mixer !== undefined) mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
