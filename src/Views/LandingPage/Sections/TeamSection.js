@@ -217,6 +217,7 @@ class TeamSection extends Component {
         mixer = new THREE.AnimationMixer(gltf.scene);
         console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation')
         gltf.animations.forEach((clip) => {
+          console.log({ clip }, 'animation mixer')
           mixer.clipAction(clip).play();
         });
         this.scene.add(gltf.scene)
@@ -243,8 +244,8 @@ class TeamSection extends Component {
       const render = () => {
         this.controls.update();
         //using timer to rotate camera
-        let speed = Date.now() * 0.00030;
-        this.camera.position.x = Math.cos(speed) * 10;
+
+        this.camera.position.x = + .05;
         // console.log(this.camera.position)
         // Renders sets and cycles animation through event loop
         this.stats.begin();
