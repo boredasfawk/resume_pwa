@@ -30,22 +30,25 @@ const LandingPage = (props) => {
   const { vantaRef } = props
   const [vantaEffect, setVantaEffect] = useState(0)
   useEffect(() => {
-    if (!vantaEffect) {
-      setVantaEffect(FOG({
-        el: vantaRef.current,
-        THREE: THREE,
-        mouseControls: true,
-        touchControls: true,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        highlightColor: 0x0,
-        midtoneColor: 0x8e1b80,
-        lowlightColor: 0xfb1bb,
-        baseColor: 0x846c6c,
-        blurFactor: 0.48,
-        speed: 1.20,
-        zoom: 1.10
-      }))
+    console.log({ props }, 'landing page - use effect - vanta')
+    if (props.vantaRef.id === 'wholeCanvas') {
+      if (!vantaEffect) {
+        setVantaEffect(FOG({
+          el: vantaRef,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0x0,
+          midtoneColor: 0x8e1b80,
+          lowlightColor: 0xfb1bb,
+          baseColor: 0x846c6c,
+          blurFactor: 0.48,
+          speed: 1.20,
+          zoom: 1.10
+        }))
+      }
     }
     return () => {
       if (vantaEffect) vantaEffect.destroy()
