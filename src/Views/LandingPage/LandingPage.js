@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+// 3D graphics
+import * as THREE from 'three'
+import FOG from '@Assets/js/3D/vanta.fog.min.js'
+// Utils
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -22,7 +26,34 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
-export default function LandingPage(props) {
+const LandingPage = (props) => {
+  const { vantaRef } = props
+  const [vantaEffect, setVantaEffect] = useState(0)
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(FOG({
+        el: vantaRef.current,
+        THREE: THREE,
+        mouseControls: true,
+        touchControls: true,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        highlightColor: 0x0,
+        midtoneColor: 0x8e1b80,
+        lowlightColor: 0xfb1bb,
+        baseColor: 0x846c6c,
+        blurFactor: 0.48,
+        speed: 1.20,
+        zoom: 1.10
+      }))
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy()
+    }
+  },
+    [vantaEffect]
+  )
+
   const classes = useStyles();
   const { ...rest } = props;
   const [brand, setBrand] = React.useState({ value: '[JS DEVELOPER]', type: 0 });
@@ -80,8 +111,12 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div id="wholeCanvas" className={classes.container}>
+      <div 
+      ref={ref => props.vantaRef = ref}
+      id="wholeCanvas" 
+      className={classNames(classes.main, classes.mainRaised)}
+      >
+        <div className={classes.container}>
           <TeamSection />
           <ProductSection />
           <WorkSection />
@@ -91,3 +126,9 @@ export default function LandingPage(props) {
     </div>
   );
 }
+
+export default React.forwardRef(
+  (props, ref) => (
+    <LandingPage vantaRef={ref} {...props} />
+  )
+)
