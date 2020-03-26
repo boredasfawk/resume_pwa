@@ -210,7 +210,7 @@ class TeamSection extends Component {
       // Creating Virtual city model for ground
       this.GLTFLoader = new GLTFLoader();
       this.clock = new THREE.Clock();
-      let mixer = null;
+      let mixer;
 
       const startAnimation = (gltf, mixer) => {
         gltf.scene.scale.set(25, 25, 25);
@@ -238,7 +238,7 @@ class TeamSection extends Component {
 
       // RENDER SCENE
       this.requestID = null;
-      const render = (mixer) => {
+      const render = () => {
         this.controls.update();
         //using timer to rotate camera
 
@@ -249,11 +249,11 @@ class TeamSection extends Component {
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
         console.log({ delta }, { mixer: mixer }, 'animation render');
-        (mixer !== null) && mixer.update(delta);
+        (mixer !== undefined && typeof mixer !== 'number') && mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
         this.stats.end();
       }
-      render(mixer);
+      render();
 
       // Resizes dom elm based on windows
       const handleWindowResize = (width, height, renderer, camera) => {
