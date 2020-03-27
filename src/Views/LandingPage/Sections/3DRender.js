@@ -14,7 +14,7 @@ import styles from "@Styles/teamStyle.js";
 // Images
 
 
-class theeDRender extends Component {
+class ThreeDRender extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -268,6 +268,7 @@ class theeDRender extends Component {
           className={classes.section}
           ref={ref => this.props.threeRef = ref}
         >
+          {this.props.children}
         </div >
       </React.Fragment>
     );
@@ -276,6 +277,6 @@ class theeDRender extends Component {
 
 export default withStyles(styles)(React.forwardRef(
   (props, ref) => (
-    <theeDRender threeRef={ref} {...props} />
+    <ThreeDRender threeRef={ref} {...props} />
   )
 ));

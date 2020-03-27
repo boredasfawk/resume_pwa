@@ -21,6 +21,7 @@ import Image from "@Assets/images/landing-bg.jpeg"
 import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
+import ThreeDRender from "./Sections/ThreeDRender.js";
 
 const dashboardRoutes = [];
 
@@ -106,16 +107,18 @@ const LandingPage = (props) => {
 
       <Parallax filter image={Image}>
         <div className={classes.container}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Your ideas becoming <span style={{ color: '#ffff08' }}>reality</span></h1>
-              <h4>
-                I specialize in javascript development. My experience ranges from creating
-                anything from simple sites to complex applications.
+          <ThreeDRender>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={6}>
+                <h1 className={classes.title}>Your ideas becoming <span style={{ color: '#ffff08' }}>reality</span></h1>
+                <h4>
+                  I specialize in javascript development. My experience ranges from creating
+                  anything from simple sites to complex applications.
                 </h4>
-              <br />
-            </GridItem>
-          </GridContainer>
+                <br />
+              </GridItem>
+            </GridContainer>
+          </ThreeDRender>
         </div>
       </Parallax>
       <div
