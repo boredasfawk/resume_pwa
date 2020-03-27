@@ -30,11 +30,11 @@ const LandingPage = (props) => {
   const [vantaEffect, setVantaEffect] = useState(0);
   useEffect(() => {
     console.log({ props }, 'landing page - use effect - vanta');
-    const body = window.document.body
+    const rootBody = window.document.querySelector('#root')
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
       if (!vantaEffect) {
         setVantaEffect(FOG({
-          el: body,
+          el: rootBody,
           THREE: THREE,
           mouseControls: false,
           touchControls: false,
