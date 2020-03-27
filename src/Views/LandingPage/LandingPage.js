@@ -31,6 +31,7 @@ const LandingPage = (props) => {
   useEffect(() => {
     console.log({ props }, 'landing page - use effect - vanta');
     const rootBody = window.document.querySelector('#root')
+    rootBody.style.height = '2800px';
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
       if (!vantaEffect) {
         setVantaEffect(FOG({
@@ -38,8 +39,8 @@ const LandingPage = (props) => {
           THREE: THREE,
           mouseControls: false,
           touchControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
+          minHeight: 2300.00,
+          minWidth: 1200.00,
           highlightColor: 0x0,
           midtoneColor: 0x8e1b80,
           lowlightColor: 0xfb1bb,
