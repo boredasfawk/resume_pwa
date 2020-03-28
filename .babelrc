@@ -78,8 +78,9 @@
           "./"
         ],
         "alias": {
-          "@icons": "./src/components/icons",
-          "@components": "./src/components",
+          "@Assets": "./src/assets",
+          "@Styles": "./src/assets/js/MUIstyles",
+          "@Components": "./src/Components",
           "@constants": "./src/constants"
         }
       }

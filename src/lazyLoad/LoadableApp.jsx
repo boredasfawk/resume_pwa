@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loadable from "react-loadable";
+import App from "../App.js";
 
 const LoadApp = Loadable({
   // tells loadable to import our specified component
@@ -14,6 +15,6 @@ const LoadApp = Loadable({
 // exports our imported components in HOC
 export default class LoadableApp extends Component {
   render() {
-    return <LoadApp />
+    return <App />
   }
 }

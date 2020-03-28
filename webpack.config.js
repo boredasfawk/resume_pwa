@@ -1,6 +1,7 @@
 require('dotenv').config()
 const path = require("path");
 const webpack = require("webpack");
+const autoprefixer = require('autoprefixer');
 const WebpackMd5Hash = require("webpack-md5-hash")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
@@ -8,7 +9,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-
 
 
 
@@ -50,7 +50,7 @@ module.exports = ({ mode } = {
         "react-dom": "@hot-loader/react-dom"
       },
       // helps resolve extensions in react
-      extensions: ["*", ".js", ".jsx", '.gif', '.png', '.jpg', '.jpeg', '.svg', '.webp']
+      extensions: ["*", ".js", ".jsx", '.gif', '.png', '.jpg', '.jpeg', '.svg', '.webp', '.css', '.scss']
     },
     optimization: {
       minimize: true,
@@ -105,12 +105,24 @@ module.exports = ({ mode } = {
 
         },
         {
-          // for loading css files
-          test: /\.(css)$/,
+          // for loading scss files
+          test: /\.(scss)$/i,
           use: [
+            'style-loader',
             {
-              loader: 'style-loader'
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
             },
+            'sass-loader'
+          ]
+        },
+        {
+          // for loading scss files
+          test: /\.(css)$/i,
+          use: [
+            'style-loader',
             {
               loader: 'css-loader',
               options: {

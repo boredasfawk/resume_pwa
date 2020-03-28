@@ -6,34 +6,34 @@ import { BrowserRouter as Router } from "react-router-dom";
 // import * as serviceWorker from './serviceWorker'
 
 // For lazy loading
-import LoadableApp from "./LazyLoad/LoadableApp";
-import { UserProvider } from "./Context/Context";
+import LoadableApp from "./lazyLoad/LoadableApp";
 // Style Library
-import './assets/css/index.css';
+import '@Assets/css/index.css';
+import '@Assets/scss/slick.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './Themes/theme';
+import theme from './theme/theme';
 
 const rootId = document.getElementById("root");
 
 ReactDOM.render(
   <>
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <Router>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <LoadableApp />
-        </Router>
-      </UserProvider>
+
+      <Router>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <LoadableApp />
+      </Router>
+
     </ThemeProvider>
   </>
   , rootId);
 
 // for hot reload (HMR) to work in dev server 
 if (module.hot && process.env.NODE_ENV === "development") {
-  module.hot.accept("./LazyLoad/LoadableApp", () => {
-    const NextApp = require("./LazyLoad/LoadableApp").default;
+  module.hot.accept("./lazyLoad/LoadableApp", () => {
+    const NextApp = require("./lazyLoad/LoadableApp").default;
     ReactDOM.render(<NextApp />, rootId);
   });
 }
