@@ -65,7 +65,7 @@ const customInputStyle = {
     }
   },
   input: {
-    color: "#495057",
+    color: "rgb(255, 221, 221)",
     height: "unset",
     "&,&::placeholder": {
       fontSize: "14px",
@@ -75,7 +75,7 @@ const customInputStyle = {
       opacity: "1"
     },
     "&::placeholder": {
-      color: "#AAAAAA"
+      color: "#FFFFFF"
     }
   },
   whiteInput: {

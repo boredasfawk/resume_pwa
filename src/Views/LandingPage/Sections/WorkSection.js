@@ -20,10 +20,10 @@ const WorkSection = () => {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Ready to get started?</h2>
+          <h2 className={classes.title}>Ready to start your next project?</h2>
           <h4 className={classes.description}>
             Feel free to Write a few lines about the vision you have for your project.
-            I will respond back as quickly to discuss a scope of work and project expectations.
+            I will respond back within 24hrs to discuss the scope of work.
           </h4>
           <form action="https://formspree.io/oloagency@gmail.com" method="POST">
             <GridContainer>
