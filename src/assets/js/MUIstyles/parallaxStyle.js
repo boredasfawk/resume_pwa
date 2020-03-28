@@ -11,7 +11,7 @@ const parallaxStyle = {
     display: "flex",
     alignItems: "center",
     marginBottom: "10rem",
-    marginTop: "5rem",
+    paddingTop: "5rem",
   },
   filter: {
     "&:before": {
