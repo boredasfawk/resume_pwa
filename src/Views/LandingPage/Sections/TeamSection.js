@@ -49,7 +49,7 @@ const TeamSection = (props) => {
       <div
         className={classes.section}
       >
-        <h2 className={classes.title} style={{ zIndex: 1 }} >Hello! Nice to meet you :{')'}</h2>
+        <h2 className={classes.title} style={{ zIndex: 1 }} >Hi!, here's a lil info about me</h2>
         <div >
           <GridContainer >
             <GridItem id="log" xs={12} sm={12} md={4}>
@@ -64,8 +64,10 @@ const TeamSection = (props) => {
                 </h4>
                 <CardBody>
                   <p className={classes.description}>
-                    I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along cloud based services.
-                    I create applications that are beautiful, functional, and focused on a great user experience.
+                    I specialize in javascript development.
+
+                    I am proficient in many modern web technologies including  React, Vue, Node, {"&"} Express along with cloud based services.
+                    My experience ranges from creating simple sites to complex applications.
                 </p>
                 </CardBody>
               </Card>

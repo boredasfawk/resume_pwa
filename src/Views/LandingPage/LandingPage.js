@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-// 3D graphics
-import * as THREE from "three";
-import FOG from "@Assets/js/3D/vanta.fog.min.js";
+import React from "react";
 // Utils
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,36 +25,6 @@ const dashboardRoutes = [];
 const useStyles = makeStyles(styles);
 
 const LandingPage = (props) => {
-  const [vantaEffect, setVantaEffect] = useState(0);
-  useEffect(() => {
-    console.log({ props }, 'landing page - use effect - vanta');
-    const rootBody = window.document.querySelector('#root')
-    rootBody.style.height = '2800px';
-    if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
-      if (!vantaEffect) {
-        setVantaEffect(FOG({
-          el: rootBody,
-          THREE: THREE,
-          mouseControls: false,
-          touchControls: false,
-          minHeight: 2300.00,
-          minWidth: 1200.00,
-          highlightColor: 0x0,
-          midtoneColor: 0x8e1b80,
-          lowlightColor: 0xfb1bb,
-          baseColor: 0x846c6c,
-          blurFactor: 0.28,
-          speed: 1.20,
-          zoom: 1
-        }))
-      }
-    }
-    return () => {
-      if (vantaEffect) vantaEffect.destroy()
-    }
-  },
-    [vantaEffect]
-  );
 
   const classes = useStyles();
   const { ...rest } = props;
@@ -89,8 +56,7 @@ const LandingPage = (props) => {
 
   return (
     <div
-      ref={ref => props.vantaRef = ref}
-      id="wholeCanvas"
+
     >
       <Header
         color="transparent"
@@ -108,16 +74,15 @@ const LandingPage = (props) => {
       <Parallax filter image={Image}>
         <div className={classes.container}>
           <ThreeDRender>
-            <GridContainer style={{ position: 'absolute' }}>
+            {/* <GridContainer style={{ position: 'absolute' }}>
               <GridItem xs={12} sm={12} md={6}>
                 <h1 className={classes.title}>Your ideas becoming <span style={{ color: '#ffff08' }}>reality</span></h1>
                 <h4>
-                  I specialize in javascript development. My experience ranges from creating
-                  anything from simple sites to complex applications.
+                  
                 </h4>
                 <br />
               </GridItem>
-            </GridContainer>
+            </GridContainer> */}
           </ThreeDRender>
         </div>
       </Parallax>
@@ -135,8 +100,4 @@ const LandingPage = (props) => {
   );
 }
 
-export default React.forwardRef(
-  (props, ref) => (
-    <LandingPage vantaRef={ref} {...props} />
-  )
-)
+export default LandingPage
