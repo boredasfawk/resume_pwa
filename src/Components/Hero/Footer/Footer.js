@@ -34,7 +34,7 @@ export default function Footer(props) {
           >
             OLONNYE
           </a>{" "}
-          Web Based Solutions
+
         </div>
       </div>
     </footer>
