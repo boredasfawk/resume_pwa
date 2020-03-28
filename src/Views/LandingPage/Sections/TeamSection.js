@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-// Threejs
-import * as THREE from 'three';
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 // @material-ui/core components
+import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
