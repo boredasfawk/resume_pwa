@@ -2,7 +2,3 @@ body {
   background-color: hsl(240, 50%, 1%) !important;
   height: 2700px;
 }
-
-canvas {
-  border-radius: 1rem;
-}

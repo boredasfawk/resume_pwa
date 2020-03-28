@@ -6,7 +6,7 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // Utils
-import Stats from 'stats.js';
+// import Stats from 'stats.js';
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 // Styles
@@ -59,7 +59,10 @@ class ThreeDRender extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
+      this.evaContainer.style.borderRadius = "1rem";
       this.node.style.height = '80vh';
+      this.evaContainer.style.height = '80vh';
+      const evaCanvas = this.evaContainer;
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
 
@@ -71,14 +74,15 @@ class ThreeDRender extends Component {
       // Render graphics in dom
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
+        canvas: evaCanvas,
         // clearColor: 0xffffff,
         // clearAlpha: 1
       });
       this.renderer.autoClear = false;
       // Stat abstraction from threejs
-      this.stats = new Stats();
+      // this.stats = new Stats();
       // TEST
-      console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
+      // console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
       const fov = 100;
       const aspectRatio = (width / height);
       const nearPlane = 1;
@@ -99,8 +103,8 @@ class ThreeDRender extends Component {
       this.evaContainer.appendChild(this.renderer.domElement);
       this.renderer.autoClear = false;
       // Stats
-      this.stats.showPanel(0);
-      this.evaContainer.appendChild(this.stats.dom);
+      // this.stats.showPanel(0);
+      // this.evaContainer.appendChild(this.stats.dom);
       // Set camera controls to render in dom elem
       this.controls = new TrackballControls(this.camera, this.evaContainer);
       this.controls.dynamicDampingFactor = 0.25;
@@ -218,12 +222,12 @@ class ThreeDRender extends Component {
         // this.camera.position.x = + .05;
         // console.log(this.camera.position)
         // Renders sets and cycles animation through event loop
-        this.stats.begin();
+        // this.stats.begin();
         this.renderer.render(this.scene, this.camera);
         let delta = this.clock.getDelta();
         if (mixer !== undefined) mixer.update(delta);
         this.requestID = window.requestAnimationFrame(render);
-        this.stats.end();
+        // this.stats.end();
       }
       render();
 
