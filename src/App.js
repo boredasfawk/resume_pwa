@@ -18,16 +18,18 @@ const App = (props) => {
   const [vantaEffect, setVantaEffect] = useState(0);
   useEffect(() => {
     console.log({ props }, 'landing page - use effect - vanta');
-    // const rootBody = window.document.querySelector('#root')
-    // rootBody.style.height = '2800px';
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
+      const rootBody = window.document.querySelector('#wholecanvas')
+      const rootBodyHeight = rootBody.clientHeight
+      props.vantaRef.style.height = rootBodyHeight
+
       if (!vantaEffect) {
         setVantaEffect(FOG({
           el: props.vantaRef,
           THREE: THREE,
           mouseControls: false,
           touchControls: false,
-          minHeight: 2800.00,
+          minHeight: 3200.00,
           minWidth: 1200.00,
           highlightColor: 0x0,
           midtoneColor: 0x8e1b80,
