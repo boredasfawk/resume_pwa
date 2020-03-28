@@ -60,9 +60,8 @@ class ThreeDRender extends Component {
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
       this.evaContainer.style.borderRadius = "1rem";
+      this.node.style.borderRadius = "1rem";
       this.node.style.height = '80vh';
-      this.evaContainer.style.height = '80vh';
-      const evaCanvas = this.evaContainer;
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
 
@@ -74,7 +73,6 @@ class ThreeDRender extends Component {
       // Render graphics in dom
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
-        canvas: evaCanvas,
         // clearColor: 0xffffff,
         // clearAlpha: 1
       });

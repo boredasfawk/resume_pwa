@@ -42,11 +42,11 @@ export default function SectionCarousel() {
                   <div className="slick-caption">
                     <h4>
 
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <LanguageSharpIcon color="primary" className="slick-icons" />
                         View website
                       </Button>
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <GitHubIcon color="primary" className="slick-icons" />
                         View Live Code
                       </Button>
@@ -62,11 +62,11 @@ export default function SectionCarousel() {
                   <div className="slick-caption">
                     <h4>
 
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <LanguageSharpIcon color="primary" className="slick-icons" />
                         View website
                       </Button>
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <GitHubIcon color="primary" className="slick-icons" />
                         View Live Code
                       </Button>
@@ -78,11 +78,11 @@ export default function SectionCarousel() {
                   <div className="slick-caption">
                     <h4>
 
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <LanguageSharpIcon color="primary" className="slick-icons" />
                         View website
                       </Button>
-                      <Button>
+                      <Button style={{ color: "white" }}>
                         <GitHubIcon color="primary" className="slick-icons" />
                         View Live Code
                       </Button>
