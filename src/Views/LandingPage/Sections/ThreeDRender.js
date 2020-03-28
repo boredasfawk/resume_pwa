@@ -59,8 +59,6 @@ class ThreeDRender extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
-      this.evaContainer.style.borderRadius = "1rem";
-      this.node.style.borderRadius = "1rem";
       this.node.style.height = '80vh';
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
@@ -266,7 +264,7 @@ class ThreeDRender extends Component {
       <React.Fragment>
         <div
           name='threeCanvas'
-          id="canvas"
+          id="threeCanvas"
           className={classes.section}
           ref={ref => this.props.threeRef = ref}
         >
