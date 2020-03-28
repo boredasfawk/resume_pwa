@@ -51,7 +51,11 @@ const TeamSection = (props) => {
       >
         <h2 className={classes.title} style={{ zIndex: 1 }} >Hi!, here's a lil info about me</h2>
         <div >
-          <GridContainer >
+          <GridContainer style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}>
             <GridItem id="log" xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
