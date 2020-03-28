@@ -59,7 +59,7 @@ const card = {
   margin: "25px 0",
   boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
   borderRadius: "3px",
-  color: "rgba(0, 0, 0, 0.87)",
+  color: "white",
   background: "#fff"
 };
 

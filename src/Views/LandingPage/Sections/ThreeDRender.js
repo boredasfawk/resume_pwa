@@ -103,7 +103,7 @@ class ThreeDRender extends Component {
       this.stats.showPanel(0);
       this.evaContainer.appendChild(this.stats.dom);
       // Set camera controls to render in dom elem
-      this.controls = new TrackballControls(this.camera, this.renderer.domElement);
+      this.controls = new TrackballControls(this.camera, this.evaContainer);
       this.controls.dynamicDampingFactor = 0.25;
       this.controls.enableZoom = false;
       // Renderer color correction and shading

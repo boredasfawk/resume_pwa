@@ -20,10 +20,10 @@ const teamStyle = {
   },
   cardTitle,
   smallTitle: {
-    color: "#6c757d"
+    color: "yellow"
   },
   description: {
-    color: "#999"
+    color: "white"
   },
   justifyCenter: {
     justifyContent: "center !important"

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // @material-ui/core components
 import classNames from "classnames";
