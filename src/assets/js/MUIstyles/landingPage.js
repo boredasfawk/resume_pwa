@@ -4,7 +4,8 @@ const landingPageStyle = {
   container: {
     zIndex: "12",
     color: "#FFFFFF",
-    ...container
+    ...container,
+    position: 'absolute'
   },
   title: {
     ...title,

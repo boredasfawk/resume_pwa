@@ -63,27 +63,27 @@ const LandingPage = (props) => {
   const { ...rest } = props;
   const [brand, setBrand] = React.useState({ value: '[JS DEVELOPER]', type: 0 });
 
-  let windowsScrollTop = window.pageYOffset;
+  // let windowsScrollTop = window.pageYOffset;
 
-  const update = (windowsScrollTop) => {
+  // const update = (windowsScrollTop) => {
 
-    if (windowsScrollTop > 522 && brand.type === 0) {
-      console.log("should be olani")
-      setBrand({
-        value: 'OLONNYE :D',
-        type: 1
-      });
-    } else if (windowsScrollTop < 520 && brand.type === 1) {
-      console.log("should be dev")
-      setBrand({
-        value: '[JS DEVELOPER]',
-        type: 0
-      });
-    }
-    console.log(brand);
-  }
+  //   if (windowsScrollTop > 522 && brand.type === 0) {
+  //     console.log("should be olani")
+  //     setBrand({
+  //       value: 'OLONNYE :D',
+  //       type: 1
+  //     });
+  //   } else if (windowsScrollTop < 520 && brand.type === 1) {
+  //     console.log("should be dev")
+  //     setBrand({
+  //       value: '[JS DEVELOPER]',
+  //       type: 0
+  //     });
+  //   }
+  //   console.log(brand);
+  // }
 
-  window.addEventListener("scroll", update(windowsScrollTop))
+  // window.addEventListener("scroll", update(windowsScrollTop))
 
 
 
