@@ -44,6 +44,11 @@ import image from "@Assets/images/olo.jpeg";
 const useStyles = makeStyles(styles);
 const TeamSection = (props) => {
   const classes = useStyles();
+  const imageClasses = classNames(
+    classes.imgRaised,
+    classes.imgRoundedCircle,
+    classes.imgFluid
+  );
   return (
     <React.Fragment>
       <div
