@@ -19,7 +19,7 @@ const App = (props) => {
   useEffect(() => {
     console.log({ props }, 'landing page - use effect - vanta');
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
-      const rootBody = window.document.querySelector('#wholecanvas')
+      const rootBody = window.document.querySelector('#wholeCanvas')
       const rootBodyHeight = rootBody.clientHeight
       props.vantaRef.style.height = rootBodyHeight
 
