@@ -59,7 +59,7 @@ class ThreeDRender extends Component {
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
       this.evaContainer.setAttribute("id", "eva");
-      this.node.style.height = '60vh';
+      this.node.style.height = '100vh';
       const height = this.node.clientHeight;
       const width = this.node.clientWidth;
 

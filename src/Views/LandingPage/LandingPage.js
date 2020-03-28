@@ -108,7 +108,7 @@ const LandingPage = (props) => {
       <Parallax filter image={Image}>
         <div className={classes.container}>
           <ThreeDRender>
-            <GridContainer>
+            <GridContainer style={{ position: 'absolute' }}>
               <GridItem xs={12} sm={12} md={6}>
                 <h1 className={classes.title}>Your ideas becoming <span style={{ color: '#ffff08' }}>reality</span></h1>
                 <h4>
