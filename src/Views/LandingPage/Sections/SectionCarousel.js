@@ -11,10 +11,7 @@ import LanguageSharpIcon from '@material-ui/icons/LanguageSharp';
 import GridContainer from "@Components/Hero/Grid/GridContainer.js";
 import GridItem from "@Components/Hero/Grid/GridItem.js";
 import Card from "@Components/Hero/Card/Card.js";
-// Images
-import image1 from "@Assets/images/resort.png";
-import image2 from "@Assets/images/Tea.png";
-import image3 from "@Assets/images/jackieweb.png";
+
 
 import styles from "@Styles/carouselStyle.js";
 
@@ -38,7 +35,7 @@ export default function SectionCarousel() {
             <Card carousel>
               <Carousel {...settings}>
                 <div>
-                  <img src={image1} alt="First slide" className="slick-image" />
+                  <img src="https://res.cloudinary.com/boredasfawk/image/upload/v1585456299/site_photos/resort_wx5qrh.png" alt="First slide" className="slick-image" />
                   <div className="slick-caption">
                     <h4>
 
@@ -55,7 +52,7 @@ export default function SectionCarousel() {
                 </div>
                 <div>
                   <img
-                    src={image2}
+                    src="https://res.cloudinary.com/boredasfawk/image/upload/v1585456299/site_photos/Tea_uxcw1l.png"
                     alt="Second slide"
                     className="slick-image"
                   />
@@ -74,7 +71,7 @@ export default function SectionCarousel() {
                   </div>
                 </div>
                 <div>
-                  <img src={image3} alt="Third slide" className="slick-image" />
+                  <img src="https://res.cloudinary.com/boredasfawk/image/upload/v1585456298/site_photos/jackieweb_wlrsau.png" alt="Third slide" className="slick-image" />
                   <div className="slick-caption">
                     <h4>
 

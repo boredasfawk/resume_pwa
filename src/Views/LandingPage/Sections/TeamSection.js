@@ -13,8 +13,7 @@ import Card from "@Components/Hero/Card/Card.js";
 import CardBody from "@Components/Hero/Card/CardBody.js";
 // Styles
 import styles from "@Styles/teamStyle.js";
-// Images
-import image from "@Assets/images/olo.jpeg";
+
 
 // const canvas = {
 //   display: "flex",
@@ -59,7 +58,7 @@ const TeamSection = (props) => {
             <GridItem id="log" xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img alt="picture of developer" src={image} className={imageClasses} />
+                  <img alt="picture of developer" src="https://res.cloudinary.com/boredasfawk/image/upload/v1585456296/site_photos/olo_jy0amy.jpg" className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                   Olonny Taylor
