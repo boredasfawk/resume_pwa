@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ErrorImage from "../../../assets/images/error.jpeg"
 // Components
 
 
@@ -32,8 +31,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   image: {
-    // backgroundImage: `url(${ErrorImage})`,
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'https://res.cloudinary.com/boredasfawk/image/upload/v1585456297/site_photos/error_rd0etm.jpg',
     backgroundColor:
       theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
     backgroundSize: 'cover',

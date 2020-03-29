@@ -6,13 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 // core components
 import Header from "@Components/Hero/Header/Header.js";
 import Footer from "@Components/Hero/Footer/Footer.js";
-import GridContainer from "@Components/Hero/Grid/GridContainer.js";
-import GridItem from "@Components/Hero/Grid/GridItem.js";
 import HeaderLinks from "@Components/Hero/Header/HeaderLinks.js";
 import Parallax from "@Components/Parallax/Parallax.js";
 
 import styles from "@Styles/landingPage.js";
-import Image from "@Assets/images/landing-bg.jpeg"
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
@@ -71,7 +68,7 @@ const LandingPage = (props) => {
         {...rest}
       />
 
-      <Parallax filter image={Image}>
+      <Parallax filter>
         <div className={classes.container}>
           <ThreeDRender>
             {/* <GridContainer style={{ position: 'absolute' }}>
