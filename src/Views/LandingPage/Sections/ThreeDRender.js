@@ -37,8 +37,6 @@ class ThreeDRender extends Component {
 
   // On mount call graphic/styling functions
   componentDidMount(prevProps) {
-    // TEST
-    console.log({ prevProps }, { currProps: this.props }, 'CDM - render')
     //TEXTURES
 
     //CORS! CORS!
@@ -53,8 +51,6 @@ class ThreeDRender extends Component {
     // this.evaBody.src = 'https://res.cloudinary.com/boredasfawk/image/upload/v1584760821/eva/T_CH_Eva_MBody01_D01_V01_SK1_ovsh2r.jpg';
 
     if (this.props.threeRef.id === 'canvas') {
-      // TEST
-      console.log({ currProps: this.props }, { currentRef: this.props.threeRef }, 'CDM - ref')
       // set current ref to dom elem in var then get dom w/h
       this.node = this.props.threeRef;
       this.evaContainer = document.createElement("div");
@@ -77,8 +73,6 @@ class ThreeDRender extends Component {
       this.renderer.autoClear = false;
       // Stat abstraction from threejs
       // this.stats = new Stats();
-      // TEST
-      // console.log({ newStats: this.stats }, { Stats: Stats }, { renderer: this.renderer }, { scene: this.scene }, 'CDM')
       const fov = 100;
       const aspectRatio = (width / height);
       const nearPlane = 1;
@@ -143,7 +137,6 @@ class ThreeDRender extends Component {
       const addMaterials = (materialCreator, OBJLoader, scene, refTextures) => {
         // Adds new objcet to scene and adjusts position
         const addScene = (object, scene) => {
-          console.log({ graphicObj: object }, 'objLoader')
           object.position.y = 95;
           scene.add(object);
         }
@@ -160,7 +153,6 @@ class ThreeDRender extends Component {
         mHead.reflectivity = 0.33;
         let mWire = materialCreator.materials["wire_174186203"];
         mWire.visible = false;
-        console.log({ materials: materialCreator }, 'mtlloader', { objldr: this.OBJLoader }, 'objloader')
         // Sets materials to obj
         OBJLoader.setMaterials(materialCreator);
         // Load objec from cloud and add materials
@@ -185,7 +177,6 @@ class ThreeDRender extends Component {
       const startAnimation = (gltf) => {
         gltf.scene.scale.set(25, 25, 25);
         mixer = new THREE.AnimationMixer(gltf.scene);
-        console.log({ gltfmixer: mixer }, { gltfScene: gltf }, 'gltf animation');
         gltf.animations.forEach((clip) => {
           mixer.clipAction(clip).play();
         });
@@ -216,7 +207,6 @@ class ThreeDRender extends Component {
         //using timer to rotate camera
 
         // this.camera.position.x = + .05;
-        // console.log(this.camera.position)
         // Renders sets and cycles animation through event loop
         // this.stats.begin();
         this.renderer.render(this.scene, this.camera);

@@ -17,7 +17,6 @@ import Container from '@material-ui/core/Container';
 const App = (props) => {
   const [vantaEffect, setVantaEffect] = useState(0);
   useEffect(() => {
-    console.log({ props }, 'landing page - use effect - vanta');
     if (props.vantaRef !== null && props.vantaRef.id === 'wholeCanvas') {
       const rootBody = window.document.querySelector('#wholeCanvas')
       const rootBodyHeight = rootBody.clientHeight
@@ -35,7 +34,7 @@ const App = (props) => {
           midtoneColor: 0x8e1b80,
           lowlightColor: 0xfb1bb,
           baseColor: 0x846c6c,
-          blurFactor: 0.28,
+          blurFactor: 0.20,
           speed: 1.20,
           zoom: 1
         }))
